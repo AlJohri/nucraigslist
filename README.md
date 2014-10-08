@@ -1,4 +1,8 @@
-Initial Setup
+# NU Craigslist
+
+See data dump here: https://raw.githubusercontent.com/AlJohri/nucraigslist/master/posts.json
+
+## Initial Setup
 
 ```
 brew install mongo
@@ -10,17 +14,17 @@ cp .secret.example .secret
 # go edit .secret
 ```
 
-Usage
+## Usage
 
 ```
 workon nucraigslist
 git pull
-git submodule update --recursive
+git submodule update --recurmasive
 source .secret
 python test.py
 ```
 
-Export Database
+## Export Database
 ```
 mongoexport --db nucraigslist --collection posts --out posts.json
 ```
