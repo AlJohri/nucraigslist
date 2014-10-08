@@ -19,3 +19,8 @@ git submodule update --recursive
 source .secret
 python test.py
 ```
+
+Export Database
+```
+mongoexport --db nucraigslist --collection posts --out posts.json
+```
