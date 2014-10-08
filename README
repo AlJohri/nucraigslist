@@ -1,6 +1,8 @@
 Initial Setup
 
 ```
+brew install mongo
+# follow caveats after brew install
 mkvirtualenv nucraigslist
 git submodule update --init
 pip install -r requirements.txt
