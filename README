@@ -1,0 +1,19 @@
+Initial Setup
+
+```
+mkvirtualenv nucraigslist
+git submodule update --init
+pip install -r requirements.txt
+cp .secret.example .secret
+# go edit .secret
+```
+
+Usage
+
+```
+workon nucraigslist
+git pull
+git submodule update --recursive
+source .secret
+python test.py
+```
