@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1.
+    Post List
+  ul
+    each post, i in posts
+      li
+        span
+          = post._id
+        span
+          = post.created_time
+        pre
+          = JSON.stringify(post)

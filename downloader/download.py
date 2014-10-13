@@ -23,7 +23,7 @@ except GraphAPIError as e:
     print "Update and source your .secret file"
     sys.exit()
 
-for item in get_feed(api, "357858834261047", start=parse("9-1-2014"), end=parse("11-1-2014")):
+for item in get_feed(api, "357858834261047", start=parse("10-1-2014"), end=parse("11-1-2014")):
     print "-----------------------------------------------------"
     print item['id'], item['created_time'], item['updated_time']
     item['_id'] = item['id']
