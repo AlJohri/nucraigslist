@@ -1,5 +1,8 @@
 http://docs.mongodb.org/manual/reference/sql-aggregation-comparison/
 
+var cursor = db.posts.find()
+while (cursor.hasNext()) { var doc = cursor.next(); db.posts.update( {_id : doc._id}, {$set : {created_time : new Date(doc.created_time)}}); }
+
 -----------------------------------------------------------------------
 
 // Group posts by day of year
