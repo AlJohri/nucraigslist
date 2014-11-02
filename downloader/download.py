@@ -25,7 +25,11 @@ except GraphAPIError as e:
 
 for item in get_feed(api, "357858834261047", start=parse("10-1-2014"), end=parse("11-1-2014")):
     print "-----------------------------------------------------"
-    print item['id'], item['created_time'], item['updated_time']
+    print item['id'], item['created_time'], item['updated_time'], item['message'], item        
+    if 'comments' in item:
+        comments = api.get_object("/" + item['id'] + '/comments')
+        comments = comments['data']
+        print ([comment['message'] for comment in comments])
     item['_id'] = item['id']
     del item['id']
 
