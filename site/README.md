@@ -1,10 +1,8 @@
-Setup python
+## Setup python
 ```
 brew install python
 ```
-
 OR
-
 ```
 brew install pyenv
 echo "if which pyenv > /dev/null; then eval '\$(pyenv init -)'; fi" >> ~/.bash_profile
@@ -13,7 +11,7 @@ pyenv global 2.7.8
 pyenv rehash # run this after you pip install anything
 ```
 
-Setup virtualenv/virtualenvwrapper
+## Setup virtualenv/virtualenvwrapper
 ```
 pip install virtualenv virtualenvwrapper
 mkdir -p ~/.virtualenvs
@@ -22,13 +20,13 @@ echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bash_profile
 source ~/.bash_profile
 ```
 
-First Time Setup
+## First Time Setup
 ```
 mkvirtualenv nucraigslist
 pip install -r requirements.txt
 ```
 
-How to Run
+## How to Run
 ```
 workon nucraigslist
 python manage.py runserver
