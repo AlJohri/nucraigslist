@@ -4,14 +4,31 @@ from listings.models import Listing, User, Comment
 import os, sys, re
 from dateutil.parser import parse
 from django.utils import timezone
+from optparse import make_option
 
 class Command(BaseCommand):
     # args = '<poll_id poll_id ...>'
     # help = 'Closes the specified poll for voting'
 
+    option_list = BaseCommand.option_list + (
+        make_option('--all',
+            action='store_true',
+            dest='all',
+            default=False,
+            help='Parse all listings instead of just unparsed'
+        ),
+    )
+
     def handle(self, *args, **options):
-        for listing in Listing.objects.filter(parsed=False):
+
+        if options['all']:
+            listings = Listing.objects.all()
+        else:
+            listings = Listing.objects.filter(parsed=False)
+
+        for listing in listings:
     	   Command.filter_listing(listing)
+           listing.parsed = True
            listing.save()
 
     @staticmethod
