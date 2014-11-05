@@ -20,14 +20,17 @@ echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bash_profile
 source ~/.bash_profile
 ```
 
-## First Time Setup
+## Setup NUCraigslist
 ```
 mkvirtualenv nucraigslist
+git submodule update --init
 pip install -r requirements.txt
+cp .secret.example .secret
 ```
 
-## How to Run
+## Usage
 ```
 workon nucraigslist
+source .secret
 python manage.py runserver
 ```

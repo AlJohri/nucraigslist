@@ -1,3 +1,3 @@
-[submodule "downloader/lib/socialscraper"]
-	path = downloader/lib/socialscraper
-	url = git@github.com:alpaca/socialscraper.git
+[submodule "lib/socialscraper"]
+	path = lib/socialscraper
+	url = https://github.com/alpaca/socialscraper.git
