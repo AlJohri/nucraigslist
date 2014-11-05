@@ -46,33 +46,33 @@ class Command(BaseCommand):
             'obo' : -100,
             'selling' : -25,
             'sale' : -50,
-            '\d+' : -90, #posts containing number are generally prices
+            '\d+' : -90, #posts containing numbers are generally prices
         }
 
         item_bank = {
-            'tickets?' : 'tickets',
-            'tix' : 'tickets',
-            'mattress(es)?' : 'bedding',
-            'twin' : 'bedding',
-            'queen' : 'bedding',
-            'king' : 'bedding',
-            'bikes?' : 'bicycles',
-            'bicycles?' : 'bicycles',
-            '.*phone' : 'phones',
-            'keys?' : 'trash',
+            'tickets': ['tickets?', 'tix'],
+            'bedding': ['mattress(es)?', 'twin', 'queen', 'king'],
+            'bicycles': ['bikes?', 'bicycles?'],
+            'phones': ['.*phone'],
+            'trash': ['keys?']
         }
+
         #noise_list = ['to','a','an','and','for','please','thanks','thank','you','some','on','if','me','or','that','that\'s','out','of','so','i','ill','i\'ll','be','my','into','the']
         text_list = text.split()
         ##text_list=' '.join([i for i in text_list if i not in noise_list])
         for word in text_list:
-            for k, v in item_bank.items():
-                if re.match(k, word):
-                    listing.category=v
-            for k, v in buy_sell_bank.items():
-                if re.match(k, word):
-                    count+=v
-                    print(text_list)
-                    print("k is: " + k)
-                    print (count)
-        if count>0: listing.buy_or_sell='buy'
-        elif count <0: listing.buy_or_sell='sell'
+            for category, regexes in item_bank.items():
+                for reg in regexes:
+                    if re.match(reg, word):
+                        listing.category=v
+                        break
+
+            for reg, value in buy_sell_bank.items():
+                if re.match(reg, word):
+                    count += value
+                    print text_list
+                    print "k is: " + k
+                    print count
+
+        if count > 0: listing.buy_or_sell = 'buy'
+        elif count < 0: listing.buy_or_sell = 'sell'

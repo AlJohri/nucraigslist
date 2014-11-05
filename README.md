@@ -36,8 +36,13 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-# After Changing Models
+## After Changing Models
 ```
 python manage.py makemigrations
 python manage.py migrate
+```
+
+## IPython
+```
+python manage.py shell_plus --notebook
 ```
