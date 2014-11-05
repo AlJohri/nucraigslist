@@ -21,6 +21,7 @@ class Listing(models.Model):
 	type = models.CharField(max_length=6)
 	message = models.CharField(max_length = 400, null=False, blank=True, default="")
 
+	parsed = models.BooleanField(default=False)
 	seller = models.ForeignKey(User)
 	approved = models.BooleanField(default=False)
 	buy_or_sell = models.CharField(max_length = 4, null=True)

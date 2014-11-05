@@ -10,9 +10,11 @@ class Command(BaseCommand):
     # help = 'Closes the specified poll for voting'
 
     def handle(self, *args, **options):
-    	Command.filter_listing(l)
+        for listing in Listing.objects.filter(parsed=False):
+    	   Command.filter_listing(listing)
+           listing.save()
 
-    @clasmethod
+    @staticmethod
     def filter_listing(listing):
         count=0
         text = listing.message.lower()
