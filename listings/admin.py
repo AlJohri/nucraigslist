@@ -5,13 +5,14 @@ class CommentsInline(admin.TabularInline):
 	model = Comment
 
 class ListingAdmin(admin.ModelAdmin):
-	fields = ['listing_text', 'pub_date', 'approved', 'seller', 'buy_or_sell', 'category']
-	list_filter = ['buy_or_sell']
+	fields = ['id', 'created_time', 'updated_time', 'type', 'message', 'seller', 'approved', 'buy_or_sell', 'category']
+	list_filter = ['buy_or_sell', 'created_time', 'updated_time']
+	list_display = ['id', 'message', 'created_time']
 	inlines = [CommentsInline]
 
 admin.site.register(Listing, ListingAdmin)
 
 class UserAdmin(admin.ModelAdmin):
-	fields = ['name', 'uid']
+	fields = ['name', 'id']
 
 admin.site.register(User, UserAdmin)

@@ -7,14 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('listings', '0003_listing_buy_or_sell'),
+        ('listings', '0001_initial'),
     ]
 
     operations = [
-        migrations.AddField(
+        migrations.AlterField(
             model_name='listing',
-            name='category',
-            field=models.CharField(max_length=15, null=True),
+            name='message',
+            field=models.CharField(default=b'', max_length=400, blank=True),
             preserve_default=True,
         ),
     ]

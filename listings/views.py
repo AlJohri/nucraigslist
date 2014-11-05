@@ -8,7 +8,7 @@ from listings.models import Listing, User, Comment
 
 def index(request):
 	#get_listings()
-	latest_listings_list = Listing.objects.order_by('-pub_date')
+	latest_listings_list = Listing.objects.order_by('-created_time')
 	bedding_sell_list = Listing.objects.filter(category='bedding', buy_or_sell='sell')
 	bedding_buy_list = Listing.objects.filter(category='bedding', buy_or_sell='buy')
 	phone_sell_list = Listing.objects.filter(category='phones', buy_or_sell='sell')

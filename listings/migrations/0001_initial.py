@@ -24,10 +24,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Listing',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('listing_text', models.CharField(max_length=400)),
-                ('pub_date', models.DateTimeField(verbose_name=b'date publshed')),
+                ('id', models.BigIntegerField(serialize=False, primary_key=True)),
+                ('created_time', models.DateTimeField()),
+                ('updated_time', models.DateTimeField()),
+                ('type', models.CharField(max_length=6)),
+                ('message', models.CharField(default=b'', max_length=400)),
                 ('approved', models.BooleanField(default=False)),
+                ('buy_or_sell', models.CharField(max_length=4, null=True)),
+                ('category', models.CharField(max_length=15, null=True)),
             ],
             options={
             },
@@ -36,9 +40,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='User',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.BigIntegerField(serialize=False, primary_key=True)),
                 ('name', models.CharField(max_length=20)),
-                ('uid', models.BigIntegerField()),
             ],
             options={
             },
@@ -53,7 +56,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='comment',
             name='listing',
-            field=models.ForeignKey(default=b'', to='listings.Listing'),
+            field=models.ForeignKey(to='listings.Listing'),
             preserve_default=True,
         ),
         migrations.AddField(

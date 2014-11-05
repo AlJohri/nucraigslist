@@ -23,76 +23,56 @@ class Command(BaseCommand):
             print "Update and source your .secret file"
             sys.exit()
 
-        for obj in get_feed(api, "357858834261047", start=parse("10-1-2014"), end=parse("11-1-2014")):
+        try:
+            latest_listing_time = Listing.objects.order_by('-created_time')[:1][0].updated_time.replace(tzinfo=None)
+        except Exception as e:
+            print e
+            latest_listing_time = parse("01-1-2012")
+
+        current_time = timezone.now().replace(tzinfo=None)
+
+        print "Downloading from ", latest_listing_time, "to", current_time, "in reverse chronological order (latest first)."
+
+        for obj in get_feed(api, "357858834261047", start=latest_listing_time, end=current_time):
             print "-----------------------------------------------------"
             print obj['id'], obj['created_time'], obj['updated_time'] #, obj['message']
 
-            if User.objects.filter(uid=obj['from']['id']).count():
-                u = User.objects.get(uid=obj['from']['id'])
+            print obj
+
+            if User.objects.filter(id=obj['from']['id']).count():
+                user = User.objects.get(id=obj['from']['id'])
             else:
-                u = User(name = obj['from']['name'], uid=obj['from']['id'])
-                u.save()
-            l = Listing(listing_text = obj['message'], pub_date = timezone.now(), seller = u)
-            Command.filter_listing(l)
-            l.save()
+                user = User(
+                    id=obj['from']['id'],
+                    name = obj['from']['name']
+                )
+                user.save()
+            
+            listing = Listing(
+                id = obj['id'].split("_")[-1],
+                message = obj.get('message') or '',
+                created_time = parse(obj['created_time']),
+                updated_time = parse(obj['updated_time']),
+                seller = user
+            )
+            listing.save()
 
             if 'comments' in obj:
                 for comment in obj['comments']['data']:
-                    if User.objects.filter(uid=comment['from']['id']).count():
-                        commenter = User.objects.get(uid=comment['from']['id'])
-                        print commenter.uid
+                    if User.objects.filter(id=comment['from']['id']).count():
+                        commenter = User.objects.get(id=comment['from']['id'])
+                        print commenter.id
                     else:
-                        commenter = User(name = comment['from']['name'], uid=comment['from']['id'])
+                        commenter = User(name = comment['from']['name'], id=comment['from']['id'])
                         commenter.save()
-                    comment=Comment(comment_text = comment['message'], pub_date = timezone.now(), user = commenter, listing = l)
+                    comment=Comment(
+                        comment_text = comment.get('message') or '',
+                        pub_date = timezone.now(), 
+                        user = commenter, 
+                        listing = listing
+                    )
                     comment.save()
             else:
                 comments = None
 
             # self.stdout.write('Successfully closed poll "%s"' % poll_id)
-
-    @staticmethod
-    def filter_listing(listing):
-        count=0
-        text = listing.listing_text.lower()
-        buy_sell_bank = {
-            'buying' : 100,
-            'looking' : 75,
-            '.+\?' : 100,
-            'does' : 40,
-            'anyone' : 50,
-            'anybody' : 50,
-            '\$.*' : -100,
-            'obo' : -100,
-            'selling' : -25,
-            'sale' : -50,
-            '\d+' : -90, #posts containing number are generally prices
-        }
-
-        item_bank = {
-            'tickets?' : 'tickets',
-            'tix' : 'tickets',
-            'mattress(es)?' : 'bedding',
-            'twin' : 'bedding',
-            'queen' : 'bedding',
-            'king' : 'bedding',
-            'bikes?' : 'bicycles',
-            'bicycles?' : 'bicycles',
-            '.*phone' : 'phones',
-            'keys?' : 'trash',
-        }
-        #noise_list = ['to','a','an','and','for','please','thanks','thank','you','some','on','if','me','or','that','that\'s','out','of','so','i','ill','i\'ll','be','my','into','the']
-        text_list = text.split()
-        ##text_list=' '.join([i for i in text_list if i not in noise_list])
-        for word in text_list:
-            for k, v in item_bank.items():
-                if re.match(k, word):
-                    listing.category=v
-            for k, v in buy_sell_bank.items():
-                if re.match(k, word):
-                    count+=v
-                    print(text_list)
-                    print("k is: " + k)
-                    print (count)
-        if count>0: listing.buy_or_sell='buy'
-        elif count <0: listing.buy_or_sell='sell'

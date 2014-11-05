@@ -32,5 +32,12 @@ cp .secret.example .secret
 ```
 workon nucraigslist
 source .secret
+python manage.py migrate
 python manage.py runserver
+```
+
+# After Changing Models
+```
+python manage.py makemigrations
+python manage.py migrate
 ```
