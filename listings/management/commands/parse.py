@@ -81,5 +81,9 @@ class Command(BaseCommand):
                 if re.match(reg, word):
                     count += value
 
+        if not listing.category:
+            print "[None]", listing.message.replace("\n", "")[:150]
+
+
         if count > 0: listing.buy_or_sell = 'buy'
         elif count < 0: listing.buy_or_sell = 'sell'
