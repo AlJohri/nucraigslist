@@ -41,3 +41,8 @@ python manage.py runserver
 python manage.py makemigrations
 python manage.py migrate
 ```
+
+# Word Bank
+```
+https://docs.google.com/spreadsheets/d/1vX1U4SjXDf4--P4iUg1e3apDMYhRh74xogAn6bIf5R4
+```
