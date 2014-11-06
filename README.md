@@ -46,3 +46,9 @@ python manage.py migrate
 ```
 https://docs.google.com/spreadsheets/d/1vX1U4SjXDf4--P4iUg1e3apDMYhRh74xogAn6bIf5R4
 ```
+
+# iPython
+```
+python manage.py shell_plus
+python manage.py shell_plus --notebook
+```
