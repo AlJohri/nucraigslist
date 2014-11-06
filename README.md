@@ -25,6 +25,9 @@ source ~/.bash_profile
 mkvirtualenv nucraigslist
 git submodule update --init
 pip install -r requirements.txt
+python -m nltk.downloader
+# download corpora/wordnet
+# download tokenizers/punkt/english.pickle
 cp .secret.example .secret
 ```
 
