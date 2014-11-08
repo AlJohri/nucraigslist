@@ -1,10 +1,12 @@
 from django.core.management.base import BaseCommand, CommandError
 from listings.models import Listing, User, Comment
 
-import os, sys, re, csv, requests
+import os, sys, re, csv, requests, nltk
 from dateutil.parser import parse
 from django.utils import timezone
 from optparse import make_option
+
+from nltk.tokenize import RegexpTokenizer
 
 class Command(BaseCommand):
     # args = '<poll_id poll_id ...>'
@@ -67,6 +69,13 @@ class Command(BaseCommand):
     @staticmethod
     def filter_listing(listing, word_bank):
 
+        def find_category(ngrams):
+            for ngram in ngrams:
+                for category, regexes in word_bank.items():
+                    for reg in regexes:
+                        if re.match(reg, ngram):
+                            return category
+
         buy_sell_bank = {
             'buying' : 100,
             'looking' : 75,
@@ -83,21 +92,19 @@ class Command(BaseCommand):
 
         count = 0
 
-        for word in listing.message.lower().split():
-            for category, regexes in word_bank.items():
-                for reg in regexes:
-                    if re.match(reg, word):
-                        listing.category = category
-                        print "[" + listing.category + "]", listing.message.replace("\n", "")[:150]
-                        break
+        tokenizer = RegexpTokenizer(r'\w+')
+        unigrams = [x.lower() for x in tokenizer.tokenize(listing.message)]
+        bigrams = [" ".join(x) for x in nltk.bigrams(unigrams)]
+        ngrams = unigrams + bigrams
 
+        category = find_category(ngrams)
+        listing.category = category
+        print "[" + str(listing.category) + "]", listing.id, listing.message.replace("\n", "")[:150]
+
+        for ngram in unigrams:
             for reg, value in buy_sell_bank.items():
-                if re.match(reg, word):
+                if re.match(reg, ngram):
                     count += value
-
-        if not listing.category:
-            print "[None]", listing.message.replace("\n", "")[:150]
-
 
         if count > 0: listing.buy_or_sell = 'buy'
         elif count < 0: listing.buy_or_sell = 'sell'

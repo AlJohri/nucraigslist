@@ -27,6 +27,8 @@ class Listing(models.Model):
 	buy_or_sell = models.CharField(max_length = 4, null=True)
 	category = models.CharField(max_length=15, null=True)
 
+	sold = models.BooleanField(default=False)
+
 	def url(self):
 		return self.BASE_URL + self.id
 
