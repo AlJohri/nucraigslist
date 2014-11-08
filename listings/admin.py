@@ -26,6 +26,7 @@ class ListingAdmin(admin.ModelAdmin):
 	fields = ['id', 'created_time', 'updated_time', 'type', 'message', 'seller', 'approved', 'buy_or_sell', 'category', 'sold']
 	list_filter = ['buy_or_sell', 'created_time', 'updated_time', 'category', 'approved']
 	list_display = ['id', 'message', 'category', 'created_time']
+	search_fields = ['message']
 	inlines = [CommentsInline]
 
 	def get_actions(self, request):
@@ -35,6 +36,7 @@ admin.site.register(Listing, ListingAdmin)
 
 class UserAdmin(admin.ModelAdmin):
 	fields = ['name', 'id']
+	search_fields = ['name']
 	inlines = [ListingsInline]
 
 admin.site.register(User, UserAdmin)

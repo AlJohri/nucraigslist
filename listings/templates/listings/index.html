@@ -9,17 +9,17 @@
 {% endif %} -->
 
 
-<div style="float:left; margin:0; width:33%;">
-		<h1>Bikes</h1>
+<!-- <div style="float:left; margin:0; width:33%;">
+		<h1>Tech</h1>
 		<h2>Buy</h2>
 			<ul>
-			{% for listing in bike_buy_list %}
+			{% for listing in tech_buy_list %}
 				<li><a href='{% url 'listings:detail' listing.id %}'>{{ listing.message }} </a></li>	
 			{% endfor %}
 			</ul>	
 		<h2>Sell</h2>
 			<ul>
-			{% for listing in bike_sell_list %}
+			{% for listing in tech_sell_list %}
 				<li><a href='{% url 'listings:detail' listing.id %}'>{{ listing.message }} </a></li>	
 			{% endfor %}
 			</ul>
@@ -73,4 +73,4 @@
 		<li><a href='{% url 'listings:detail' listing.id %}'>{{ listing.message }} </a></li>	
 	{% endfor %}
 	</ul>
-</div>
+</div> -->
