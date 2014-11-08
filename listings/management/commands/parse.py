@@ -17,15 +17,32 @@ class Command(BaseCommand):
             default=False,
             help='Parse all listings instead of just unparsed'
         ),
+        make_option('--blank',
+            action='store_true',
+            dest='blank',
+            default=False,
+            help='Parse listings with category=None'
+        ),
+        make_option('--dl',
+            action='store_true',
+            dest='dl',
+            default=False,
+            help='Redownload word bank'
+        ),
     )
 
     def handle(self, *args, **options):
 
-        print "Downloading word bank.."
+        if not os.path.isfile("word_bank.csv") or os.path.getsize("word_bank.csv") == 0 or options['dl']:
+            print "Downloading word bank.."
+            response = requests.get("https://docs.google.com/spreadsheets/d/1vX1U4SjXDf4--P4iUg1e3apDMYhRh74xogAn6bIf5R4/export?format=csv")
+            with open("word_bank.csv", "w") as f: f.write(response.content)
+            print "Download complete."
 
+        word_bank_csv =  open("word_bank.csv", "r")
         word_bank = {}
-        response = requests.get("https://docs.google.com/spreadsheets/d/1vX1U4SjXDf4--P4iUg1e3apDMYhRh74xogAn6bIf5R4/export?format=csv")
-        reader = csv.DictReader(response.content.split('\n'), delimiter=',')
+
+        reader = csv.DictReader(word_bank_csv)
         for row in reader:
             for column, value in row.iteritems():
                 if value:
@@ -33,12 +50,9 @@ class Command(BaseCommand):
 
         print word_bank
 
-        print "Download complete."
-
-        if options['all']:
-            listings = Listing.objects.all()
-        else:
-            listings = Listing.objects.filter(parsed=False)
+        if options['all']: listings = Listing.objects.all()
+        elif options['blank']: listings = Listing.objects.filter(category=None)
+        else: listings = Listing.objects.filter(parsed=False)
 
         print "Parsing %d Listings.." % listings.count()
 
