@@ -2,6 +2,9 @@
 import os
 import sys
 import environment
+import nltk
+nltk.data.path.append('nltk_data')
+# http://stackoverflow.com/questions/13965823/resource-corpora-wordnet-not-found-on-heroku
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "freeandforsale.settings")

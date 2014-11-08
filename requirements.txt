@@ -13,3 +13,4 @@ requests==2.2.1
 six==1.6.1
 wsgiref==0.1.2
 unicodecsv==0.9.4
+nltk==3.0.0
