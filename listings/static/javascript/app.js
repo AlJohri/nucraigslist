@@ -29,7 +29,27 @@ app.factory('Listing', ['DS', function (DS) {
   	deserialize: function(name, data) { 
   		Listing.meta = data.data.meta;
   		return data.data.objects;
-  	}
+  	},
+    relations: {
+      // belongsTo: {
+      //   seller: {
+      //     parent: true,
+      //     localKey: 'seller',
+      //     localField: 'seller'
+      //   }
+      // }
+    }
+  });
+}]);
+
+app.factory('Seller', ['DS', function (DS) {
+  return DS.defineResource({ 
+    name: 'seller', 
+    baseUrl: 'api/v1',
+    deserialize: function(name, data) { 
+      Seller.meta = data.data.meta;
+      return data.data.objects;
+    }
   });
 }]);
 

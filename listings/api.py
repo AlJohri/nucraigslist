@@ -10,10 +10,10 @@ class UserResource(ModelResource):
 
 
 class ListingResource(ModelResource):
-    seller = fields.ToOneField(UserResource, 'seller')
+    seller = fields.ToOneField(UserResource, 'seller', full=True)
 
-    def dehydrate_seller(self, bundle):
-        return bundle.data['seller'].split("/")[-2]
+    # def dehydrate_seller(self, bundle):
+    #     return bundle.data['seller'].split("/")[-2]
 
     class Meta:
         queryset = Listing.objects.all()
