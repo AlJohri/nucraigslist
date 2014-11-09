@@ -1,3 +1,9 @@
+## Setup node and bower
+```
+brew install npm
+npm install -g bower
+```
+
 ## Setup python
 ```
 brew install python

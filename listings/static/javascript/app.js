@@ -1,8 +1,12 @@
 'use strict';
 
-var app = angular.module('app', ['ui.router', 'ngResource']);
+// before deploy to heroku, I'll have to deal with deploying JS to cdn or use
+// python manage.py runserver --insecure
+// https://docs.djangoproject.com/en/1.7/howto/static-files/deployment/#serving-static-files-from-a-cloud-service-or-cdn
 
-app.config(function ($stateProvider, $urlRouterProvider) {
+var app = angular.module('app', ['ui.router', 'angular-data.DS']);
+
+angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     // For any unmatched url, send to /route1
     $urlRouterProvider.otherwise("/");
     $stateProvider
@@ -13,27 +17,30 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         });
 });
 
-angular.module('app').controller('HomeController', ['$scope', '$resource', '$http', function($scope, $resource, $http) {
+angular.module('app').run(['DS', 'DSHttpAdapter', function(DS, DSHttpAdapter) {
+	DSHttpAdapter.defaults.forceTrailingSlash = true;
+}]);
 
-	console.log("shit");
 
-	var Listing = $resource('/api/v1/listing/', {}, {
-	    query: {
-	        method: 'GET',
-	        isArray: true,
-	        transformResponse: $http.defaults.transformResponse.concat([
-	            function (data, headersGetter) {
-	            	console.log(data.objects);
-	                return data.objects;
-	            }
-	        ])
-	    }
+app.factory('Listing', ['DS', function (DS) {
+  return DS.defineResource({ 
+  	name: 'listing', 
+  	baseUrl: '/api/v1',
+  	deserialize: function(name, data) { 
+  		Listing.meta = data.data.meta;
+  		return data.data.objects;
+  	}
+  });
+}]);
+
+angular.module('app').controller('HomeController', ['$scope', '$window', 'Listing', function($scope, $window, Listing) {
+
+	Listing.findAll({limit: 100}).then(function(){
+		$scope.meta = Listing.meta;
 	});
+	Listing.bindAll($scope, 'listings', {});
 
-	Listing.query(function(data) {
-		$scope.listings = data;
-	});
-
+	$window.Listing = Listing;
 }]);
 
 
