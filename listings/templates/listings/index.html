@@ -1,76 +1,10 @@
-<!-- {% if latest_listings_list %}
-	<ul>
-	{% for listing in latest_listings_list %}
-		<li><a href='{% url 'listings:detail' listing.id %}'>{{ listing.listing_text }} </a></li>
-	{% endfor %}
-	</ul>
-{% else %}
-	<p>No listings available</p>
-{% endif %} -->
-
-
-<!-- <div style="float:left; margin:0; width:33%;">
-		<h1>Tech</h1>
-		<h2>Buy</h2>
-			<ul>
-			{% for listing in tech_buy_list %}
-				<li><a href='{% url 'listings:detail' listing.id %}'>{{ listing.message }} </a></li>	
-			{% endfor %}
-			</ul>	
-		<h2>Sell</h2>
-			<ul>
-			{% for listing in tech_sell_list %}
-				<li><a href='{% url 'listings:detail' listing.id %}'>{{ listing.message }} </a></li>	
-			{% endfor %}
-			</ul>
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="container content" ng-app='app'>
+    <div ui-view >Loading...</div>
 </div>
-
-<div style="float:left; margin:0;width:33%;">
- 	<h1>Phones</h1>
-		<h2>Buy</h2>
-			<ul>
-			{% for listing in phone_buy_list %}
-				<li><a href='{% url 'listings:detail' listing.id %}'>{{ listing.message }} </a></li>	
-			{% endfor %}
-			</ul>	
-		<h2>Sell</h2>
-			<ul>
-			{% for listing in phone_sell_list %}
-				<li><a href='{% url 'listings:detail' listing.id %}'>{{ listing.message }} </a></li>	
-			{% endfor %}
-			</ul>
-</div>
-
-<div style="float:left; margin:0;width:33%">
- 	<h1>Bedding</h1>
-		<h2>Buy</h2>
-			<ul>
-			{% for listing in bedding_buy_list %}
-				<li><a href='{% url 'listings:detail' listing.id %}'>{{ listing.message }} </a></li>	
-			{% endfor %}
-			</ul>	
-		<h2>Sell</h2>
-			<ul>
-			{% for listing in bedding_sell_list %}
-				<li><a href='{% url 'listings:detail' listing.id %}'>{{ listing.message }} </a></li>	
-			{% endfor %}
-			</ul>
-</div>
-<div>
-	<div style="float:left; margin:0;width:33%">
-	 	<h1>Tickets</h1>
-			<h2>Sell</h2>
-				<ul>
-				{% for listing in ticket_sell_list %}
-					<li><a href='{% url 'listings:detail' listing.id %}'>{{ listing.message }} </a></li>	
-				{% endfor %}
-				</ul>
-	</div>
-</div>
-<div style="float:left"> 				
-	<ul>
-	{% for listing in latest_listings_list %}
-		<li><a href='{% url 'listings:detail' listing.id %}'>{{ listing.message }} </a></li>	
-	{% endfor %}
-	</ul>
-</div> -->
+{% endblock content %}
+{% block extra_javascript %}
+<script src="{{ STATIC_URL }}/javascript/app.js"></script>
+{% endblock extra_javascript %}
