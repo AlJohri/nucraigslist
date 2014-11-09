@@ -1,1 +1,1 @@
-web: python manage.py runserver --insecure
+web: gunicorn freeandforsale.wsgi --log-file -
