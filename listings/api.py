@@ -1,10 +1,16 @@
 from tastypie.resources import ModelResource
-from listings.models import Listing
+from tastypie import fields
+from listings.models import Listing, User
+
+
+class UserResource(ModelResource):
+    class Meta:
+        queryset = User.objects.all()
+        resource_name = 'seller'
+
 
 class ListingResource(ModelResource):
-    """
-    API Facet
-    """
+    seller = fields.ForeignKey(UserResource, 'seller')
     class Meta:
         queryset = Listing.objects.all()
         resource_name = 'listing'
