@@ -69,7 +69,7 @@ app.factory('Seller', ['DS', function (DS) {
 }]);
 
 
-angular.module('app').controller('HomeController', ['$scope', '$window', 'Listing', 'Seller', function($scope, $window, Listing, Seller) {
+angular.module('app').controller('HomeController', ['$scope', '$window', '$location', '$anchorScroll', 'Listing', 'Seller', function($scope, $window, $location, $anchorScroll, Listing, Seller) {
 
   $scope.currentPage = 1;
   $scope.numPerPage = 10;
@@ -98,13 +98,19 @@ angular.module('app').controller('HomeController', ['$scope', '$window', 'Listin
     // Listing.bindAll($scope, 'listings', params);
   }
 
-  getListings();
+  getListings();  
+
+  function scrollToTop() {
+    $location.hash('body');
+    $anchorScroll();
+  }
   
   $scope.$watch('[filters, currentPage]', function(newVal, oldVal){
     if (newVal === oldVal) {return;}
     if (newVal[1] === oldVal[1]) { $scope.currentPage = 1; }
-    // console.log('changed');
-    // console.log(newVal);
+      // console.log('changed');
+      // console.log(newVal);
+    scrollToTop();
     getListings();
   }, true);
 
