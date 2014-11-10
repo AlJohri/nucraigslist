@@ -67,19 +67,20 @@ app.factory('Seller', ['DS', function (DS) {
   });
 }]);
 
+
 angular.module('app').controller('HomeController', ['$scope', '$window', 'Listing', 'Seller', function($scope, $window, Listing, Seller) {
 
   // Listing.findAll({limit: 100}).then(function(){
   //  $scope.meta = Listing.meta;
   // });
 
-  Listing.findAll();
+  Listing.findAll({limit: 100});
   Seller.findAll();
   Listing.bindAll($scope, 'listings', {});
   Seller.bindAll($scope, 'sellers', {});
 
   console.log(Listing.filter({limit: 1})[0]);
-
+  $scope.bs = "buy";
   $window.Listing = Listing;
   $window.Seller = Seller;
   $window.$scope = $scope;
