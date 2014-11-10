@@ -69,7 +69,7 @@ app.factory('Seller', ['DS', function (DS) {
 }]);
 
 
-angular.module('app').controller('HomeController', ['$scope', '$window', '$location', '$anchorScroll', 'Listing', 'Seller', function($scope, $window, $location, $anchorScroll, Listing, Seller) {
+angular.module('app').controller('HomeController', ['$scope', '$window', '$location', '$anchorScroll', '$modal', 'Listing', 'Seller', function($scope, $window, $location, $anchorScroll, $modal, Listing, Seller) {
 
   $scope.currentPage = 1;
   $scope.numPerPage = 10;
@@ -114,6 +114,15 @@ angular.module('app').controller('HomeController', ['$scope', '$window', '$locat
     getListings();
   }, true);
 
+  $scope.open = function (size) {
+
+    var modalInstance = $modal.open({
+      templateUrl: '/static/html/partials/_about_modal.html',
+      controller: 'ModalInstanceCtrl',
+      size: size,
+    });
+  };
+
   // Seller.findAll();
   // Seller.bindAll($scope, 'sellers', {});
   // $window.Seller = Seller;
@@ -123,6 +132,16 @@ angular.module('app').controller('HomeController', ['$scope', '$window', '$locat
   $window.$scope = $scope;
 
 }]);
+
+angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+  $scope.ok = function () {
+    $modalInstance.close();
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+});
 
 
 // http://localhost:8000/api/v1/listing/?offset=0&limit=20&format=json
