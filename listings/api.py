@@ -24,6 +24,8 @@ class ListingResource(ModelResource):
         # authorization = Authorization()
         always_return_data = True
         filtering = {
-            "message": ('contains',)
+            "buy_or_sell": ('exact',),
+            "category": ('exact',),
+            "message": ('contains',),
         }
 

@@ -1,20 +1,40 @@
-<div class="page-container">
-    <div class="listing-container">
+<div class="row">
 
-        <div class="btn-group">
-            <label class="btn btn-default" ng-model="bs" btn-radio="'buy'">Buy</label>
-            <label class="btn btn-default" ng-model="bs" btn-radio="'sell'">Sell</label>
-        </div>
+  <div class="col-xs-12">
 
-        <span> Showing  {{ lastMeta.offset }} to {{ lastMeta.limit }} of {{ lastMeta.total_count }} </span>
+    <div class="btn-group">
+        <button class="btn btn-default" ng-model="filters.buy_or_sell" btn-radio="'buy'">Buy</button>
+        <button class="btn btn-default" ng-model="filters.buy_or_sell" btn-radio="'sell'">Sell</button>
+    </div>
 
-       <ul>
-        <li ng-repeat="listing in listings | filter: {buy_or_sell:bs}">
-            <div class="well">
-              <span>{{listing.message}}</span>
-            </div>
-        </li>
-      </ul>
+    <span> Showing  {{ lastMeta.offset }} to {{ lastMeta.limit }} of {{ lastMeta.total_count }} </span>
 
-   </div>
+  </div>
+
+</div>
+
+<br>  <!-- #oops -->
+
+<div class="row">
+
+  <div class="col-md-2">
+
+    <pre style="font-size: 8.5px;">DEBUG: {{ filters | json}}</pre>
+
+    <div class="btn-group-vertical" style="width: 100%;">
+      <button ng-repeat="category in categories" type="button" class="btn btn-default" ng-model="filters.category" btn-radio="category">{{category}}</button>
+    </div>
+
+  </div>
+
+  <div class="col-md-10">
+    <ul class="list-unstyled">
+      <li ng-repeat="listing in listings">
+          <div class="well">
+            <span>{{listing.message}}</span>
+          </div>
+      </li>
+    </ul>
+  </div>
+
 </div>

@@ -71,15 +71,38 @@ app.factory('Seller', ['DS', function (DS) {
 
 angular.module('app').controller('HomeController', ['$scope', '$window', 'Listing', 'Seller', function($scope, $window, Listing, Seller) {
 
-  Listing.findAll({limit: 100}).then(function(data) { $scope.lastMeta = Listing.lastMeta; } );
-  Seller.findAll();
-  Listing.bindAll($scope, 'listings', {});
-  Seller.bindAll($scope, 'sellers', {});
+  $scope.filters = {
+    buy_or_sell: "buy",
+    category: 'all',
+    offset: 0,
+    limit: 10
+  };
 
-  console.log(Listing.filter({limit: 1})[0]);
-  $scope.bs = "buy";
+  // write a script to save the categories from csv into a js file and import the js file?
+  $scope.categories = ['all', 'textbook', 'tickets', 'bedding', 'instrument', 'personal', 'food', 'household', 'clothing', 'furniture', 'kitchen', 'trash', 'tech', 'sublet', 'longboard', 'gaming', 'sports', 'tools', 'cars', 'holiday'];
+
+  function getListings() {
+    var params = angular.copy($scope.filters);
+    if (params.category == "all") { delete params.category; }
+    Listing.findAll(params).then(function(data) { $scope.lastMeta = Listing.lastMeta; } );
+    Listing.bindAll($scope, 'listings', params);
+  }
+
+  getListings();
+  
+  $scope.$watch('filters', function(newVal, oldVal){
+    if (newVal === oldVal) {return; }
+    // console.log('changed');
+    // console.log(newVal);
+    getListings();
+  }, true);
+
+  // Seller.findAll();
+  // Seller.bindAll($scope, 'sellers', {});
+  // $window.Seller = Seller;
+  // console.log(Listing.filter({limit: 1})[0]);
+  
   $window.Listing = Listing;
-  $window.Seller = Seller;
   $window.$scope = $scope;
 
 }]);
