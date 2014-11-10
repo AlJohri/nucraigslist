@@ -4,7 +4,7 @@
 // python manage.py runserver --insecure
 // https://docs.djangoproject.com/en/1.7/howto/static-files/deployment/#serving-static-files-from-a-cloud-service-or-cdn
 
-var app = angular.module('app', ['ui.router', 'angular-data.DS']);
+var app = angular.module('app', ['ui.router', 'ui.bootstrap', 'angular-data.DS']);
 
 angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     // For any unmatched url, send to /route1
