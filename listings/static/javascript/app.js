@@ -101,8 +101,12 @@ angular.module('app').controller('HomeController', ['$scope', '$window', '$locat
   getListings();  
 
   function scrollToTop() {
-    $location.hash('body');
+    var old = $location.hash();
+    console.log(old);
+    $location.hash('top');
     $anchorScroll();
+    $location.hash(old);
+    console.log($location.hash());
   }
   
   $scope.$watch('[filters, currentPage]', function(newVal, oldVal){
