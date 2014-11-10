@@ -27,8 +27,11 @@ app.factory('Listing', ['DS', function (DS) {
     name: 'listing',
     baseUrl: '/api/v1',
     deserialize: function(name, data) {
-      // Listing.meta = data.data.meta;
-      return data.data.objects;
+      if (data.data.objects !== undefined) {
+        return data.data.objects;
+      } else {
+        return data.data;
+      }
     },
     relations: {
       belongsTo: {
@@ -46,8 +49,12 @@ app.factory('Seller', ['DS', function (DS) {
     name: 'seller',
     baseUrl: '/api/v1',
     deserialize: function(name, data) {
-      // Seller.meta = data.data.meta;
-      return data.data.objects;
+      // debugger;
+      if (data.data.objects !== "undefined") {
+        return data.data.objects;
+      } else {
+        return data.data;
+      }
     },
     relations: {
       hasMany: {
