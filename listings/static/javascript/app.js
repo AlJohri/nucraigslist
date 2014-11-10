@@ -71,11 +71,13 @@ app.factory('Seller', ['DS', function (DS) {
 
 angular.module('app').controller('HomeController', ['$scope', '$window', 'Listing', 'Seller', function($scope, $window, Listing, Seller) {
 
+  $scope.currentPage = 1;
+  $scope.numPerPage = 10;
+
   $scope.filters = {
     buy_or_sell: "buy",
     category: 'all',
-    offset: 0,
-    limit: 10
+    message__contains: ""
   };
 
   // write a script to save the categories from csv into a js file and import the js file?
@@ -83,15 +85,24 @@ angular.module('app').controller('HomeController', ['$scope', '$window', 'Listin
 
   function getListings() {
     var params = angular.copy($scope.filters);
-    if (params.category == "all") { delete params.category; }
-    Listing.findAll(params).then(function(data) { $scope.lastMeta = Listing.lastMeta; } );
-    Listing.bindAll($scope, 'listings', params);
+    if (params.category == "all") { 
+      delete params.category;
+      params.offset = ($scope.currentPage - 1) * $scope.numPerPage;
+      params.limit = $scope.numPerPage;
+    }
+    Listing.findAll(params, { bypassCache: true }).then(function(data) { 
+      $scope.listings = data; // (hopefully) temporary, see: https://github.com/jmdobry/angular-data/issues/236#issuecomment-62346279
+      $scope.listingsMeta = Listing.lastMeta;
+    });
+    // Listing.bindAll($scope, 'listings', params);
   }
 
   getListings();
   
-  $scope.$watch('filters', function(newVal, oldVal){
+  $scope.$watch('[filters, currentPage]', function(newVal, oldVal){
     if (newVal === oldVal) {return; }
+    // debugger;
+    if (newVal[1] === oldVal[1]) { $scope.currentPage = 1; }
     // console.log('changed');
     // console.log(newVal);
     getListings();

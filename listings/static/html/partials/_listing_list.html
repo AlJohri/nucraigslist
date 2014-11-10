@@ -7,7 +7,8 @@
         <button class="btn btn-default" ng-model="filters.buy_or_sell" btn-radio="'sell'">Sell</button>
     </div>
 
-    <span> Showing  {{ lastMeta.offset }} to {{ lastMeta.limit }} of {{ lastMeta.total_count }} </span>
+    <!-- meta total_count still doesn't work yet, i'll figure it out soon -->
+    <span> Showing {{ (currentPage - 1) * numPerPage }} to {{ (currentPage - 1) * numPerPage + numPerPage }} of {{ listingsMeta.total_count }} </span>
 
   </div>
 
@@ -19,7 +20,9 @@
 
   <div class="col-md-2">
 
-    <pre style="font-size: 8.5px;">DEBUG: {{ filters | json}}</pre>
+    <pre style="font-size: 8.5px;">DEBUG: {{ filters | json}}
+Current Page: {{currentPage}}
+Num Per Page: {{numPerPage}}</pre>
 
     <div class="btn-group-vertical" style="width: 100%;">
       <button ng-repeat="category in categories" type="button" class="btn btn-default" ng-model="filters.category" btn-radio="category">{{category}}</button>
@@ -28,13 +31,36 @@
   </div>
 
   <div class="col-md-10">
-    <ul class="list-unstyled">
-      <li ng-repeat="listing in listings">
-          <div class="well">
-            <span>{{listing.message}}</span>
-          </div>
-      </li>
-    </ul>
+
+    <form class="row">
+      <div class="col-xs-12">
+        <div class="input-group input-group-lg">
+          <input type="text" class="form-control" ng-model="filters.message__contains">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </span>
+        </div>
+    </form>
+
+    <br>  <!-- #oops -->
+
+    <div class="row">
+      <div class="col-xs-12">
+        <ul class="list-unstyled">
+          <li ng-repeat="listing in listings">
+              <div class="well">
+                <span>{{listing.message}}</span>
+              </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <pager total-items="lastMeta.total_count" ng-model="currentPage"></pager>
+    <pagination total-items="listingsMeta.total_count" ng-model="currentPage" max-size="'5'" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
+
   </div>
 
 </div>
