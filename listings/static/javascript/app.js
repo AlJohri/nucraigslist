@@ -29,6 +29,14 @@ app.factory('Listing', ['DS', function (DS) {
     deserialize: function(name, data) {
       // Listing.meta = data.data.meta;
       return data.data.objects;
+    },
+    relations: {
+      belongsTo: {
+        seller: {
+          localField: 'seller',
+          localKey: 'sellerId'
+        }
+      }
     }
   });
 }]);
@@ -40,6 +48,14 @@ app.factory('Seller', ['DS', function (DS) {
     deserialize: function(name, data) {
       // Seller.meta = data.data.meta;
       return data.data.objects;
+    },
+    relations: {
+      hasMany: {
+        listing: {
+          localField: 'listings',
+          foreignKey: 'sellerId'
+        }
+      },
     }
   });
 }]);
