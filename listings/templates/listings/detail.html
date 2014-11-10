@@ -1,8 +1,0 @@
-<h1>{{ listing.message }}</h1>
-<p>{{ listing.seller }}</p>
-<p>{{ listing.buy_or_sell }}</p>
-<ul>
-{% for comment in listing.comment_set.all %}
-	<li>{{ comment.comment_text }}</li>
-{% endfor %}
-</ul>
