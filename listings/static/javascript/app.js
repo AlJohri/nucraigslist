@@ -18,49 +18,49 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
 });
 
 angular.module('app').run(['DS', 'DSHttpAdapter', function(DS, DSHttpAdapter) {
-	DSHttpAdapter.defaults.forceTrailingSlash = true;
+  DSHttpAdapter.defaults.forceTrailingSlash = true;
 }]);
 
 
 app.factory('Listing', ['DS', function (DS) {
-  return DS.defineResource({ 
-  	name: 'listing', 
-  	baseUrl: '/api/v1',
-  	deserialize: function(name, data) { 
-  		Listing.meta = data.data.meta;
-  		return data.data.objects;
-  	},
-    relations: {
-      // belongsTo: {
-      //   seller: {
-      //     parent: true,
-      //     localKey: 'seller',
-      //     localField: 'seller'
-      //   }
-      // }
-    }
-  });
-}]);
-
-app.factory('Seller', ['DS', function (DS) {
-  return DS.defineResource({ 
-    name: 'seller', 
-    baseUrl: 'api/v1',
-    deserialize: function(name, data) { 
-      Seller.meta = data.data.meta;
+  return DS.defineResource({
+    name: 'listing',
+    baseUrl: '/api/v1',
+    deserialize: function(name, data) {
+      // Listing.meta = data.data.meta;
       return data.data.objects;
     }
   });
 }]);
 
-angular.module('app').controller('HomeController', ['$scope', '$window', 'Listing', function($scope, $window, Listing) {
+app.factory('Seller', ['DS', function (DS) {
+  return DS.defineResource({
+    name: 'seller',
+    baseUrl: '/api/v1',
+    deserialize: function(name, data) {
+      // Seller.meta = data.data.meta;
+      return data.data.objects;
+    }
+  });
+}]);
 
-	Listing.findAll({limit: 100}).then(function(){
-		$scope.meta = Listing.meta;
-	});
-	Listing.bindAll($scope, 'listings', {});
+angular.module('app').controller('HomeController', ['$scope', '$window', 'Listing', 'Seller', function($scope, $window, Listing, Seller) {
 
-	$window.Listing = Listing;
+  // Listing.findAll({limit: 100}).then(function(){
+  //  $scope.meta = Listing.meta;
+  // });
+
+  Listing.findAll();
+  Seller.findAll();
+  Listing.bindAll($scope, 'listings', {});
+  Seller.bindAll($scope, 'sellers', {});
+
+  console.log(Listing.filter({limit: 1})[0]);
+
+  $window.Listing = Listing;
+  $window.Seller = Seller;
+  $window.$scope = $scope;
+
 }]);
 
 
