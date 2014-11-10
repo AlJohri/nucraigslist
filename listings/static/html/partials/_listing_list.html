@@ -1,9 +1,12 @@
-{{meta | json}}
-<br>
-<br>
-
-<ul>
-	<li ng-repeat="listing in listings">
-		{{listing.message}}
-	</li>
-</ul>
+<div class="page-container">
+	<div class="listing-container">
+       <ul>
+		<form name="form" ng-controller="HomeController">
+  		<input type="checkbox" ng-model="bs" ng-true-value="'buy'" ng-false-value="'sell'">	      
+		<li ng-repeat="listing in listings | filter: {buy_or_sell:bs}">
+	               <div class="listing-div"><p>{{listing.message}}</p></div>
+	           </li>
+      </ul>
+   </div>
+</div>
+ 

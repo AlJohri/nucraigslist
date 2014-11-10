@@ -60,6 +60,7 @@ app.factory('Seller', ['DS', function (DS) {
   });
 }]);
 
+
 angular.module('app').controller('HomeController', ['$scope', '$window', 'Listing', 'Seller', function($scope, $window, Listing, Seller) {
 
   // Listing.findAll({limit: 100}).then(function(){
@@ -72,7 +73,7 @@ angular.module('app').controller('HomeController', ['$scope', '$window', 'Listin
   Seller.bindAll($scope, 'sellers', {});
 
   console.log(Listing.filter({limit: 1})[0]);
-
+  $scope.bs = "buy";
   $window.Listing = Listing;
   $window.Seller = Seller;
   $window.$scope = $scope;
