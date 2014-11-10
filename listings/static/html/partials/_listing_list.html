@@ -2,7 +2,8 @@
 	<div class="listing-container">
        <ul>
 		<form name="form" ng-controller="HomeController">
-  		<input type="checkbox" ng-model="bs" ng-true-value="'buy'" ng-false-value="'sell'">	      
+  		<input type="checkbox" ng-model="bs" ng-true-value="'buy'" ng-false-value="'sell'">
+  		Showing  {{ lastMeta.offset }} to {{ lastMeta.limit }} of {{ lastMeta.total_count }}
 		<li ng-repeat="listing in listings | filter: {buy_or_sell:bs}">
 	               <div class="listing-div"><p>{{listing.message}}</p></div>
 	           </li>
