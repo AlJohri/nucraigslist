@@ -67,7 +67,7 @@ angular.module('app').controller('HomeController', ['$scope', '$window', 'Listin
   //  $scope.meta = Listing.meta;
   // });
 
-  Listing.findAll();
+  Listing.findAll({limit: 100});
   Seller.findAll();
   Listing.bindAll($scope, 'listings', {});
   Seller.bindAll($scope, 'sellers', {});
