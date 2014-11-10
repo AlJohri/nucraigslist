@@ -110,9 +110,14 @@ angular.module('app').controller('HomeController', ['$scope', '$window', '$locat
     if (newVal[1] === oldVal[1]) { $scope.currentPage = 1; }
       // console.log('changed');
       // console.log(newVal);
-    scrollToTop();
     getListings();
   }, true);
+
+  $scope.$watch("listings", function (value) {//I change here
+        var val = value || null;            
+        if (val)
+            scrollToTop();
+    });
 
   $scope.open = function (size) {
 
@@ -130,6 +135,11 @@ angular.module('app').controller('HomeController', ['$scope', '$window', '$locat
   
   $window.Listing = Listing;
   $window.$scope = $scope;
+
+  // $scope.$on('$viewContentLoaded', function(){
+  //   console.log('here');
+  //   scrollToTop();
+  // });
 
 }]);
 
