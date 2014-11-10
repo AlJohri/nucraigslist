@@ -27,6 +27,7 @@ app.factory('Listing', ['DS', function (DS) {
     name: 'listing',
     baseUrl: '/api/v1',
     deserialize: function(name, data) {
+      Listing.lastMeta = data.data.meta;
       if (data.data.objects !== undefined) {
         return data.data.objects;
       } else {
@@ -70,11 +71,7 @@ app.factory('Seller', ['DS', function (DS) {
 
 angular.module('app').controller('HomeController', ['$scope', '$window', 'Listing', 'Seller', function($scope, $window, Listing, Seller) {
 
-  // Listing.findAll({limit: 100}).then(function(){
-  //  $scope.meta = Listing.meta;
-  // });
-
-  Listing.findAll({limit: 100});
+  Listing.findAll({limit: 100}).then(function(data) { $scope.lastMeta = Listing.lastMeta; } );
   Seller.findAll();
   Listing.bindAll($scope, 'listings', {});
   Seller.bindAll($scope, 'sellers', {});
