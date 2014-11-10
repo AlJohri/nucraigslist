@@ -87,9 +87,9 @@ angular.module('app').controller('HomeController', ['$scope', '$window', 'Listin
     var params = angular.copy($scope.filters);
     if (params.category == "all") { 
       delete params.category;
-      params.offset = ($scope.currentPage - 1) * $scope.numPerPage;
-      params.limit = $scope.numPerPage;
     }
+    params.offset = ($scope.currentPage - 1) * $scope.numPerPage;
+    params.limit = $scope.numPerPage;
     Listing.findAll(params, { bypassCache: true }).then(function(data) { 
       $scope.listings = data; // (hopefully) temporary, see: https://github.com/jmdobry/angular-data/issues/236#issuecomment-62346279
       $scope.listingsMeta = Listing.lastMeta;
@@ -100,8 +100,7 @@ angular.module('app').controller('HomeController', ['$scope', '$window', 'Listin
   getListings();
   
   $scope.$watch('[filters, currentPage]', function(newVal, oldVal){
-    if (newVal === oldVal) {return; }
-    // debugger;
+    if (newVal === oldVal) {return;}
     if (newVal[1] === oldVal[1]) { $scope.currentPage = 1; }
     // console.log('changed');
     // console.log(newVal);

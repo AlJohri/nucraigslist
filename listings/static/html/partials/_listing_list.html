@@ -1,6 +1,8 @@
+<br>  <!-- #oops -->
+
 <div class="row">
 
-  <div class="col-md-2">
+  <div class="col-sm-2">
 
     <div class="row">
       <div class="col-xs-12">
@@ -31,15 +33,17 @@
 
     <br>  <!-- #oops -->
 
-        <pre style="font-size: 8.5px;">DEBUG: {{ filters | json}}
-    Current Page: {{currentPage}}
-    Num Per Page: {{numPerPage}}</pre>
+<pre style="font-size: 8.5px;">
+DEBUG: {{ filters | json}}
+Current Page: {{currentPage}}
+Num Per Page: {{numPerPage}}
+</pre>
 
   </div>
 
-  <br>  <!-- #oops -->
+  <!-- <br>  #oops -->
 
-  <div class="col-md-10">
+  <div class="col-sm-10">
 
     <form class="row">
       <div class="col-xs-12">
@@ -57,6 +61,7 @@
 
     <div class="row">
       <div class="col-xs-12">
+        <!-- maybe make it scroll? -->
         <ul class="list-unstyled"> <!-- style="height: 600px; overflow: scroll;" -->
           <li ng-repeat="listing in listings">
               <div class="well">
