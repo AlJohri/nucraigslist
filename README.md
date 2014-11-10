@@ -42,6 +42,13 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+# Update Database
+```
+python manage.py download && python manage.py parse --dl
+git commit -am "database update" # until we move to postgres
+git push heroku master
+```
+
 # After Changing Models
 ```
 python manage.py makemigrations
