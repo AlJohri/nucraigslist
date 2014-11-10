@@ -1,32 +1,49 @@
-<div class="row">
+<!-- <div class="row">
 
   <div class="col-xs-12">
 
-    <div class="btn-group">
-        <button class="btn btn-default" ng-model="filters.buy_or_sell" btn-radio="'buy'">Buy</button>
-        <button class="btn btn-default" ng-model="filters.buy_or_sell" btn-radio="'sell'">Sell</button>
-    </div>
-
-    <!-- meta total_count still doesn't work yet, i'll figure it out soon -->
-    <span> Showing {{ (currentPage - 1) * numPerPage }} to {{ (currentPage - 1) * numPerPage + numPerPage }} of {{ listingsMeta.total_count }} </span>
+    
 
   </div>
 
 </div>
-
+ -->
 <br>  <!-- #oops -->
 
 <div class="row">
 
   <div class="col-md-2">
 
-    <pre style="font-size: 8.5px;">DEBUG: {{ filters | json}}
-Current Page: {{currentPage}}
-Num Per Page: {{numPerPage}}</pre>
-
-    <div class="btn-group-vertical" style="width: 100%;">
-      <button ng-repeat="category in categories" type="button" class="btn btn-default" ng-model="filters.category" btn-radio="category">{{category}}</button>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="btn-group" style="width: 100%;">
+            <button class="btn btn-default" ng-model="filters.buy_or_sell" btn-radio="'buy'" style="width: 50%">Buy</button>
+            <button class="btn btn-default" ng-model="filters.buy_or_sell" btn-radio="'sell'" style="width: 50%">Sell</button>
+        </div>
+      </div>
     </div>
+
+    <br>  <!-- #oops -->
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div style="text-align: center;"> Showing {{ (currentPage - 1) * numPerPage }} to {{ (currentPage - 1) * numPerPage + numPerPage }} of {{ listingsMeta.total_count }} </div>
+      </div>
+    </div>
+
+    <br>  <!-- #oops -->
+  
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="btn-group-vertical" style="width: 100%;">
+          <button ng-repeat="category in categories" type="button" class="btn btn-default" ng-model="filters.category" btn-radio="category">{{category}}</button>
+        </div>
+      </div>
+    </div>
+
+    <!--     <pre style="font-size: 8.5px;">DEBUG: {{ filters | json}}
+    Current Page: {{currentPage}}
+    Num Per Page: {{numPerPage}}</pre> -->
 
   </div>
 
