@@ -75,7 +75,7 @@ angular.module('app').controller('HomeController', ['$scope', '$window', 'Listin
   $scope.numPerPage = 10;
 
   $scope.filters = {
-    buy_or_sell: "buy",
+    buy_or_sell: "sell",
     category: 'all',
     message__contains: ""
   };
@@ -90,6 +90,7 @@ angular.module('app').controller('HomeController', ['$scope', '$window', 'Listin
     }
     params.offset = ($scope.currentPage - 1) * $scope.numPerPage;
     params.limit = $scope.numPerPage;
+    params.order_by="-updated_time";
     Listing.findAll(params, { bypassCache: true }).then(function(data) { 
       $scope.listings = data; // (hopefully) temporary, see: https://github.com/jmdobry/angular-data/issues/236#issuecomment-62346279
       $scope.listingsMeta = Listing.lastMeta;

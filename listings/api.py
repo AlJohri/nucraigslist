@@ -28,4 +28,5 @@ class ListingResource(ModelResource):
             "category": ('exact',),
             "message": ('contains',),
         }
+        ordering = ['updated_time', 'created_time']
 
