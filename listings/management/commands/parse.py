@@ -73,7 +73,7 @@ class Command(BaseCommand):
             for ngram in ngrams:
                 for category, regexes in word_bank.items():
                     for reg in regexes:
-                        if re.match(reg, ngram):
+                        if re.match("\b" + reg + "\b", ngram):
                             return category
 
         buy_sell_bank = {

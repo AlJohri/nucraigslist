@@ -4,10 +4,20 @@ from listings.models import Listing, User, Comment
 import os, sys, re
 from dateutil.parser import parse
 from django.utils import timezone
+from optparse import make_option
 
 class Command(BaseCommand):
     # args = '<poll_id poll_id ...>'
     # help = 'Closes the specified poll for voting'
+
+    option_list = BaseCommand.option_list + (
+        make_option('--reverse',
+            action='store_true',
+            dest='reverse',
+            default=False,
+            help='TODO add more helpful text'
+        ),
+    )
 
     def handle(self, *args, **options):
 
@@ -23,19 +33,26 @@ class Command(BaseCommand):
             print "Update and source your .secret file"
             sys.exit()
 
-        try:
-            latest_listing_time = Listing.objects.order_by('-created_time')[:1][0].updated_time.replace(tzinfo=None)
-        except Exception as e:
-            print e
-            latest_listing_time = parse("01-1-2012")
+        if not options['reverse']:
 
-        current_time = timezone.now().replace(tzinfo=None)
+            try:
+                latest_listing_time = Listing.objects.order_by('-updated_time')[:1][0].updated_time.replace(tzinfo=None)
+            except Exception as e:
+                print e
+                latest_listing_time = parse("01-1-2012")
+
+            current_time = timezone.now().replace(tzinfo=None)
+
+        else:
+
+            latest_listing_time = parse("01-1-2012")
+            current_time = Listing.objects.order_by('updated_time')[:1][0].updated_time.replace(tzinfo=None)
 
         print "Downloading from ", latest_listing_time, "to", current_time, "in reverse chronological order (latest first)."
 
         for obj in get_feed(api, "357858834261047", start=latest_listing_time, end=current_time):
             print "-----------------------------------------------------"
-            print obj['id'], obj['created_time'], obj['updated_time'] #, obj['message']
+            print obj['id'], obj['updated_time'], obj['updated_time'] #, obj['message']
 
             print obj
 
@@ -66,7 +83,7 @@ class Command(BaseCommand):
                         commenter = User(name = comment['from']['name'], id=comment['from']['id'])
                         commenter.save()
                     comment=Comment(
-                        comment_text = comment.get('message') or '',
+                        message = comment.get('message') or '',
                         pub_date = timezone.now(), 
                         user = commenter, 
                         listing = listing
