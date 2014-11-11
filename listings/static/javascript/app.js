@@ -14,6 +14,31 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
             url: "/",
             templateUrl: "/static/html/partials/_listing_list.html",
             controller: "HomeController"
+        })
+        .state('tech', {
+            url: "/tech",
+            templateUrl: "/static/html/partials/_listing_list.html",
+            controller: "HomeController"
+        })
+        .state('textbook', {
+            url: "/textbook",
+            templateUrl: "/static/html/partials/_listing_list.html",
+            controller: "HomeController"
+        })
+        .state('tickets', {
+            url: "/tickets",
+            templateUrl: "/static/html/partials/_listing_list.html",
+            controller: "HomeController"
+        })
+        .state('bedding', {
+            url: "/bedding",
+            templateUrl: "/static/html/partials/_listing_list.html",
+            controller: "HomeController"
+        })
+        .state('instrument', {
+            url: "/instrument",
+            templateUrl: "/static/html/partials/_listing_list.html",
+            controller: "HomeController"
         });
 });
 
@@ -102,11 +127,9 @@ angular.module('app').controller('HomeController', ['$scope', '$window', '$locat
 
   function scrollToTop() {
     var old = $location.hash();
-    console.log(old);
     $location.hash('top');
     $anchorScroll();
     $location.hash(old);
-    console.log($location.hash());
   }
   
   $scope.$watch('[filters, currentPage]', function(newVal, oldVal){
@@ -156,6 +179,7 @@ angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalIn
     $modalInstance.dismiss('cancel');
   };
 });
+
 
 
 // http://localhost:8000/api/v1/listing/?offset=0&limit=20&format=json

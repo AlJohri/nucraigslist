@@ -24,7 +24,9 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="btn-group-vertical" style="width: 100%;">
-          <button ng-repeat="category in categories" type="button" class="btn btn-default" ng-model="filters.category" btn-radio="category">{{category}}</button>
+          <div ng-repeat="category in categories">
+            <a ui-sref="{{category}}" href="#/{{category}}"><button type="button" class="btn btn-default" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button></a>
+          </div>
         </div>
       </div>
     </div>
