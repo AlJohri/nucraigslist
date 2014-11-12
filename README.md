@@ -33,7 +33,12 @@ source ~/.bash_profile
 mkvirtualenv nucraigslist
 git submodule update --init
 pip install -r requirements.txt
+# download the .secret file
 cp .secret.example .secret
+# download nucraigslist.pem
+sudo chmod nucraigslist.pem 400
+cat ~/.ssh/id_rsa.pub | ssh -i nucraigslist.pem ubuntu@nucraigslist.com "sudo sshcommand acl-add dokku progrium"
+git remote add production dokku@nucraigslist.com:www
 ```
 
 ## Usage
@@ -66,4 +71,14 @@ https://docs.google.com/spreadsheets/d/1vX1U4SjXDf4--P4iUg1e3apDMYhRh74xogAn6bIf
 ```
 python manage.py shell_plus
 python manage.py shell_plus --notebook
+```
+
+## Set up Dokku Redirect
+```
+dokku redirects:set www nucraigslist.com=www.nucraigslist.com
+```
+
+## Running Dokku Commands from Client
+```
+ssh -i nucraigslist.pem dokku@nucraigslist.com <command>
 ```
