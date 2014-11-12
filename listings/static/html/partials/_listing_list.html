@@ -1,104 +1,103 @@
 <br>  <!-- #oops -->
-
-<div class="row">
-
-  <div class="col-sm-2">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="btn-group" style="width: 100%;">
-            <button class="btn btn-default" ng-model="filters.buy_or_sell" btn-radio="'sell'" style="width: 50%">Sell</button>
-            <button class="btn btn-default" ng-model="filters.buy_or_sell" btn-radio="'buy'" style="width: 50%">Buy</button>
-        </div>
-      </div>
-    </div>
-    <br>  <!-- #oops -->
-
-    <div class="row">
-      <div class="col-xs-12">
-        <div style="text-align: center;"> Showing {{ (currentPage - 1) * numPerPage }} to {{ (currentPage - 1) * numPerPage + numPerPage }} of {{ listingsMeta.total_count }} </div>
-      </div>
-    </div>
-
-    <br>  <!-- #oops -->
-
-    <!-- ui-sref="listingList"  -->
-  
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="btn-group-vertical" style="width: 100%;">
-          <div ng-repeat="category in categories">
-            <a href="#/{{filters.buy_or_sell}}/{{category}}/{{currentPage}}"><button type="button" class="btn btn-default" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button></a>
+<div id="content-container">
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="btn-group" style="width: 100%;">
+              <button class="button" ng-model="filters.buy_or_sell" btn-radio="'sell'" style="width: 50%">Sell</button>
+              <button class="button" ng-model="filters.buy_or_sell" btn-radio="'buy'" style="width: 50%">Buy</button>
           </div>
         </div>
       </div>
-    </div>
+      <br>  <!-- #oops -->
 
-    <br>  <!-- #oops -->
-
-<!-- <pre style="font-size: 8.5px;">
-DEBUG: {{ filters | json}}
-Current Page: {{currentPage}}
-Num Per Page: {{numPerPage}}
-</pre> -->
-
-	<div class="row">
-		<div class="col-xs-12">
-			<div style="width: 100%;">
-			  <button class="btn btn-default" style="width: 100%;" ng-click="open('lg')">About</button>
-			</div>
-		</div>
-	</div>
-
-  </div>
-
-  <!-- <br>  #oops -->
-
-  <div class="col-sm-10">
-
-    <form class="row">
-      <div class="col-xs-12">
-        <div class="input-group input-group-lg">
-          <input type="text" class="form-control" ng-model="filters.message__contains" placeholder="Search...">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button">
-              <span class="glyphicon glyphicon-search"></span>
-            </button>
-          </span>
-        </div>
-    </form>
-
-    <br>  <!-- #oops -->
-
-    <div class="row">
-      <div class="col-xs-12">
-        <!-- maybe make it scroll? -->
-        <ul class="list-unstyled"> <!-- style="height: 600px; overflow: scroll;" -->
-          <li ng-repeat="listing in listings">
-              <div class="well well-sm">
-                Message: <a href="https://www.facebook.com/357858834261047/posts/{{listing.id}}">{{listing.message}}</a>
-                <!-- Created: {{listing.created_time}} -->
-                <br>  <!-- #oops -->
-                Updated: {{listing.updated_time}}
-                <br>  <!-- #oops -->
-                Seller: <a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a>
-              </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-xs-12 text-center">
-        <div class="visible-xs-block">
-          <pagination total-items="listingsMeta.total_count" ng-model="currentPage" max-size="'4'" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
-        </div>
-        <div class="hidden-xs">
-          <pagination total-items="listingsMeta.total_count" ng-model="currentPage" max-size="'4'" class="pagination-md" boundary-links="true" rotate="false"></pagination>
+      <div class="row">
+        <div class="col-xs-12">
+          <div style="text-align: center;"> Showing {{ (currentPage - 1) * numPerPage }} to {{ (currentPage - 1) * numPerPage + numPerPage  }} of {{ listingsMeta.total_count }} </div>
         </div>
       </div>
+
+      <br>  <!-- #oops -->
+
+      <!-- ui-sref="listingList"  -->
+    
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="btn-group-vertical" style="width: 100%;">
+            <div ng-repeat="category in categories">
+              <a href="#/{{filters.buy_or_sell}}/{{category}}/{{currentPage}}"><button type="button" class="btn btn-default" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br>  <!-- #oops -->
+
+  <!-- <pre style="font-size: 8.5px;">
+  DEBUG: {{ filters | json}}
+  Current Page: {{currentPage}}
+  Num Per Page: {{numPerPage}}
+  </pre> -->
+
+  	<div class="row">
+  		<div class="col-xs-12">
+  			<div style="width: 100%;">
+  			  <button class="btn btn-default" style="width: 100%;" ng-click="open('lg')">About</button>
+  			</div>
+  		</div>
+  	</div>
+
     </div>
 
-  </div>
+    <!-- <br>  #oops -->
 
+    <div class="col-sm-10">
+
+      <form class="row">
+        <div class="col-xs-12">
+          <div class="input-group input-group-lg">
+            <input type="text" class="form-control" ng-model="filters.message__contains" placeholder="Search...">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">
+                <span class="glyphicon glyphicon-search"></span>
+              </button>
+            </span>
+          </div>
+      </form>
+
+      <br>  <!-- #oops -->
+
+      <div class="row">
+        <div class="col-xs-12">
+          <!-- maybe make it scroll? -->
+          <ul class="list-unstyled"> <!-- style="height: 600px; overflow: scroll;" -->
+            <li ng-repeat="listing in listings">
+                <div class="listing-div">
+                  <h2><a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a></h2>
+                  <p class="lead"><a href="https://www.facebook.com/357858834261047/posts/{{listing.id}}">{{listing.message}}</a>
+                  <!-- Created: {{listing.created_time}} -->
+                  <br>  <!-- #oops -->
+                  Updated: {{listing.updated_time}}
+                  <br>  <!-- #oops -->
+                  Seller: <a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a>
+                </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <div class="visible-xs-block">
+            <pagination total-items="listingsMeta.total_count" ng-model="currentPage" max-size="'4'" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
+          </div>
+          <div class="hidden-xs">
+            <pagination total-items="listingsMeta.total_count" ng-model="currentPage" max-size="'4'" class="pagination-md" boundary-links="true" rotate="false"></pagination>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
-
