@@ -79,6 +79,11 @@ python manage.py shell_plus --notebook
 dokku redirects:set www nucraigslist.com=www.nucraigslist.com
 ```
 
+## Pushing a Branch to Dokku
+```
+git push staging branch:master
+```
+
 ## Running Dokku Commands from Client
 ```
 ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku config:set staging KEY=VALUE
