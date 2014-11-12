@@ -6,7 +6,10 @@
 
 var app = angular.module('app', ['ui.router', 'ui.bootstrap', 'angular-data.DS']);
 
-angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
+angular.module('app').config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+
+    $locationProvider.html5Mode(false).hashPrefix('!');
+
     // For any unmatched url, send to /route1
     $urlRouterProvider.otherwise("/buy/all/1");
     $stateProvider
@@ -40,7 +43,7 @@ angular.module('app').run(['$rootScope', '$urlRouter', '$location', '$state', '$
 
       // if going from ListingList to ListingList, don't refresh!
       var isListingListController = $state.current.name === 'listingList';
-      var goingToListingListController= newUrl.indexOf("/#/buy/") > -1 || newUrl.indexOf("/#/sell/") > -1;
+      var goingToListingListController= newUrl.indexOf("/#!/buy/") > -1 || newUrl.indexOf("/#!/sell/") > -1;
 
       // console.log("newUrl: " + newUrl);
       // console.log("oldUrl: " + oldUrl);
