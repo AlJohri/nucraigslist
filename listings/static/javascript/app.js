@@ -30,9 +30,13 @@ angular.module('app').run(['DS', 'DSHttpAdapter', function(DS, DSHttpAdapter) {
 angular.module('app').config(['$urlRouterProvider', function ($urlRouterProvider) {
     $urlRouterProvider.deferIntercept();
 }]);
-angular.module('app').run(['$rootScope', '$urlRouter', '$location', '$state', function ($rootScope, $urlRouter, $location, $state) {
+angular.module('app').run(['$rootScope', '$urlRouter', '$location', '$state', '$window', function ($rootScope, $urlRouter, $location, $state, $window) {
     $rootScope.$on('$locationChangeSuccess', function(e, newUrl, oldUrl) {
       e.preventDefault(); // Prevent $urlRouter's default handler from firing
+
+      // http://www.arnaldocapo.com/blog/post/google-analytics-and-angularjs-with-ui-router/72
+      if (!$window.ga) return;
+      $window.ga('send', 'pageview', { page: $location.path() });
 
       // if going from ListingList to ListingList, don't refresh!
       var isListingListController = $state.current.name === 'listingList';
