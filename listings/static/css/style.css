@@ -3,23 +3,31 @@
 html {
   position: relative;
   min-height: 100%;
+  height: 100%;
 }
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  /*height: 100%;*/
 }
+
 
 button {
 	float: left;
 	height: 45px;
 }
 
+a {
+	text-decoration: none;
+}
+
 #index-container {
-	height: auto;
+	height: 100%;
 }
 
 #view-container {
-	height: auto;
+	height: 100%;
 }
 
 #navbar {
@@ -46,17 +54,23 @@ button {
 	float: right;
 	height: auto;
 	height: 45px;
+	background-color: none;
 }
 
-#buy-sell-button{
+.buy-sell-button{
 	width: 50%;
 	height: 100%;
+	background-color: rgba(255,255,255,.5);
+	border: none;
+	color: black;
+	text-align: center;
 }
 
-#buy-sell-button:active{
-	background-color: #E0E0E0;
-
+.buy-sell-button.active {
+	background-color: rgba(255, 255, 255, .9);
 }
+
+
 
 #search-bar {
 	width: 50%;
@@ -66,9 +80,10 @@ button {
 
 
 #categories {
-	display: block;
-	position: fixed;
+	float: left;
+	/*position: fixed;*/
 	width: 120px;
+	margin-bottom: 200px;
 	margin-left: 5%;
 }
 
@@ -78,7 +93,7 @@ button {
 
 .footer {
   position: absolute;
-  bottom: 0;
+  /*bottom: 0;*/
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 60px;
@@ -92,7 +107,7 @@ button {
 
 #page-container {
 	width: 100%;
-	height: auto;
+	height: 100%;
 	padding: 0px;
 	display: inline-block;
 	background-color: #E0E0E0;
@@ -121,11 +136,16 @@ button {
 
 .listing-div {
 	background-color: #FFFFFF;
-	padding: 10px 10px;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 5px;
 	margin-left: 0px;
 	margin-right: 50px;
 	margin-bottom: 10px;
 	height: auto;
+	width: 90%;
+	margin-left: auto;
 }
 
 
@@ -155,7 +175,7 @@ button {
 }
 
 .active {
-	background-color: #CFCFCF;
+	background-color: #A1A1A1;
 }
 
 .category-button:hover{
@@ -163,6 +183,31 @@ button {
 }
 
 #pagination {
-	padding-left: auto;
-	padding-right: auto; 
+	text-align: center;
+}
+
+#post-date-text {
+	float: right;
+	padding-right: 5px;
+	font-size: .75em;
+}
+
+#poster-text {
+	margin-bottom: 0px;
+}
+
+
+#single-listing-container {	
+	height: 100%;
+	background-color: #7C008C;
+	padding-top: 40px;
+}
+
+#single-listing {
+	background-color: red;
+	width: 90%;
+	height: auto;
+	background-color: white;
+	margin-right: auto;
+	margin-left: auto;
 }

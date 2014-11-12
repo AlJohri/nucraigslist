@@ -17,7 +17,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('listing', {
             url: "/listing/:id",
-            templateUrl: "/static/html/partials/_new_listing_list.html",
+            templateUrl: "/static/html/partials/_listing.html",
             controller: "ListingController"
         });
 });

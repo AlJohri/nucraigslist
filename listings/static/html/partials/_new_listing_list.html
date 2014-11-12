@@ -13,8 +13,8 @@
 		  </form>
 		</div>
 	  <div class="btn-group" id="buy-sell-buttons">
-	      <a href="#/{{filters.buy_or_sell}}/{{filters.category}}/{{currentPage}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'sell'" id="buy-sell-button">Sell</button></a>
-	      <a href="#/{{filters.buy_or_sell}}/{{filters.category}}/{{currentPage}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'buy'" id="buy-sell-button">Buy</button></a>
+	      <a href="#/{{filters.buy_or_sell}}/{{filters.category}}/{{currentPage}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'buy'" id="buy-sell-button">Sell</button></a>
+	      <a href="#/{{filters.buy_or_sell}}/{{filters.category}}/{{currentPage}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'sell'" id="buy-sell-button">Buy</button></a>
 	  </div>
 
 	</div>
@@ -30,13 +30,16 @@
 	</div>	
 	<div id="listing-container">
 		<ul class="list-unstyled"> <!-- style="height: 600px; overflow: scroll;" -->
+		<a href="/#/listing/{{listing.id}}">
+
 		  <li ng-repeat="listing in listings">
 		      	<div class="listing-div">
-		      	 <h3><a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a></h3>
-			     <h4>{{listing.message}}</h4>
-		     	 <p><a href="https://www.facebook.com/357858834261047/posts/{{listing.id}}">View on Facebook</a></p>
+		      	 <p class="lead" id="poster-text"><a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a><span id="post-date-text">Posted on {{listing.created_time | date : 'MMM d, y h:mm'}}</span></p>
+			     <h5>{{listing.message}}</h5></a>
+		     	 <p><a href="#/listing/{{listing.id}}">View listing</a></p>
 		      </div>
 		  </li>
+		</a>
 		</ul>
 		<div id="pagination">
 		  <div class="visible-xs-block">
@@ -47,12 +50,13 @@
 		  </div>
 		</div>
 	</div>
-	<div class="footer">
+<!-- 	<div class="footer">
 	  <div class="container">
 	    <p class="text-muted">Brought to you by <a href="mailto:al.johri@gmail.com">Al Johri</a> and <a href="mailto:andrewbayer2016@u.northwestern.edu">Andy Bayer</a></p>
-  </div>
+  </div> -->
+
 </div>
-</div>
+
 
 
 
