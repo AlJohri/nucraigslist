@@ -26,7 +26,7 @@ class ListingResource(ModelResource):
         filtering = {
             "buy_or_sell": ('exact',),
             "category": ('exact',),
-            "message": ('contains',),
+            "message": ('icontains',),
         }
         ordering = ['updated_time', 'created_time']
 

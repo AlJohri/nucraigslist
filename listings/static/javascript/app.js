@@ -11,7 +11,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $loca
     $locationProvider.html5Mode(true).hashPrefix('');
 
     // For any unmatched url, send to /route1
-    $urlRouterProvider.otherwise("/buy/all/1");
+    $urlRouterProvider.otherwise("/all/all/1");
     $stateProvider
         .state('listingList', {
             url: "/:buyOrSell/:category/:page",
@@ -43,7 +43,7 @@ angular.module('app').run(['$rootScope', '$urlRouter', '$location', '$state', '$
 
       // if going from ListingList to ListingList, don't refresh!
       var isListingListController = $state.current.name === 'listingList';
-      var goingToListingListController= newUrl.indexOf("/buy/") > -1 || newUrl.indexOf("/sell/") > -1;
+      var goingToListingListController= newUrl.indexOf("/buy/") > -1 || newUrl.indexOf("/sell/") > -1 || newUrl.indexOf("/all/") > -1;
 
       // console.log("newUrl: " + newUrl);
       // console.log("oldUrl: " + oldUrl);
@@ -111,7 +111,7 @@ angular.module('app').controller('ListingListController', ['$scope', '$window', 
   $scope.filters = {
     buy_or_sell: $stateParams.buyOrSell,
     category: $stateParams.category,
-    message__contains: ""
+    message__icontains: ""
   };
   $scope.categories = ['all', 'textbook', 'tickets', 'bedding', 'instrument', 'personal', 'food', 'household', 'clothing', 'furniture', 'kitchen', 'trash', 'tech', 'sublet', 'longboard', 'gaming', 'sports', 'tools', 'cars', 'holiday'];
   $scope.updateURL = function () { $location.url($scope.filters.buy_or_sell + "/" + $scope.filters.category + "/" + $stateParams.page); }
@@ -119,6 +119,7 @@ angular.module('app').controller('ListingListController', ['$scope', '$window', 
   function getListings() {
     var params = angular.copy($scope.filters);
     if (params.category == "all") {  delete params.category; }
+    if (params.buy_or_sell == "all") {  delete params.buy_or_sell; }
     params.offset = ($stateParams.page - 1) * $scope.numPerPage;
     params.limit = $scope.numPerPage;
     params.order_by="-updated_time";
