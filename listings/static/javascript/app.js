@@ -113,13 +113,13 @@ angular.module('app').controller('ListingListController', ['$scope', '$window', 
     $location.hash(old);
   }
   
-  // $scope.$watch('[filters, currentPage]', function(newVal, oldVal){
-  //   if (newVal === oldVal) {return;}
-  //   if (newVal[1] === oldVal[1]) { $scope.currentPage = 1; }
-  //   console.log('changed');
-  //   console.log(newVal);
-  //   getListings();
-  // }, true);
+  $scope.$watch('[filters.message__contains, currentPage]', function(newVal, oldVal){
+    if (newVal === oldVal) {return;}
+    if (newVal[1] === oldVal[1]) { $scope.currentPage = 1; }
+    console.log('changed');
+    console.log(newVal);
+    getListings();
+  }, true);
 
   $scope.$watch("listings", function (value) {//I change here
         var val = value || null;            
