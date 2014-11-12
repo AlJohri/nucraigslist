@@ -15,7 +15,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $loca
     $stateProvider
         .state('listingList', {
             url: "/:buyOrSell/:category/:page",
-            templateUrl: "/static/html/partials/_listing_list.html",
+            templateUrl: "/static/html/partials/_new_listing_list.html",
             controller: "ListingListController"
         })
         .state('listing', {
