@@ -31,7 +31,9 @@ app.factory('Listing', ['DS', function (DS) {
     name: 'listing',
     baseUrl: '/api/v1',
     deserialize: function(name, data) {
-      Listing.lastMeta = data.data.meta;
+      if (typeof Listing !== "undefined") {
+        Listing.lastMeta = data.data.meta;
+      }
       if (data.data.objects !== undefined) {
         return data.data.objects;
       } else {
@@ -161,7 +163,10 @@ angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalIn
   };
 });
 
-
+angular.module('app').controller('ListingController', ['$scope', '$window', '$location', '$anchorScroll', '$stateParams', '$modal', 'Listing', 'Seller', function($scope, $window, $location, $anchorScroll, $stateParams, $modal, Listing, Seller) {
+  Listing.find($stateParams.id).then(function(data) { $scope.listing = data; });
+  $window.$scope2 = $scope;
+}]);
 
 // http://localhost:8000/api/v1/listing/?offset=0&limit=20&format=json
 // http://localhost:8000/api/v1/listing/?offset=20&limit=20&format=json
