@@ -1,3 +1,5 @@
+# NUCraigslist
+
 ## Setup node and bower
 ```
 brew install npm
@@ -42,25 +44,25 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-# Update Database
+## Update Database
 ```
 python manage.py download && python manage.py parse --dl
 git commit -am "database update" # until we move to postgres
 git push heroku master
 ```
 
-# After Changing Models
+## After Changing Models
 ```
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-# Word Bank
+## Word Bank
 ```
 https://docs.google.com/spreadsheets/d/1vX1U4SjXDf4--P4iUg1e3apDMYhRh74xogAn6bIf5R4
 ```
 
-# iPython
+## iPython
 ```
 python manage.py shell_plus
 python manage.py shell_plus --notebook
