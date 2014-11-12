@@ -81,5 +81,7 @@ dokku redirects:set www nucraigslist.com=www.nucraigslist.com
 
 ## Running Dokku Commands from Client
 ```
+ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku config:set staging KEY=VALUE
 ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku run staging python manage.py download
+ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku run staging python manage.py parse
 ```
