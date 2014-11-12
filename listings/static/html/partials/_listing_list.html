@@ -2,15 +2,18 @@
 
 <div class="row">
 
+<!--  + $scope.filters.buy_or_sell + '/' + $scope.filters.category + '/' + $scope.currentPage  -->
+
   <div class="col-sm-2">
     <div class="row">
       <div class="col-xs-12">
         <div class="btn-group" style="width: 100%;">
-            <button class="btn btn-default" ng-model="filters.buy_or_sell" btn-radio="'sell'" style="width: 50%">Sell</button>
-            <button class="btn btn-default" ng-model="filters.buy_or_sell" btn-radio="'buy'" style="width: 50%">Buy</button>
+          <a class="btn btn-default" href="#/{{filters.buy_or_sell}}/{{filters.category}}/{{currentPage}}" style="width: 50%;" ng-model="filters.buy_or_sell" btn-radio="'sell'">Sell</a>
+          <a class="btn btn-default" href="#/{{filters.buy_or_sell}}/{{filters.category}}/{{currentPage}}" style="width: 50%;" ng-model="filters.buy_or_sell" btn-radio="'buy'">Buy</a>
         </div>
       </div>
     </div>
+
     <br>  <!-- #oops -->
 
     <div class="row">

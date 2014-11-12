@@ -91,8 +91,12 @@ app.factory('Seller', ['DS', '$rootScope', function (DS, $rootScope) {
 
 
 angular.module('app').controller('ListingListController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', 'Listing', 'Seller', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, Listing, Seller) {
-
+  $scope.$location = $location;
   console.log($stateParams);
+
+  function goToUrl(url) {
+    console.log(url);
+  }
 
   $scope.currentPage = 1;
   $scope.numPerPage = 10;
@@ -167,6 +171,7 @@ angular.module('app').controller('ListingController', ['$scope', '$window', '$lo
   Listing.find($stateParams.id).then(function(data) { $scope.listing = data; });
   $window.$scope2 = $scope;
 }]);
+
 
 // http://localhost:8000/api/v1/listing/?offset=0&limit=20&format=json
 // http://localhost:8000/api/v1/listing/?offset=20&limit=20&format=json
