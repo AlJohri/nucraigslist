@@ -37,7 +37,13 @@ angular.module('app').run(['$rootScope', '$urlRouter', '$location', '$state', fu
       // if going from ListingList to ListingList, don't refresh!
       var isListingListController = $state.current.name === 'listingList';
       var goingToListingListController= newUrl.indexOf("/#/buy/") > -1 || newUrl.indexOf("/#/sell/") > -1;
-      if (!(isListingListController && goingToListingListController)) { $urlRouter.sync(); }
+
+      // console.log("newUrl: " + newUrl);
+      // console.log("oldUrl: " + oldUrl);
+      // console.log("isListingListController: " + isListingListController);
+      // console.log("goingToListingListController: " + isListingListController);
+
+      if (!(isListingListController && goingToListingListController)) { $urlRouter.sync(); };
 
     });
     $urlRouter.listen();
@@ -89,31 +95,24 @@ app.factory('Seller', ['DS', '$rootScope', function (DS, $rootScope) {
   });
 }]);
 
-
-angular.module('app').controller('ListingListController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', 'Listing', 'Seller', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, Listing, Seller) {
+angular.module('app').controller('ListingListController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', '$timeout', 'Listing', 'Seller', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, $timeout, Listing, Seller) {
+  $scope.listingsMeta = {};
+  $scope.listingsMeta.total_count = 10000; // initialize to a large number so $stateParams.page does not get overwritten
   $scope.$location = $location;
-  console.log($stateParams);
-
-  function goToUrl(url) {
-    console.log(url);
-  }
-
-  $scope.currentPage = 1;
+  $scope.$stateParams = $stateParams;
   $scope.numPerPage = 10;
-
   $scope.filters = {
     buy_or_sell: $stateParams.buyOrSell,
     category: $stateParams.category,
     message__contains: ""
   };
-
-  // write a script to save the categories from csv into a js file and import the js file?
   $scope.categories = ['all', 'textbook', 'tickets', 'bedding', 'instrument', 'personal', 'food', 'household', 'clothing', 'furniture', 'kitchen', 'trash', 'tech', 'sublet', 'longboard', 'gaming', 'sports', 'tools', 'cars', 'holiday'];
-
+  $scope.updateURL = function () { $location.url($scope.filters.buy_or_sell + "/" + $scope.filters.category + "/" + $stateParams.page); }
+  function scrollToTop() { var old = $location.hash(); $location.hash('top'); $anchorScroll(); $location.hash(old); }
   function getListings() {
     var params = angular.copy($scope.filters);
     if (params.category == "all") {  delete params.category; }
-    params.offset = ($scope.currentPage - 1) * $scope.numPerPage;
+    params.offset = ($stateParams.page - 1) * $scope.numPerPage;
     params.limit = $scope.numPerPage;
     params.order_by="-updated_time";
     Listing.findAll(params, { bypassCache: true }).then(function(data) { 
@@ -121,28 +120,14 @@ angular.module('app').controller('ListingListController', ['$scope', '$window', 
       $scope.listingsMeta = $rootScope.listingLastMeta;
     });
   }
-
   getListings();
 
-  function scrollToTop() {
-    var old = $location.hash();
-    $location.hash('top');
-    $anchorScroll();
-    $location.hash(old);
-  }
-  
-  $scope.$watch('[filters, currentPage]', function(newVal, oldVal){
-    if (newVal === oldVal) {return;}
-    if (newVal[1] === oldVal[1]) { $scope.currentPage = 1; }
-    // console.log('changed');
-    // console.log(newVal);
-    getListings();
+  $scope.$watch('[filters, $stateParams.page]', function(newVal, oldVal){ 
+    if (newVal === oldVal) {return;} 
+    if (oldVal[1] == newVal[1]) { $stateParams.page = 1; }
+    getListings(); 
   }, true);
-
-  $scope.$watch("listings", function (value) {//I change here
-        var val = value || null;            
-        if (val) scrollToTop();
-  });
+  $scope.$watch("listings", function (value) { var val = value || null; if (val) scrollToTop(); });
 
   $scope.open = function (size) {
     var modalInstance = $modal.open({
@@ -153,18 +138,12 @@ angular.module('app').controller('ListingListController', ['$scope', '$window', 
   };
 
   $window.Listing = Listing;
-  $window.$scope = $scope;
-
+  $window.$scope1 = $scope;
 }]);
 
 angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
-  $scope.ok = function () {
-    $modalInstance.close();
-  };
-
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
+  $scope.ok = function () { $modalInstance.close(); };
+  $scope.cancel = function () { $modalInstance.dismiss('cancel'); };
 });
 
 angular.module('app').controller('ListingController', ['$scope', '$window', '$location', '$anchorScroll', '$stateParams', '$modal', 'Listing', 'Seller', function($scope, $window, $location, $anchorScroll, $stateParams, $modal, Listing, Seller) {
