@@ -35,7 +35,8 @@ git submodule update --init
 pip install -r requirements.txt
 # download the .secret file
 cp .secret.example .secret
-# download nucraigslist.pem
+# download nucraigslist.pem and symlink to repo
+# ln -s /path/to/nucraigslist.pem nucraigslist.pem
 sudo chmod nucraigslist.pem 400
 cat ~/.ssh/id_rsa.pub | ssh -i nucraigslist.pem ubuntu@nucraigslist.com "sudo sshcommand acl-add dokku progrium"
 git remote add production dokku@nucraigslist.com:www
@@ -80,5 +81,5 @@ dokku redirects:set www nucraigslist.com=www.nucraigslist.com
 
 ## Running Dokku Commands from Client
 ```
-ssh -i nucraigslist.pem dokku@nucraigslist.com <command>
+ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku run staging python manage.py download
 ```
