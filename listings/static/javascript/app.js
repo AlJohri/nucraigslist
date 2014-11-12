@@ -8,7 +8,7 @@ var app = angular.module('app', ['ui.router', 'ui.bootstrap', 'angular-data.DS']
 
 angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     // For any unmatched url, send to /route1
-    // $urlRouterProvider.otherwise("/buy/all/1");
+    $urlRouterProvider.otherwise("/buy/all/1");
     $stateProvider
         .state('listingList', {
             url: "/:buyOrSell/:category/:page",
@@ -33,9 +33,12 @@ angular.module('app').config(['$urlRouterProvider', function ($urlRouterProvider
 angular.module('app').run(['$rootScope', '$urlRouter', '$location', '$state', function ($rootScope, $urlRouter, $location, $state) {
     $rootScope.$on('$locationChangeSuccess', function(e, newUrl, oldUrl) {
       e.preventDefault(); // Prevent $urlRouter's default handler from firing
-      if ($state.current.name !== 'listingList') {
-        $urlRouter.sync();
-      }
+
+      // if going from ListingList to ListingList, don't refresh!
+      var isListingListController = $state.current.name === 'listingList';
+      var goingToListingListController= newUrl.indexOf("/#/buy/") > -1 || newUrl.indexOf("/#/sell/") > -1;
+      if (!(isListingListController && goingToListingListController)) { $urlRouter.sync(); }
+
     });
     $urlRouter.listen();
 }]);

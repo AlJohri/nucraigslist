@@ -75,7 +75,8 @@ Num Per Page: {{numPerPage}}
         <ul class="list-unstyled"> <!-- style="height: 600px; overflow: scroll;" -->
           <li ng-repeat="listing in listings">
               <div class="well well-sm">
-                Message: <a href="https://www.facebook.com/357858834261047/posts/{{listing.id}}">{{listing.message}}</a>
+                <!-- "https://www.facebook.com/357858834261047/posts/{{listing.id}}" -->
+                Message: <a href="#/listing/{{listing.id}}">{{listing.message}}</a>
                 <!-- Created: {{listing.created_time}} -->
                 <br>  <!-- #oops -->
                 Updated: {{listing.updated_time}}
