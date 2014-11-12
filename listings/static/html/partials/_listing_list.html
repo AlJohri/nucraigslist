@@ -18,16 +18,15 @@
         </div>
       </div>
 
-      <br>  <!-- #oops -->
-
-      <!-- ui-sref="listingList"  -->
-    
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="btn-group-vertical" style="width: 100%;">
-            <div ng-repeat="category in categories">
-              <a href="#/{{filters.buy_or_sell}}/{{category}}/{{currentPage}}"><button type="button" class="btn btn-default" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button></a>
-            </div>
+    <br>  <!-- #oops -->
+  
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="btn-group-vertical" style="width: 100%;">
+          <div ng-repeat="category in categories">
+            <a href="/{{filters.buy_or_sell}}/{{category}}/{{$stateParams.page}}">
+              <button type="button" class="btn btn-default" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button>
+            </a>
           </div>
         </div>
       </div>
@@ -85,6 +84,26 @@
             </li>
           </ul>
         </div>
+    </form>
+
+    <br>  <!-- #oops -->
+
+    <div class="row" ng-show="listings">
+      <div class="col-xs-12">
+        <!-- maybe make it scroll? -->
+        <ul class="list-unstyled"> <!-- style="height: 600px; overflow: scroll;" -->
+          <li ng-repeat="listing in listings">
+              <div class="well well-sm">
+                <!-- <a href="/listing/{{listing.id}}"> -->
+                Message: <a href="https://www.facebook.com/357858834261047/posts/{{listing.id}}">{{listing.message}}</a>
+                <!-- Created: {{listing.created_time}} -->
+                <br>  <!-- #oops -->
+                Updated: {{listing.updated_time}}
+                <br>  <!-- #oops -->
+                Seller: <a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a>
+              </div>
+          </li>
+        </ul>
       </div>
 
       <div class="row">

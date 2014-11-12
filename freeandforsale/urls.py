@@ -9,7 +9,7 @@ v1_api.register(UserResource())
 v1_api.register(ListingResource())
 
 urlpatterns = patterns('',
-    url(r'^', include('listings.urls', namespace='listings')),
-    url(r'^admin/', include(admin.site.urls)),
-    (r'^api/', include(v1_api.urls))
+    (r'^admin/', include(admin.site.urls)),
+    (r'^api/', include(v1_api.urls)),
+    (r'^', include('listings.urls', namespace='listings')),
 )
