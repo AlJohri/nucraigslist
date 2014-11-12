@@ -24,7 +24,7 @@
 	 <div id="categories">
 	  <div class="btn-group-vertical" id="cat-buttons-container">
 	    <div ng-repeat="category in categories">
-	      <a href="#/{{filters.buy_or_sell}}/{{category}}/{{currentPage}}"><button type="button" class="category-button" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button></a>
+	      <a href="/{{filters.buy_or_sell}}/{{category}}/{{currentPage}}"><button type="button" class="category-button" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button></a>
 	    </div>
 	  </div>
 	</div>	
@@ -35,8 +35,8 @@
 		  <li ng-repeat="listing in listings">
 		      	<div class="listing-div">
 		      	 <p class="lead" id="poster-text"><a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a><span id="post-date-text">Posted on {{listing.created_time | date : 'MMM d, y h:mm'}}</span></p>
-			     <h5>{{listing.message}}</h5></a>
-		     	 <p><a href="#/listing/{{listing.id}}">View listing</a></p>
+			     <p class="listing-text">{{listing.message}}</p></a>
+		     	 <p><a href="/listing/{{listing.id}}">View listing</a></p>
 		      </div>
 		  </li>
 		</a>

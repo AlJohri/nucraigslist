@@ -8,12 +8,7 @@ var app = angular.module('app', ['ui.router', 'ui.bootstrap', 'angular-data.DS']
 
 angular.module('app').config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
-    app.config(function($locationProvider) {
-      $locationProvider.html5Mode({
-        enabled: true,
-        requireBase: false
-      });
-    });
+    $locationProvider.html5Mode(true).hashPrefix('');
 
     // For any unmatched url, send to /route1
     $urlRouterProvider.otherwise("/buy/all/1");
