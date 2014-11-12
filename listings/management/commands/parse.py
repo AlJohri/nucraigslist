@@ -58,8 +58,8 @@ class Command(BaseCommand):
 
         print "Parsing %d Listings.." % listings.count()
 
-        for listing in listings:
-            Command.filter_listing(listing, word_bank)
+        for i, listing in enumerate(listings):
+            Command.filter_listing(listing, word_bank, i)
             listing.parsed = True
             listing.save()
 
@@ -67,7 +67,7 @@ class Command(BaseCommand):
 
 
     @staticmethod
-    def filter_listing(listing, word_bank):
+    def filter_listing(listing, word_bank, index):
 
         def find_category(ngrams):
             for ngram in ngrams:
@@ -108,4 +108,4 @@ class Command(BaseCommand):
         if count > 0: listing.buy_or_sell = 'buy'
         elif count < 0: listing.buy_or_sell = 'sell'
 
-        print "[" + str(listing.category) + "," + str(listing.buy_or_sell) + "]", listing.id, listing.message.replace("\n", "")[:150]
+        print str(index) + ": [" + str(listing.category) + "," + str(listing.buy_or_sell) + "]", listing.id, listing.message.replace("\n", "")[:150]
