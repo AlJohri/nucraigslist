@@ -20,12 +20,14 @@
     </div>
 
     <br>  <!-- #oops -->
+
+    <!-- ui-sref="listingList"  -->
   
     <div class="row">
       <div class="col-xs-12">
         <div class="btn-group-vertical" style="width: 100%;">
           <div ng-repeat="category in categories">
-            <a ui-sref="{{category}}" href="#/{{category}}"><button type="button" class="btn btn-default" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button></a>
+            <a href="#/{{filters.buy_or_sell}}/{{category}}/{{currentPage}}"><button type="button" class="btn btn-default" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button></a>
           </div>
         </div>
       </div>

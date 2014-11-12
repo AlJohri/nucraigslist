@@ -8,44 +8,23 @@ var app = angular.module('app', ['ui.router', 'ui.bootstrap', 'angular-data.DS']
 
 angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
     // For any unmatched url, send to /route1
-    $urlRouterProvider.otherwise("/");
+    $urlRouterProvider.otherwise("/buy/all/1");
     $stateProvider
-        .state('index', {
-            url: "/",
+        .state('listingList', {
+            url: "/:buyOrSell/:category/:page",
             templateUrl: "/static/html/partials/_listing_list.html",
-            controller: "HomeController"
+            controller: "ListingListController"
         })
-        .state('tech', {
-            url: "/tech",
-            templateUrl: "/static/html/partials/_listing_list.html",
-            controller: "HomeController"
-        })
-        .state('textbook', {
-            url: "/textbook",
-            templateUrl: "/static/html/partials/_listing_list.html",
-            controller: "HomeController"
-        })
-        .state('tickets', {
-            url: "/tickets",
-            templateUrl: "/static/html/partials/_listing_list.html",
-            controller: "HomeController"
-        })
-        .state('bedding', {
-            url: "/bedding",
-            templateUrl: "/static/html/partials/_listing_list.html",
-            controller: "HomeController"
-        })
-        .state('instrument', {
-            url: "/instrument",
-            templateUrl: "/static/html/partials/_listing_list.html",
-            controller: "HomeController"
+        .state('listing', {
+            url: "/listing/:id",
+            templateUrl: "/static/html/partials/_listing.html",
+            controller: "ListingController"
         });
 });
 
 angular.module('app').run(['DS', 'DSHttpAdapter', function(DS, DSHttpAdapter) {
   DSHttpAdapter.defaults.forceTrailingSlash = true;
 }]);
-
 
 app.factory('Listing', ['DS', function (DS) {
   return DS.defineResource({
@@ -94,14 +73,16 @@ app.factory('Seller', ['DS', function (DS) {
 }]);
 
 
-angular.module('app').controller('HomeController', ['$scope', '$window', '$location', '$anchorScroll', '$modal', 'Listing', 'Seller', function($scope, $window, $location, $anchorScroll, $modal, Listing, Seller) {
+angular.module('app').controller('ListingListController', ['$scope', '$window', '$location', '$anchorScroll', '$stateParams', '$modal', 'Listing', 'Seller', function($scope, $window, $location, $anchorScroll, $stateParams, $modal, Listing, Seller) {
+
+  console.log($stateParams);
 
   $scope.currentPage = 1;
   $scope.numPerPage = 10;
 
   $scope.filters = {
-    buy_or_sell: "sell",
-    category: 'all',
+    buy_or_sell: $stateParams.buyOrSell,
+    category: $stateParams.category,
     message__contains: ""
   };
 
@@ -123,7 +104,7 @@ angular.module('app').controller('HomeController', ['$scope', '$window', '$locat
     // Listing.bindAll($scope, 'listings', params);
   }
 
-  getListings();  
+  getListings();
 
   function scrollToTop() {
     var old = $location.hash();
@@ -132,13 +113,13 @@ angular.module('app').controller('HomeController', ['$scope', '$window', '$locat
     $location.hash(old);
   }
   
-  $scope.$watch('[filters, currentPage]', function(newVal, oldVal){
-    if (newVal === oldVal) {return;}
-    if (newVal[1] === oldVal[1]) { $scope.currentPage = 1; }
-      // console.log('changed');
-      // console.log(newVal);
-    getListings();
-  }, true);
+  // $scope.$watch('[filters, currentPage]', function(newVal, oldVal){
+  //   if (newVal === oldVal) {return;}
+  //   if (newVal[1] === oldVal[1]) { $scope.currentPage = 1; }
+  //   console.log('changed');
+  //   console.log(newVal);
+  //   getListings();
+  // }, true);
 
   $scope.$watch("listings", function (value) {//I change here
         var val = value || null;            
