@@ -73,7 +73,7 @@ class Command(BaseCommand):
             for ngram in ngrams:
                 for category, regexes in word_bank.items():
                     for reg in regexes:
-                        if re.match("\b" + reg + "\b", ngram):
+                        if re.match(r"\b" + reg + r"\b", ngram):
                             return category
 
         buy_sell_bank = {
@@ -99,7 +99,6 @@ class Command(BaseCommand):
 
         category = find_category(ngrams)
         listing.category = category
-        print "[" + str(listing.category) + "]", listing.id, listing.message.replace("\n", "")[:150]
 
         for ngram in unigrams:
             for reg, value in buy_sell_bank.items():
@@ -108,3 +107,5 @@ class Command(BaseCommand):
 
         if count > 0: listing.buy_or_sell = 'buy'
         elif count < 0: listing.buy_or_sell = 'sell'
+
+        print "[" + str(listing.category) + "," + str(listing.buy_or_sell) + "]", listing.id, listing.message.replace("\n", "")[:150]
