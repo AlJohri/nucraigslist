@@ -28,6 +28,12 @@ echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bash_profile
 source ~/.bash_profile
 ```
 
+## Setup Postgres
+```
+brew install postgresql
+# follow the caveats
+```
+
 ## Setup NUCraigslist
 ```
 mkvirtualenv nucraigslist
