@@ -1,2 +1,3 @@
 web: gunicorn freeandforsale.wsgi --log-file -
-worker: python manage.py cron
+worker: celery beat -A freeandforsale -l info
+worker: celery worker -A freeandforsale -l info

@@ -6,6 +6,14 @@ brew install npm
 npm install -g bower
 ```
 
+## Setup ruby
+```
+brew install rbenv
+# follow caveats (similar to pyenv)
+gem install foreman
+rbenv rehash
+```
+
 ## Setup python
 ```
 brew install python
@@ -53,7 +61,8 @@ git remote add production dokku@nucraigslist.com:www
 workon nucraigslist
 source .secret
 python manage.py migrate
-python manage.py runserver
+# python manage.py runserver
+foreman start
 ```
 
 ## Update Database

@@ -21,3 +21,9 @@ static3==0.5.1
 wsgiref==0.1.2
 unicodecsv==0.9.4
 nltk==3.0.0
+celery==3.1.16
+billiard==3.3.0.18
+kombu==3.0.23
+amqp==1.4.6
+anyjson==0.3.3
+django-celery==3.1.16

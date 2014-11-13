@@ -37,6 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'kombu.transport.django',
+    'djcelery',
     'tastypie',
     'listings',
 )
@@ -98,3 +100,19 @@ STATICFILES_DIRS = (
 )
 
 TASTYPIE_DEFAULT_FORMATS = ['json']
+
+# CELERY_TIMEZONE = TIME_ZONE
+BROKER_URL = 'django://'
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+CELERY_RESULT_BACKEND = 'djcelery.backends.cache:CacheBackend'
+CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+from datetime import timedelta
+
+CELERYBEAT_SCHEDULE = {
+    'download-feed-every-5-seconds': {
+        'task': 'listings.tasks.download',
+        'schedule': timedelta(seconds=5),
+        'args': ()
+    },
+}
