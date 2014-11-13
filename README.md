@@ -97,4 +97,5 @@ git push staging branch:master
 ## Running Dokku Commands from Client
 ```
 ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku config:set staging KEY=VALUE
+ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku logs www
 ```
