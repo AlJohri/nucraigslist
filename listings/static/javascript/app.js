@@ -15,7 +15,7 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $loca
     $stateProvider
         .state('listingList', {
             url: "/:buyOrSell/:category/:page",
-            templateUrl: "/static/html/partials/_new_listing_list.html",
+            templateUrl: "/static/html/partials/_listing_list.html",
             controller: "ListingListController"
         })
         .state('listing', {
@@ -40,6 +40,10 @@ angular.module('app').run(['$rootScope', '$urlRouter', '$location', '$state', '$
       // http://www.arnaldocapo.com/blog/post/google-analytics-and-angularjs-with-ui-router/72
       if (!$window.ga) return;
       $window.ga('send', 'pageview', { page: $location.path() });
+
+      // TODO: we NEEED to come up with a better solution for this
+      // hook into ui-router and figure out the state from "newUrl" variable
+      // some simple pattern matching if that doesn't work
 
       // if going from ListingList to ListingList, don't refresh!
       var isListingListController = $state.current.name === 'listingList';

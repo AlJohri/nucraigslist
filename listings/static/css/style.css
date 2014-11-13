@@ -169,6 +169,10 @@ a {
 	background-color: rgba(132, 71, 179, .7);
 }
 
+.category-button.active {
+	background-color: rgba(132, 71, 179, .7);
+}
+
 #pagination {
 	text-align: center;
 }
