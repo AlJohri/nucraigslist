@@ -112,7 +112,7 @@ from datetime import timedelta
 CELERYBEAT_SCHEDULE = {
     'download-feed-every-5-seconds': {
         'task': 'listings.tasks.download',
-        'schedule': timedelta(seconds=5),
+        'schedule': timedelta(seconds=60),
         'args': ()
     },
 }
