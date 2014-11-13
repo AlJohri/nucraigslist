@@ -158,6 +158,8 @@ angular.module('app').controller('ListingListController', ['$scope', '$window', 
     params.order_by="-updated_time";
     Listing.findAll(params, { bypassCache: true }).then(function(data) {
       $scope.listings = data; // (hopefully) temporary, see: https://github.com/jmdobry/angular-data/issues/236#issuecomment-62346279
+      // $stateParams.page = params.page; // supposedly a fix for the total_count bug
+      // https://github.com/angular-ui/bootstrap/issues/2956#issuecomment-62983575
       $scope.listingsMeta = $rootScope.listingLastMeta;
     });
   }
