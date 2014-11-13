@@ -37,13 +37,14 @@
 	      <a href="/{{filters.buy_or_sell}}/{{category}}/{{currentPage}}"><button type="button" class="category-button" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button></a>
 	    </div>
 	  </div>
-	</div>	
+	</div>
 	<div id="listing-container">
       	<div class="listing-div">
 	      	 <p class="lead" id="poster-text"><a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a><span id="post-date-text">Posted on {{listing.created_time | date : 'MMM d, y h:mm'}}</span></p>
 	      	 <p>{{listing.message}}</p>
 	     	 <p><a href="https://www.facebook.com/357858834261047/posts/{{listing.id}}">View on Facebook</a></p>
- 			<div id="comment-div" ng-repeat="comment in comments">
+ 			<div id="comment-div" ng-repeat="comment in listing.comments">
+ 				<!-- <p>{{comment}}</p> -->
 				<p>{{comment.user.name}}: {{comment.message}}</p>
 			</div>
      	</div>

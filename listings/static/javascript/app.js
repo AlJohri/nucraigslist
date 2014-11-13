@@ -156,17 +156,17 @@ angular.module('app').controller('ListingListController', ['$scope', '$window', 
     params.offset = ($stateParams.page - 1) * $scope.numPerPage;
     params.limit = $scope.numPerPage;
     params.order_by="-updated_time";
-    Listing.findAll(params, { bypassCache: true }).then(function(data) { 
+    Listing.findAll(params, { bypassCache: true }).then(function(data) {
       $scope.listings = data; // (hopefully) temporary, see: https://github.com/jmdobry/angular-data/issues/236#issuecomment-62346279
       $scope.listingsMeta = $rootScope.listingLastMeta;
     });
   }
   getListings();
 
-  $scope.$watch('[filters, $stateParams.page]', function(newVal, oldVal){ 
-    if (newVal === oldVal) {return;} 
+  $scope.$watch('[filters, $stateParams.page]', function(newVal, oldVal){
+    if (newVal === oldVal) {return;}
     if (oldVal[1] == newVal[1]) { $stateParams.page = 1; }
-    getListings(); 
+    getListings();
   }, true);
   $scope.$watch("listings", function (value) { var val = value || null; if (val) scrollToTop(); });
 
@@ -190,18 +190,8 @@ angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalIn
 });
 
 angular.module('app').controller('ListingController', ['$scope', '$window', '$location', '$anchorScroll', '$stateParams', '$modal', 'Listing', 'Seller', 'Comment', function($scope, $window, $location, $anchorScroll, $stateParams, $modal, Listing, Seller, Comment) {
-  Listing.find($stateParams.id).then(function(data) { $scope.listing = data; });
-  function getComments(Listing) {
-    Comment.find(Listing).then(function(data) {  
-      $scope.comments = data; // (hopefully) temporary, see: https://github.com/jmdobry/angular-data/issues/236#issuecomment-62346279
-      //$scope.commentsMeta = $rootScope.commentLastMeta;
-    });
-  } 
-
-  getComments();
-
+  Listing.find($stateParams.id, {bypassCache: true}).then(function(data) { $scope.listing = data; });
   $window.$scope2 = $scope;
-
 }]);
 
 

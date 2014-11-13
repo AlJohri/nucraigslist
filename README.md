@@ -54,6 +54,7 @@ cp .secret.example .secret
 sudo chmod nucraigslist.pem 400
 cat ~/.ssh/id_rsa.pub | ssh -i nucraigslist.pem ubuntu@nucraigslist.com "sudo sshcommand acl-add dokku progrium"
 git remote add production dokku@nucraigslist.com:www
+git remote add staging dokku@nucraigslist.com:staging
 ```
 
 ## Usage
