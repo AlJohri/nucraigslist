@@ -1,6 +1,6 @@
 from tastypie.resources import ModelResource
 from tastypie import fields
-from listings.models import Listing, User
+from listings.models import Listing, User, Comment
 
 
 class UserResource(ModelResource):
@@ -8,6 +8,11 @@ class UserResource(ModelResource):
         queryset = User.objects.all()
         resource_name = 'seller'
 
+class CommentResource(ModelResource):
+    user = fields.ToOneField(UserResource, 'user', full=True)
+    class Meta:
+        queryset = Comment.objects.all()
+        resource_name = 'comment'
 
 class ListingResource(ModelResource):
     seller = fields.ToOneField(UserResource, 'seller', full=True)

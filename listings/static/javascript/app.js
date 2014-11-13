@@ -78,6 +78,12 @@ app.factory('Listing', ['DS', '$rootScope', function (DS, $rootScope) {
           localField: 'seller',
           localKey: 'sellerId'
         }
+      },
+      hasMany: {
+        comment: {
+          localField: 'comment',
+          localKey: 'commentId'
+        }
       }
     }
   });
@@ -106,7 +112,30 @@ app.factory('Seller', ['DS', '$rootScope', function (DS, $rootScope) {
   });
 }]);
 
-angular.module('app').controller('ListingListController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', '$timeout', 'Listing', 'Seller', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, $timeout, Listing, Seller) {
+app.factory('Comment', ['DS', '$rootScope', function (DS, $rootScope) {
+  return DS.defineResource({
+    name: 'comment',
+    baseUrl: '/api/v1',
+    deserialize: function(name, data) {
+      $rootScope.commentLastMeta = data.data.meta;
+      if (data.data.objects !== "undefined") {
+        return data.data.objects;
+      } else {
+        return data.data;
+      }
+    },
+    relations: {
+      belongsTo: {
+        listing: {
+          localField: 'listings',
+          foreignKey: 'listingId'
+        }
+      },
+    }
+  });
+}]);
+
+angular.module('app').controller('ListingListController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', '$timeout', 'Listing', 'Seller', 'Comment', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, $timeout, Listing, Seller, Comment) {
   $scope.listingsMeta = {};
   $scope.listingsMeta.total_count = 10000; // initialize to a large number so $stateParams.page does not get overwritten
   $scope.$location = $location;
@@ -151,6 +180,8 @@ angular.module('app').controller('ListingListController', ['$scope', '$window', 
 
   $window.Listing = Listing;
   $window.$scope1 = $scope;
+  console.log(Listing);
+  console.log(Comment);
 }]);
 
 angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
@@ -158,9 +189,22 @@ angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalIn
   $scope.cancel = function () { $modalInstance.dismiss('cancel'); };
 });
 
-angular.module('app').controller('ListingController', ['$scope', '$window', '$location', '$anchorScroll', '$stateParams', '$modal', 'Listing', 'Seller', function($scope, $window, $location, $anchorScroll, $stateParams, $modal, Listing, Seller) {
-  Listing.find($stateParams.id).then(function(data) { $scope.listing = data; });
+angular.module('app').controller('ListingController', ['$scope', '$window', '$location', '$anchorScroll', '$stateParams', '$modal', 'Listing', 'Seller', 'Comment', function($scope, $window, $location, $anchorScroll, $stateParams, $modal, Listing, Seller, Comment) {
+
+  var this_listing = Listing.find($stateParams.id).then(function(data) { $scope.listing = data; });
+
+ function getComments(Listing) {
+    var listing_id = this_listing.id;
+    Comment.findAll(this_listing, { bypassCache: true }).then(function(data) { 
+      $scope.comments = data; // (hopefully) temporary, see: https://github.com/jmdobry/angular-data/issues/236#issuecomment-62346279
+      //$scope.commentsMeta = $rootScope.commentLastMeta;
+    });
+  } 
+
+  getComments();
+
   $window.$scope2 = $scope;
+
 }]);
 
 

@@ -203,6 +203,10 @@ a {
 	margin-left: auto;
 }
 
+#comment-div {
+	border-top: 2px solid #E0E0E0;
+}
+
 
 .footer {
   position: absolute;
