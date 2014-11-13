@@ -10,13 +10,16 @@ class UserResource(ModelResource):
 
 class CommentResource(ModelResource):
     user = fields.ToOneField(UserResource, 'user', full=True)
+    #listing = fields.ToOneField(ListingResource, 'listing' ,full=True)
+
+   #bundle.data['commentId'] = bundle.data['comment'].data['id']
     class Meta:
         queryset = Comment.objects.all()
         resource_name = 'comment'
 
 class ListingResource(ModelResource):
     seller = fields.ToOneField(UserResource, 'seller', full=True)
-
+    comment = fields.ToManyField(CommentResource, 'comment', full=True, null=True)
     def dehydrate(self, bundle):
         bundle.data['sellerId'] = bundle.data['seller'].data['id']
         return bundle
@@ -34,4 +37,6 @@ class ListingResource(ModelResource):
             "message": ('icontains',),
         }
         ordering = ['updated_time', 'created_time']
+
+
 

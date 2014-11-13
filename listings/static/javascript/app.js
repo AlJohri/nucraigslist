@@ -190,12 +190,9 @@ angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalIn
 });
 
 angular.module('app').controller('ListingController', ['$scope', '$window', '$location', '$anchorScroll', '$stateParams', '$modal', 'Listing', 'Seller', 'Comment', function($scope, $window, $location, $anchorScroll, $stateParams, $modal, Listing, Seller, Comment) {
-
-  var this_listing = Listing.find($stateParams.id).then(function(data) { $scope.listing = data; });
-
- function getComments(Listing) {
-    var listing_id = this_listing.id;
-    Comment.findAll(this_listing, { bypassCache: true }).then(function(data) { 
+  Listing.find($stateParams.id).then(function(data) { $scope.listing = data; });
+  function getComments(Listing) {
+    Comment.find(Listing).then(function(data) {  
       $scope.comments = data; // (hopefully) temporary, see: https://github.com/jmdobry/angular-data/issues/236#issuecomment-62346279
       //$scope.commentsMeta = $rootScope.commentLastMeta;
     });
