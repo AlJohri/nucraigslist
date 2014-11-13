@@ -40,5 +40,5 @@ class Comment(models.Model):
 	message = models.TextField(null=False, blank=True, default="")
 	pub_date = models.DateTimeField('date published')
 	user = models.ForeignKey(User)
-	listing = models.ForeignKey(Listing)
+	listing = models.ForeignKey(Listing, related_name="comments")
 

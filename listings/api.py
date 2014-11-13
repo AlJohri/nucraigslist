@@ -19,7 +19,8 @@ class CommentResource(ModelResource):
 
 class ListingResource(ModelResource):
     seller = fields.ToOneField(UserResource, 'seller', full=True)
-    comment = fields.ToManyField(CommentResource, 'comment', full=True, null=True)
+    comments = fields.ToManyField(CommentResource, 'comments', full=True, full_list=False, full_detail=True, null=True)
+
     def dehydrate(self, bundle):
         bundle.data['sellerId'] = bundle.data['seller'].data['id']
         return bundle
