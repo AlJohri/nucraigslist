@@ -58,9 +58,13 @@ python manage.py runserver
 
 ## Update Database
 ```
-python manage.py download && python manage.py parse --dl
-git commit -am "database update" # until we move to postgres
-git push heroku master
+# staging
+ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku run staging python manage.py download
+ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku run staging python manage.py parse
+
+# production
+ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku run www python manage.py download
+ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku run www python manage.py parse
 ```
 
 ## After Changing Models
@@ -93,6 +97,4 @@ git push staging branch:master
 ## Running Dokku Commands from Client
 ```
 ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku config:set staging KEY=VALUE
-ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku run staging python manage.py download
-ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku run staging python manage.py parse
 ```
