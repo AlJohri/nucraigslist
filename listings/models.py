@@ -29,16 +29,16 @@ class Listing(models.Model):
 
 	sold = models.BooleanField(default=False)
 
-	def url(self):
-		return self.BASE_URL + self.id
+	def url(self): return self.BASE_URL + self.id
 
 class Comment(models.Model):
 
 	def __unicode__(self):
 		return self.message or u'No Text'
 
+	id = models.BigIntegerField(primary_key=True)
 	message = models.TextField(null=False, blank=True, default="")
-	pub_date = models.DateTimeField('date published')
+	created_time = models.DateTimeField('date published')
 	user = models.ForeignKey(User)
 	listing = models.ForeignKey(Listing, related_name="comments")
 
