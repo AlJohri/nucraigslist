@@ -48,7 +48,7 @@
 	</div>
 	 <div id="categories" class="hidden-xs">
 	  <div class="btn-group-vertical" id="cat-buttons-container">
-	    <div ng-repeat="category in categories">
+	    <div ng-repeat="category in categories | orderBy:category">
 	      <a href="/{{filters.buy_or_sell}}/{{category}}/1"><button type="button" class="category-button" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button></a>
 	    </div>
 	  </div>
