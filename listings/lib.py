@@ -43,19 +43,19 @@ def get_fb_graph_api():
 def save_obj(listing_obj):
     # print "-----------------------------------------------------"
     # print listing_obj['id'], listing_obj['updated_time'], listing_obj['updated_time'] #, listing_obj['message']
-    
+
     listing_obj['id'] = listing_obj['id'].split("_")[-1]
     listing_obj['created_time'] = parse(listing_obj['created_time'])
     listing_obj['updated_time'] = parse(listing_obj['updated_time'])
 
-    user = User.objects.filter(id=listing_obj['from']['id']).first() or User.objects.create(id=listing_obj['from']['id'], name = listing_obj['from']['id'])
+    user = User.objects.filter(id=listing_obj['from']['id']).first() or User.objects.create(id=listing_obj['from']['id'], name = listing_obj['from']['name'])
     listing = Listing.objects.filter(id=listing_obj['id']).first() or Listing.objects.create(id = listing_obj['id'], message = listing_obj.get('message'), created_time = listing_obj['created_time'], updated_time = listing_obj['updated_time'], seller = user)
 
     print "[listing] %s - %s" % (user, listing)
 
     for comment_obj in listing_obj.get('comments', {}).get('data', []):
         comment_obj['created_time'] = parse(comment_obj['created_time'])
-        commenter = User.objects.filter(id=comment_obj['from']['id']).first() or User.objects.create(id=comment_obj['from']['id'], name = comment_obj['from']['id'])
+        commenter = User.objects.filter(id=comment_obj['from']['id']).first() or User.objects.create(id=comment_obj['from']['id'], name = comment_obj['from']['name'])
         comment = Comment.objects.filter(id=comment_obj['id']).first() or Comment.objects.create(id = comment_obj['id'], message = comment_obj.get('message'), created_time = comment_obj['created_time'], user = commenter, listing = listing)
 
         print "[comment] %s - %s" % (commenter, comment)
