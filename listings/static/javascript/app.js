@@ -78,6 +78,12 @@ app.factory('Listing', ['DS', '$rootScope', function (DS, $rootScope) {
           localField: 'seller',
           localKey: 'sellerId'
         }
+      },
+      hasMany: {
+        comment: {
+          localField: 'comment',
+          localKey: 'commentId'
+        }
       }
     }
   });
@@ -106,7 +112,30 @@ app.factory('Seller', ['DS', '$rootScope', function (DS, $rootScope) {
   });
 }]);
 
-angular.module('app').controller('ListingListController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', '$timeout', 'Listing', 'Seller', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, $timeout, Listing, Seller) {
+app.factory('Comment', ['DS', '$rootScope', function (DS, $rootScope) {
+  return DS.defineResource({
+    name: 'comment',
+    baseUrl: '/api/v1',
+    deserialize: function(name, data) {
+      $rootScope.commentLastMeta = data.data.meta;
+      if (data.data.objects !== "undefined") {
+        return data.data.objects;
+      } else {
+        return data.data;
+      }
+    },
+    relations: {
+      belongsTo: {
+        listing: {
+          localField: 'listings',
+          foreignKey: 'listingId'
+        }
+      },
+    }
+  });
+}]);
+
+angular.module('app').controller('ListingListController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', '$timeout', 'Listing', 'Seller', 'Comment', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, $timeout, Listing, Seller, Comment) {
   $scope.listingsMeta = {};
   $scope.listingsMeta.total_count = 10000; // initialize to a large number so $stateParams.page does not get overwritten
   $scope.$location = $location;
@@ -127,17 +156,19 @@ angular.module('app').controller('ListingListController', ['$scope', '$window', 
     params.offset = ($stateParams.page - 1) * $scope.numPerPage;
     params.limit = $scope.numPerPage;
     params.order_by="-updated_time";
-    Listing.findAll(params, { bypassCache: true }).then(function(data) { 
+    Listing.findAll(params, { bypassCache: true }).then(function(data) {
       $scope.listings = data; // (hopefully) temporary, see: https://github.com/jmdobry/angular-data/issues/236#issuecomment-62346279
+      // $stateParams.page = params.page; // supposedly a fix for the total_count bug
+      // https://github.com/angular-ui/bootstrap/issues/2956#issuecomment-62983575
       $scope.listingsMeta = $rootScope.listingLastMeta;
     });
   }
   getListings();
 
-  $scope.$watch('[filters, $stateParams.page]', function(newVal, oldVal){ 
-    if (newVal === oldVal) {return;} 
+  $scope.$watch('[filters, $stateParams.page]', function(newVal, oldVal){
+    if (newVal === oldVal) {return;}
     if (oldVal[1] == newVal[1]) { $stateParams.page = 1; }
-    getListings(); 
+    getListings();
   }, true);
   $scope.$watch("listings", function (value) { var val = value || null; if (val) scrollToTop(); });
 
@@ -151,6 +182,8 @@ angular.module('app').controller('ListingListController', ['$scope', '$window', 
 
   $window.Listing = Listing;
   $window.$scope1 = $scope;
+  console.log(Listing);
+  console.log(Comment);
 }]);
 
 angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
@@ -158,8 +191,8 @@ angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalIn
   $scope.cancel = function () { $modalInstance.dismiss('cancel'); };
 });
 
-angular.module('app').controller('ListingController', ['$scope', '$window', '$location', '$anchorScroll', '$stateParams', '$modal', 'Listing', 'Seller', function($scope, $window, $location, $anchorScroll, $stateParams, $modal, Listing, Seller) {
-  Listing.find($stateParams.id).then(function(data) { $scope.listing = data; });
+angular.module('app').controller('ListingController', ['$scope', '$window', '$location', '$anchorScroll', '$stateParams', '$modal', 'Listing', 'Seller', 'Comment', function($scope, $window, $location, $anchorScroll, $stateParams, $modal, Listing, Seller, Comment) {
+  Listing.find($stateParams.id, {bypassCache: true}).then(function(data) { $scope.listing = data; });
   $window.$scope2 = $scope;
 }]);
 

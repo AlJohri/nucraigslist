@@ -2,11 +2,12 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 from tastypie.api import Api
-from listings.api import ListingResource, UserResource
+from listings.api import ListingResource, UserResource, CommentResource
 
 v1_api = Api(api_name='v1')
 v1_api.register(UserResource())
 v1_api.register(ListingResource())
+v1_api.register(CommentResource())
 
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
