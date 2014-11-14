@@ -1,0 +1,104 @@
+------------------------------------------------------------------------
+
+people with the most number of listings
+
+SELECT u.name, count(u.name) FROM listings_user u INNER JOIN listings_listing l ON l.seller_id = u.id GROUP BY u.name ORDER BY count(u.name) DESC;
+
+              name               | count
+---------------------------------+-------
+ S.r. Robinson                   |    68
+ Jesus Leon                      |    68
+ Sarah Daoud                     |    51
+ Vickie Johnson                  |    31
+ Kashif Malik                    |    28
+ Leah Jones                      |    26
+ Donna Hassani                   |    24
+ 셰리홍                            |    23
+ Sue Chuang                      |    23
+ Joanne Bof Yi                   |    21
+
+------------------------------------------------------------------------
+
+people with the most number of listings that are categorized as "buy"
+
+SELECT u.name, u.id, count(u.name) from listings_user u INNER JOIN listings_listing l ON l.seller_id = u.id WHERE l.buy_or_sell='buy' GROUP BY u.name, u.id ORDER BY count(u.name) DESC;
+
+             name             |        id         | count
+------------------------------+-------------------+-------
+ Chi Lily Nwanah              | 10152729105591530 |    12
+ 셰리홍                       | 10203853927582906 |    11
+ Sarah Daoud                  | 10152461199712972 |    10
+ Jesus Leon                   | 10152466121342462 |     9
+ Garry Sandhu                 | 10154670870320162 |     8
+ Ariana Steele                |   970216156337569 |     7
+ Kenny Chen                   | 10152816777747028 |     7
+ Joanne Bof Yi                | 10153236848477538 |     7
+ Adriana Stanovici            |     2601693878496 |     7
+ Jackie Citrin Pober          | 10152793920074421 |     6
+ Alex Benfield                | 10202895610526939 |     6
+ Kendra Hertz                 | 10153764246667925 |     6
+ Jsn Guo                      | 10152445703975954 |     6
+ Sadhvika Agrawal             | 10152833738384575 |     6
+ Jonathan Kim                 | 10154670056630261 |     6
+ Joyce Long                   | 10203143696093044 |     6
+ Zhe Dong                     |   488078801335142 |     6
+ Lynn Lochlynn                | 10204869184789747 |     6
+ Sven Wang                    | 10204260223418133 |     6
+ Ronak Patel                  | 10152544362103171 |     5
+ Meghan Lamberth              | 10203037763687589 |     5
+ Chandler Dutton              |   926530327376676 |     5
+ Sobeida Peralta              | 10204913434824539 |     5
+ Karan Goenka                 | 10152671099235862 |     5
+ Christine Oh                 | 10202976495841398 |     5
+ Dan Handler                  | 10152241039001116 |     5
+ Sarah Bridgewaters           | 10152769895581798 |     5
+ Daniel Hurwitz               | 10153353641513018 |     5
+ Marlee Rose Rich             | 10203325490918529 |     5
+ Tasha Heryla                 | 10204978097841552 |     5
+
+------------------------------------------------------------------------
+
+people with the most number of listings that are categorized as "sell"
+
+SELECT u.name, u.id, count(u.name) from listings_user u INNER JOIN listings_listing l ON l.seller_id = u.id WHERE l.buy_or_sell='sell' GROUP BY u.name, u.id ORDER BY count(u.name) DESC;
+
+             name             |        id         | count
+------------------------------+-------------------+-------
+ S.r. Robinson                |   741164005920741 |    61
+ Jesus Leon                   | 10152466121342462 |    56
+ Sarah Daoud                  | 10152461199712972 |    39
+ Vickie Johnson               | 10203104158541736 |    26
+ Donna Hassani                | 10152666612444724 |    24
+ Sue Chuang                   | 10152325671292447 |    22
+ Maria Belen Rojas            | 10152331950497343 |    21
+ Sophia Kim                   | 10203849484130962 |    19
+ Leng May Low                 | 10154702227055612 |    19
+ Kashif Malik                 | 10154769714585393 |    18
+ Julie Windsor Mitchell       | 10101096468734685 |    17
+ Sarah Hetzler                |   883750411636152 |    17
+ Elizabeth Lynn               | 10204102969788326 |    16
+ Alyssa Marie                 | 10203034241565207 |    16
+ Purbasa Patnaik              | 10152456643520765 |    15
+ Samantha Ann Egle            | 10154719603945338 |    15
+ Mariam Gomaa                 | 10205055678821986 |    15
+ Sue Kulkarni                 | 10203272362674459 |    14
+ Linda Mushrefova             | 10154763430555038 |    14
+ Leah Jones                   | 10204877667487992 |    14
+ Madeleine Steger             | 10152396859863059 |    14
+ Joanne Bof Yi                | 10153236848477538 |    14
+ Mercy Yang                   | 10152736849821894 |    14
+ Jina Park                    | 10153294477964832 |    13
+ Swati Satish                 | 10152336223241583 |    13
+ Chandler Dutton              |   926530327376676 |    13
+ Joyce Long                   | 10203143696093044 |    13
+ Amanda Uche Anumba           | 10201661447377525 |    13
+ Alina Dunbar                 | 10152728541836280 |    13
+ Kate Lee                     | 10152720035257489 |    13
+ Caitlin Mead                 | 10202982331231462 |    13
+ Donald Ho                    | 10203916898375427 |    12
+ Quentin Williams             | 10202997876815872 |    12
+ Karlyn Murphy                |     3961546874320 |    12
+ 셰리홍                       | 10203853927582906 |    12
+ Darien Rauhouse Wendell      | 10204969789395163 |    11
+ Kevin Huang                  | 10202390512354839 |    11
+ Holly Rudd                   | 10203151150883626 |    11
