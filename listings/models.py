@@ -29,8 +29,7 @@ class Listing(models.Model):
 
 	sold = models.BooleanField(default=False)
 
-	def url(self):
-		return self.BASE_URL + self.id
+	def url(self): return self.BASE_URL + self.id
 
 class Comment(models.Model):
 
@@ -38,7 +37,7 @@ class Comment(models.Model):
 		return self.message or u'No Text'
 
 	message = models.TextField(null=False, blank=True, default="")
-	pub_date = models.DateTimeField('date published')
+	created_time = models.DateTimeField('date published')
 	user = models.ForeignKey(User)
 	listing = models.ForeignKey(Listing)
 
