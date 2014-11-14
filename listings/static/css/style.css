@@ -52,6 +52,7 @@ a {
 	display: inline-block;
 	position: fixed;
 	z-index: 10;
+	width: 100%;
 }
 
 #nav-inner {
@@ -63,6 +64,46 @@ a {
 	padding-bottom: 15px;
 }
 
+#dropdown-button button{
+	height: 100%;
+	background: transparent;
+	border: none;
+	color: #eee;
+}
+
+#dropdown-button button:focus{
+	outline: none;
+}
+
+#dropdown-div{
+	text-align: right;
+	float: right;
+}
+
+#dropdown-nav{
+	z-index: 10;
+	margin-top: -20px;
+	position: fixed;
+	float: left;
+	width: 100%;
+	display: none;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+#dropdown-nav a{
+	text-decoration: none;
+	font-size: 20pt;
+	color: #cecece;
+}
+
+#dropdown-nav a:hover{
+	color: #FFBD4A;
+}
+
+#dropdown-nav ul{
+	padding-left: 0px;
+}
+
 #buy-sell-buttons {
 	width: 25%;
 	margin-right: 50px;
@@ -70,6 +111,12 @@ a {
 	height: auto;
 	height: 45px;
 	background-color: none;
+}
+
+#sm-buy-sell-buttons {
+	width: 100%;
+	height: 100%;
+	margin-right: 10px;
 }
 
 .buy-sell-button{
@@ -81,8 +128,22 @@ a {
 	text-align: center;
 }
 
+.sm-buy-sell-button {
+	width: 33.3%;
+	height: auto;
+	background-color: rgba(0,0,0,0);
+	border: none;
+	color: rgba(255, 255, 255, .7);
+	text-align: center;
+}
+
 .buy-sell-button.active {
 	background-color: rgba(255, 255, 255, .9);
+}
+
+.sm-buy-sell-button.active {
+	color: black;
+	background-color: rgba(255, 255, 255, .7);
 }
 
 #search-bar {
@@ -94,9 +155,19 @@ a {
 #categories {
 	float: left;
 	/*position: fixed;*/
-	width: 120px;
+	width: 10%;
 	margin-bottom: 200px;
 	margin-left: 5%;
+}
+
+#sm-vert-button-grp {
+	height: 100%;
+	display: table;
+	table-layout: fixed;
+}
+
+#sm-categories {
+    width: 100%;
 }
 
 #cat-buttons-container {
@@ -147,8 +218,14 @@ a {
 .listing-text {
 	padding-top: 5px;
 	font-size: 1em;
+	word-wrap: break-word;
 }
 
+.sm-category-div {
+	display: table-row;
+	width: 100%;
+	line-height: normal;
+}
 .category-button {
 	background-color: rgba(0,0,0,0);
 	border: none;
@@ -171,6 +248,26 @@ a {
 
 .category-button.active {
 	background-color: rgba(132, 71, 179, .7);
+}
+
+.sm-category-button {
+	background-color: rgba(0,0,0,0);
+	border: none;
+	color: rgba(255, 255, 255, .7);
+	text-align: left;
+	height: auto;
+	font-size: 1em;
+	display: table-cell;
+}
+
+.sm-category-button a{
+	text-decoration: none;
+}
+
+
+.sm-category-button.active {
+	color: black;
+	background-color: rgba(255, 255, 255, .7);
 }
 
 #pagination {
