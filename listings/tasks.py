@@ -11,6 +11,6 @@ word_bank = get_word_bank(dl=True)
 @shared_task
 def download():
 	feed = api.get_object("357858834261047/feed")
-	for obj in feed['data']:
+	for i,obj in enumerate(feed['data']):
 		listing = save_obj(obj)
-		filter_listing(listing)
+		filter_listing(listing, word_bank, i)

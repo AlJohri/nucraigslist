@@ -3,7 +3,7 @@ from listings.models import Listing, User, Comment
 from dateutil.parser import parse
 from django.utils import timezone
 from facebook import GraphAPI, GraphAPIError
-import os, requests, csv, re, nltk
+import os, sys, requests, csv, re, nltk
 
 from nltk.tokenize import RegexpTokenizer
 
