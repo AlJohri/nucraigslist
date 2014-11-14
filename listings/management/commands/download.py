@@ -7,6 +7,8 @@ from optparse import make_option
 from listings.lib import save_obj, get_fb_graph_api
 from dateutil.parser import parse
 
+from socialscraper.facebook.graphapi import get_feed
+
 class Command(BaseCommand):
     # args = '<poll_id poll_id ...>'
     # help = 'Closes the specified poll for voting'

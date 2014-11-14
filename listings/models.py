@@ -36,6 +36,7 @@ class Comment(models.Model):
 	def __unicode__(self):
 		return self.message or u'No Text'
 
+	id = models.BigIntegerField(primary_key=True)
 	message = models.TextField(null=False, blank=True, default="")
 	created_time = models.DateTimeField('date published')
 	user = models.ForeignKey(User)
