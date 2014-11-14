@@ -12,12 +12,12 @@
 			  </div>
 		  </form>
 		</div>
-	  <div class="btn-group hidden-xs" id="buy-sell-buttons">
+	  <div class="btn-group hidden-sm hidden-xs" id="buy-sell-buttons">
 			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'all'" id="buy-sell-button">All</button></a>
 			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'buy'" id="buy-sell-button">Buying</button></a>
 			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'sell'" id="buy-sell-button">Selling</button></a>
 	  </div>
-		<div id="dropdown-div" class="visible-xs">
+		<div id="dropdown-div" class="visible-sm visible-xs">
 		    <a href="#" id="dropdown-button">
 		    	<form style="display: inline" action="#" method="get">
 			    	<button class="btn-lg button-royal" id="dropdown-button">
@@ -33,20 +33,20 @@
 
 <div id="content-container">
 	<div id="dropdown-nav" style="display: none;">				
-	  <div class="btn-group" id="xs-buy-sell-buttons">
-			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="xs-buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'all'" id="buy-sell-button">All</button></a>
-			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="xs-buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'buy'" id="buy-sell-button">Buying</button></a>
-			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="xs-buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'sell'" id="buy-sell-button">Selling</button></a>
+	  <div class="btn-group" id="sm-buy-sell-buttons">
+			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="sm-buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'all'" id="buy-sell-button">All</button></a>
+			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="sm-buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'buy'" id="buy-sell-button">Buying</button></a>
+			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="sm-buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'sell'" id="buy-sell-button">Selling</button></a>
 	  </div>
-	  	 <div id="xs-categories">
-		  <div class="btn-group-vertical" id="xs-vert-button-grp" style="width:100%;">
-		    <div ng-repeat="category in categories" class="xs-category-div">
-		      <a href="/{{filters.buy_or_sell}}/{{category}}/1"><button type="button" class="xs-category-button" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button></a>
+	  	 <div id="sm-categories">
+		  <div class="btn-group-vertical" id="sm-vert-button-grp" style="width:100%;">
+		    <div ng-repeat="category in categories" class="sm-category-div">
+		      <a href="/{{filters.buy_or_sell}}/{{category}}/1"><button type="button" class="sm-category-button" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button></a>
 		    </div>
 		  </div>
 		</div>	
 	</div>
-	 <div id="categories" class="hidden-xs">
+	 <div id="categories" class="hidden-sm hidden-xs">
 	  <div class="btn-group-vertical" id="cat-buttons-container">
 	    <div ng-repeat="category in categories | orderBy:category">
 	      <a href="/{{filters.buy_or_sell}}/{{category}}/1"><button type="button" class="category-button" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button></a>
