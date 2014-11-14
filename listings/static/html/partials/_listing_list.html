@@ -12,17 +12,41 @@
 			  </div>
 		  </form>
 		</div>
-	  <div class="btn-group" id="buy-sell-buttons">
+	  <div class="btn-group hidden-xs" id="buy-sell-buttons">
 			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'all'" id="buy-sell-button">All</button></a>
 			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'buy'" id="buy-sell-button">Buying</button></a>
 			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'sell'" id="buy-sell-button">Selling</button></a>
 	  </div>
-
+		<div id="dropdown-div" class="visible-xs">
+		    <a href="#" id="dropdown-button">
+		    	<form style="display: inline" action="#" method="get">
+			    	<button class="btn-lg button-royal" id="dropdown-button">
+			    		<span class="glyphicon glyphicon-align-justify">
+			    		</span>
+		    		</button>
+				</form>
+		    </a>
+		</div>
 	</div>
 </div>
 
+
 <div id="content-container">
-	 <div id="categories">
+	<div id="dropdown-nav" style="display: none;">				
+	  <div class="btn-group" id="xs-buy-sell-buttons">
+			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="xs-buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'all'" id="buy-sell-button">All</button></a>
+			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="xs-buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'buy'" id="buy-sell-button">Buying</button></a>
+			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="xs-buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'sell'" id="buy-sell-button">Selling</button></a>
+	  </div>
+	  	 <div id="xs-categories">
+		  <div class="btn-group-vertical" id="xs-vert-button-grp" style="width:100%;">
+		    <div ng-repeat="category in categories" class="xs-category-div">
+		      <a href="/{{filters.buy_or_sell}}/{{category}}/1"><button type="button" class="xs-category-button" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button></a>
+		    </div>
+		  </div>
+		</div>	
+	</div>
+	 <div id="categories" class="hidden-xs">
 	  <div class="btn-group-vertical" id="cat-buttons-container">
 	    <div ng-repeat="category in categories">
 	      <a href="/{{filters.buy_or_sell}}/{{category}}/1"><button type="button" class="category-button" ng-model="filters.category" btn-radio="category" style="width: 100%;">{{category}}</button></a>
@@ -35,7 +59,7 @@
 
 		  <li ng-repeat="listing in listings">
 		      	<div class="listing-div">
-		      	 <p class="lead" id="poster-text"><a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a><span id="post-date-text">Posted on {{listing.created_time | date : 'MMM d, y h:mm a'}}</span></p>
+		      	 <p class="lead" id="poster-text"><a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a><span class="hidden-xs" id="post-date-text">Posted on {{listing.created_time | date : 'MMM d, y h:mm a'}}</span></p>
 			     <p class="listing-text">{{listing.message}}</p></a>
 		     	 <p><a href="https://www.facebook.com/357858834261047/posts/{{listing.id}}">View on Facebook</a></p>
 		     	 <p><a href="/listing/{{listing.id}}">View Listing</a></p>
@@ -53,7 +77,7 @@
       </div>
       </div>
     </div>
-	</div>
+</div>
 <!-- 	<div class="footer">
 	  <div class="container">
 	    <p class="text-muted">Brought to you by <a href="mailto:al.johri@gmail.com">Al Johri</a> and <a href="mailto:andrewbayer2016@u.northwestern.edu">Andy Bayer</a></p>
