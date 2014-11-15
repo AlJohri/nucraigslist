@@ -61,6 +61,9 @@
 		      	<div class="listing-div">
 		      	 <p class="lead" id="poster-text"><a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a><span class="hidden-xs" id="post-date-text">Posted on {{listing.created_time | date : 'MMM d, y h:mm a'}}</span></p>
 			     <p class="listing-text">{{listing.message}}</p></a>
+			     <div class="img-div" ng-show="{{listing.picture_link}}">
+			     	<img class="thumbnail" src="{{listing.picture_link}}"></img>
+			     </div>
 		     	 <p><a href="https://www.facebook.com/357858834261047/posts/{{listing.id}}">View on Facebook</a></p>
 		     	 <p><a href="/listing/{{listing.id}}">View Listing</a></p>
 		      </div>

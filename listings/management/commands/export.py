@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
         with open("export.csv", 'w') as f:
             writer = csv.writer(f)
-            header = ['id', 'created_time', 'updated_time', 'category', 'text']
+            header = ['id', 'created_time', 'updated_time', 'category', 'text', 'picture_link']
             writer.writerow(header)
             for listing in Listing.objects.all():
-                writer.writerow([listing.id, listing.created_time, listing.updated_time, listing.category, listing.message])
+                writer.writerow([listing.id, listing.created_time, listing.updated_time, listing.category, listing.message, listing.picture_link])

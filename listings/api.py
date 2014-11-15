@@ -26,7 +26,7 @@ class ListingResource(ModelResource):
         return bundle
 
     class Meta:
-        queryset = Listing.objects.all()
+        queryset = Listing.objects.exclude(message="")
         resource_name = 'listing'
         allowed_methods = ['post', 'get', 'patch', 'delete']
         # authentication = Authentication()

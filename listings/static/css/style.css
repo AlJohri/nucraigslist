@@ -221,6 +221,15 @@ a {
 	word-wrap: break-word;
 }
 
+.img-div {
+	width: auto;
+}
+
+.thumbnail {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .sm-category-div {
 	display: table-row;
 	width: 100%;

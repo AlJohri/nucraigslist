@@ -34,8 +34,9 @@ class Command(BaseCommand):
         #     current_time = timezone.now().replace(tzinfo=None)
         # else:
         latest_listing_time = parse("01-1-2012")
-        current_time = Listing.objects.order_by('updated_time')[:1][0].updated_time.replace(tzinfo=None)
+        # current_time = Listing.objects.order_by('updated_time')[:1][0].updated_time.replace(tzinfo=None)
+        temp_time = parse("11-13-2014")
 
-        print "Downloading from ", latest_listing_time, "to", current_time, "in reverse chronological order (latest first)."
-        for obj in get_feed(api, "357858834261047", start=latest_listing_time, end=current_time):
+        # print "Downloading from ", latest_listing_time, "to", current_time, "in reverse chronological order (latest first)."
+        for obj in get_feed(api, "357858834261047", start=latest_listing_time, end=temp_time):
             save_obj(obj)

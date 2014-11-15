@@ -20,6 +20,7 @@ class Listing(models.Model):
 	updated_time = models.DateTimeField(null=False)
 	type = models.CharField(max_length = 6)
 	message = models.TextField(null=False, blank=True, default="")
+	picture_link = models.TextField(null=False, default="")
 
 	parsed = models.BooleanField(default=False)
 	seller = models.ForeignKey(User)

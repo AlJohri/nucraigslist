@@ -49,8 +49,8 @@ def save_obj(listing_obj):
     listing_obj['updated_time'] = parse(listing_obj['updated_time'])
 
     user = User.objects.filter(id=listing_obj['from']['id']).first() or User.objects.create(id=listing_obj['from']['id'], name = listing_obj['from']['id'])
-    listing = Listing.objects.filter(id=listing_obj['id']).first() or Listing.objects.create(id = listing_obj['id'], message = listing_obj.get('message'), created_time = listing_obj['created_time'], updated_time = listing_obj['updated_time'], seller = user)
-
+    listing = Listing.objects.filter(id=listing_obj['id']).first() or Listing.objects.create(id = listing_obj['id'], message = listing_obj.get('message', ''), created_time = listing_obj['created_time'], updated_time = listing_obj['updated_time'], seller = user, picture_link = listing_obj.get('picture', ''))
+    
     print "[listing] %s - %s" % (user, listing)
 
     for comment_obj in listing_obj.get('comments', {}).get('data', []):
