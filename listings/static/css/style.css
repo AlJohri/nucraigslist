@@ -1,5 +1,18 @@
 /* http://getbootstrap.com/examples/sticky-footer/sticky-footer.css */
 
+@media(min-width: 380px) and (max-width: 1000px) {
+	#listing-container {
+		width: 80%;
+	}
+}
+
+@media(min-width: 1000px) {
+	#listing-container {
+		width: 60%;
+	}
+}
+
+
 html {
   position: relative;
   min-height: 100%;
@@ -183,7 +196,7 @@ a {
 }
 
 #listing-container {
-	width: 50%;
+	/*width: 50%;*/
 	margin-left: auto;
 	margin-right: auto;
 	height: 100%;
