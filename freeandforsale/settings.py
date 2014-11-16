@@ -64,7 +64,10 @@ WSGI_APPLICATION = 'freeandforsale.wsgi.application'
 import dj_database_url
 
 DATABASES = {}
-DATABASES['default'] = dj_database_url.config() or dj_database_url.parse('postgres://postgres:postgres@localhost:5432/nucraigslist')
+DATABASES['default'] = dj_database_url.config(env='DATABASE_URL') or dj_database_url.parse('postgres://postgres:postgres@localhost:5432/nucraigslist')
+DATABASES['production'] = dj_database_url.config(env='DATABASE_PRODUCTION_URL')
+DATABASES['staging'] = dj_database_url.config(env='DATABASE_STAGING_URL')
+
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
 
