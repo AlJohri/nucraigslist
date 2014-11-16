@@ -116,3 +116,29 @@ python manage.py flush
 python manage.py flush --database=staging
 python manage.py flush --database=production
 ```
+
+## Backup Database
+```
+# data only
+pg_dump --no-owner --data-only --schema=public nucraigslist > latest.dump.txt
+
+# with create statements
+pg_dump --no-owner --schema=public nucraigslist > latest.dump.txt
+```
+
+## Seed Database
+```
+cat latest.dump.txt | python manage.py dbshell
+cat latest.dump.txt | python manage.py dbshell --database=staging
+cat latest.dump.txt | python manage.py dbshell --database=production
+```
+
+## Reset Database
+```
+# backup must be data only
+python manage.py flush && cat latest.dump.txt | python manage.py dbshell
+
+# YOU MUST STOP THE APP BEFORE RUNNING THESE COMMANDS AS OF NOW. THE AUTO-DOWNLOADER WILL DOWNLOAD POSTS WHILE THE RESTORE OCCURS CAUSING THE RESTORE TO ERROR OUT. WE CANNOT PAUSE THE DOWNLOADER REMOTELY DUE TO THIS: http://celery.readthedocs.org/en/latest/getting-started/brokers/django.html.
+python manage.py flush --database=staging && cat latest.dump.txt | PGPASSWORD='' python manage.py dbshell --database=staging
+python manage.py flush --database=production && cat latest.dump.txt | PGPASSWORD='' python manage.py dbshell --database=production
+```
