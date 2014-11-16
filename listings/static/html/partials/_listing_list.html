@@ -55,20 +55,22 @@
 	</div>	
 	<div id="listing-container">
 		<ul class="list-unstyled"> <!-- style="height: 600px; overflow: scroll;" -->
-		<a href="/#/listing/{{listing.id}}">
-
-		  <li ng-repeat="listing in listings">
+		  <li ng-repeat="listing in listings" class="posting-list">
 		      	<div class="listing-div">
-		      	 <p class="lead" id="poster-text"><a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a><span class="hidden-xs" id="post-date-text">Posted on {{listing.created_time | date : 'MMM d, y h:mm a'}}</span></p>
-			     <p class="listing-text">{{listing.message}}</p></a>
-			     <div class="img-div" ng-show="{{listing.picture_link}}">
-			     	<img class="thumbnail" src="{{listing.picture_link}}"></img>
-			     </div>
-		     	 <p><a href="https://www.facebook.com/357858834261047/posts/{{listing.id}}">View on Facebook</a></p>
-		     	 <p><a href="/listing/{{listing.id}}">View Listing</a></p>
-		      </div>
+		      		<div class="listing-content">
+					     <div class="listing-text">
+					      	 <p class="lead" id="poster-text"><a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a><span class="hidden-xs" id="post-date-text">Posted on {{listing.created_time | date : 'MMM d, y h:mm a'}}</span></p>
+						     <p class="listing-message">{{listing.message}}</p></a>
+      					     <div class="img-div" >
+						     	<img class="image-thumbnail" src="{{listing.picture_link}}"></img>
+						     </div>
+						   	 <div class="listing-links">
+						     	 <p><a href="/listing/{{listing.id}}">View Listing</a> &middot <a href="https://www.facebook.com/357858834261047/posts/{{listing.id}}">View on Facebook</a></p>
+					      	</div>
+					      </div>
+			        </div>
+			    </div>
 		  </li>
-		</a>
 		</ul>
 		<div id="pagination">
         <div class="visible-xs-block">

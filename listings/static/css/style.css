@@ -157,7 +157,7 @@ a {
 	/*position: fixed;*/
 	width: 10%;
 	margin-bottom: 200px;
-	margin-left: 5%;
+	margin-left: 10%;
 }
 
 #sm-vert-button-grp {
@@ -183,7 +183,7 @@ a {
 }
 
 #listing-container {
-	width: 70%;
+	width: 50%;
 	margin-left: auto;
 	margin-right: auto;
 	height: 100%;
@@ -194,6 +194,10 @@ a {
 	padding-left: 0px;
 } 
 
+.posting-list {
+	height: auto;
+}
+
 .listing-div {
 	background-color: #FFFFFF;
 	padding-top: 10px;
@@ -203,9 +207,14 @@ a {
 	margin-left: 0px;
 	margin-right: 50px;
 	margin-bottom: 10px;
-	height: auto;
 	width: 90%;
+	height: 100%;
 	margin-left: auto;
+}
+
+.listing-content {
+	display: table;
+	width: 100%;
 }
 
 .listing-div p {
@@ -217,18 +226,31 @@ a {
 }
 
 .listing-text {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
+
+.listing-message { 
 	padding-top: 5px;
 	font-size: 1em;
 	word-wrap: break-word;
+	width: 100%;
+}
+
+.listing-links {
+
 }
 
 .img-div {
-	width: auto;
+	width: 100%;
+	text-align: center;
 }
 
-.thumbnail {
-	margin-left: auto;
-	margin-right: auto;
+.image-thumbnail {
+	margin-bottom: 0px;
+	height: auto;
+	display: inline-block;
 }
 
 .sm-category-div {
@@ -292,6 +314,7 @@ a {
 
 #poster-text {
 	margin-bottom: 0px;
+	width: 100%;
 }
 
 
