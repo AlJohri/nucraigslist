@@ -1,5 +1,14 @@
 from django.db import models
 
+class Group(models.Model):
+
+	def __unicode__(self):
+		return self.name
+
+	id = models.BigIntegerField(primary_key=True)
+	name = models.CharField(max_length = 100)
+	school = models.CharField(max_length = 100)
+
 class User(models.Model):
 
 	def __unicode__(self):
@@ -27,6 +36,8 @@ class Listing(models.Model):
 	approved = models.BooleanField(default=False)
 	buy_or_sell = models.CharField(max_length = 4, null=True)
 	category = models.CharField(max_length = 15, null=True)
+
+	group = models.ForeignKey(Group)
 
 	sold = models.BooleanField(default=False)
 

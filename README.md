@@ -142,3 +142,8 @@ python manage.py flush && cat latest.dump.txt | python manage.py dbshell
 python manage.py flush --database=staging && cat latest.dump.txt | PGPASSWORD='' python manage.py dbshell --database=staging
 python manage.py flush --database=production && cat latest.dump.txt | PGPASSWORD='' python manage.py dbshell --database=production
 ```
+
+## Create Initial Seed Data
+```
+python manage.py dumpdata listings.group > listings/fixtures/initial_data.json
+```

@@ -1,0 +1,34 @@
+[
+    {
+        "fields": {
+            "name": "Textbook Exchange",
+            "school": "Northwestern University"
+        },
+        "model": "listings.group",
+        "pk": 357858800927717
+    },
+    {
+        "fields": {
+            "name": "Housing",
+            "school": "Northwestern University"
+        },
+        "model": "listings.group",
+        "pk": 357858827594381
+    },
+    {
+        "fields": {
+            "name": "Free & For Sale",
+            "school": "Northwestern University"
+        },
+        "model": "listings.group",
+        "pk": 357858834261047
+    },
+    {
+        "fields": {
+            "name": "NU Closet Recycle",
+            "school": "Northwestern University"
+        },
+        "model": "listings.group",
+        "pk": 633074646739463
+    }
+]

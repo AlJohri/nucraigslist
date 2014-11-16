@@ -49,9 +49,10 @@ COPY django_content_type (id, name, app_label, model) FROM stdin;
 16	task	djcelery	taskstate
 17	api access	tastypie	apiaccess
 18	api key	tastypie	apikey
-19	user	listings	user
-20	listing	listings	listing
-21	comment	listings	comment
+19	group	listings	group
+20	user	listings	user
+21	listing	listings	listing
+22	comment	listings	comment
 \.
 
 
@@ -114,15 +115,18 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 52	Can add api key	18	add_apikey
 53	Can change api key	18	change_apikey
 54	Can delete api key	18	delete_apikey
-55	Can add user	19	add_user
-56	Can change user	19	change_user
-57	Can delete user	19	delete_user
-58	Can add listing	20	add_listing
-59	Can change listing	20	change_listing
-60	Can delete listing	20	delete_listing
-61	Can add comment	21	add_comment
-62	Can change comment	21	change_comment
-63	Can delete comment	21	delete_comment
+55	Can add group	19	add_group
+56	Can change group	19	change_group
+57	Can delete group	19	delete_group
+58	Can add user	20	add_user
+59	Can change user	20	change_user
+60	Can delete user	20	delete_user
+61	Can add listing	21	add_listing
+62	Can change listing	21	change_listing
+63	Can delete listing	21	delete_listing
+64	Can add comment	22	add_comment
+65	Can change comment	22	change_comment
+66	Can delete comment	22	delete_comment
 \.
 
 
@@ -268,6 +272,7 @@ COPY django_migrations (id, app, name, applied) FROM stdin;
 15	listings	0010_auto_20141113_1936	2014-11-14 15:06:43.292384-05
 16	listings	0011_listing_picture_link	2014-11-14 19:46:07.96822-05
 17	listings	0012_auto_20141114_2037	2014-11-14 21:37:38.584509-05
+18	listings	0013_auto_20141116_0253	2014-11-16 03:56:44.883801-05
 \.
 
 
@@ -21106,6 +21111,18 @@ COPY listings_comment (id, created_time, listing_id, user_id, message) FROM stdi
 --
 
 SELECT pg_catalog.setval('listings_comment_id_seq', 12288, true);
+
+
+--
+-- Data for Name: listings_group; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY listings_group (id, name, school) FROM stdin;
+357858834261047	Free & For Sale	Northwestern University
+633074646739463	NU Closet Recycle	Northwestern University
+357858800927717	Textbook Exchange	Northwestern University
+357858827594381	Housing	Northwestern University
+\.
 
 
 --
