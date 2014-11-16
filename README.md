@@ -109,3 +109,10 @@ git push staging branch:master
 ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku config:set staging KEY=VALUE
 ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku logs www
 ```
+
+## Flush Database
+```
+python manage.py flush
+python manage.py flush --database=staging
+python manage.py flush --database=production
+```
