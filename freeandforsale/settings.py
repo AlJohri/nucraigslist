@@ -106,7 +106,7 @@ CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
 from datetime import timedelta
 
 CELERYBEAT_SCHEDULE = {
-    'download-feed-every-5-seconds': {
+    'download-feed-every-60-seconds': {
         'task': 'listings.tasks.download',
         'schedule': timedelta(seconds=60),
         'args': ()

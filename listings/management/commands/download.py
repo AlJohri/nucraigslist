@@ -17,7 +17,7 @@ class Command(BaseCommand):
         make_option('--recent',
             action='store_true',
             dest='recent',
-            default=True,
+            default=False,
             help='Download most recent posts'
         ),
         make_option('--backfill',
@@ -26,18 +26,13 @@ class Command(BaseCommand):
             default=False,
             help='Backfill database'
         ),
-        make_option('--incomplete',
-            action='store_true',
-            dest='incomplete',
-            default=False,
-            help='If incomplete, download from 01-1-2012 to earliest post in database.'
-        ),
     )
 
     def handle(self, *args, **options):
 
-        # hack to make "backfill" and "recent" mutually exclusive
-        if options['backfill']: options['recent'] = False
+        # mutually exclusive
+        if options['backfill'] and options['recent']: sys.exit()
+        if not options['backfill'] and not options['recent']: sys.exit()
 
         api = get_fb_graph_api()
         word_bank = get_word_bank(dl=False)
@@ -52,8 +47,9 @@ class Command(BaseCommand):
                 feed = api.get_object("%s/feed" % group.id)
                 for i,obj in enumerate(feed['data']):
                     listing, listing_created = save_obj(obj)
-                    if listing_created: filter_listing(listing, word_bank, i)
-                    print ""
+                    if listing_created:
+                        filter_listing(listing, word_bank, i)
+                        print ""
 
             elif options['backfill']:
 
@@ -67,5 +63,6 @@ class Command(BaseCommand):
                 print "Downloading from ", start, "to", end, "in reverse chronological order (latest first)."
                 for i,obj in enumerate(get_feed(api, str(group.id), start=start, end=end)):
                     listing, listing_created = save_obj(obj)
-                    if listing_created: filter_listing(listing, word_bank, i)
-                    print ""
+                    if listing_created:
+                        filter_listing(listing, word_bank, i)
+                        print ""
