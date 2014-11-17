@@ -2,6 +2,8 @@ from django.db import models
 
 class Group(models.Model):
 
+	BASE_URL = "https://www.facebook.com/groups/%s"
+
 	def __unicode__(self):
 		return self.name
 
@@ -19,7 +21,7 @@ class User(models.Model):
 
 class Listing(models.Model):
 
-	BASE_URL = "https://www.facebook.com/357858834261047/posts/"
+	BASE_URL = "https://www.facebook.com/%s/posts/%s"
 
 	def __unicode__(self):
 		return self.message or u'No Text'
@@ -29,19 +31,21 @@ class Listing(models.Model):
 	updated_time = models.DateTimeField(null=False)
 	type = models.CharField(max_length = 6)
 	message = models.TextField(null=False, blank=True, default="")
-	picture_link = models.TextField(null=False, default="")
+	picture = models.TextField(null=False, blank=True, default="")
 
 	parsed = models.BooleanField(default=False)
 	seller = models.ForeignKey(User)
 	approved = models.BooleanField(default=False)
 	buy_or_sell = models.CharField(max_length = 4, null=True)
 	category = models.CharField(max_length = 15, null=True)
+	object_id = models.BigIntegerField(null=True)
 
 	group = models.ForeignKey(Group)
+	likers = models.ManyToManyField(User, related_name="listings")
 
 	sold = models.BooleanField(default=False)
 
-	def url(self): return self.BASE_URL + self.id
+	def url(self): return self.BASE_URL % (self.group.id, self.id)
 
 class Comment(models.Model):
 

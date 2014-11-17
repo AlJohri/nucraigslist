@@ -147,3 +147,17 @@ python manage.py flush --database=production && cat latest.dump.txt | PGPASSWORD
 ```
 python manage.py dumpdata listings.group > listings/fixtures/initial_data.json
 ```
+
+## Redownload Everything
+```
+# hard reset development mode
+python manage.py reset_db --noinput
+python manage.py syncdb --noinput
+python manage.py download --backfill
+python manage.py createsuperuser --username nucraigslist
+```
+
+## Notes on Permissions
+
+Need the "user_groups" permission for any group that's permission isn't ```OPEN```.
+https://developers.facebook.com/docs/graph-api/reference/v2.2/group

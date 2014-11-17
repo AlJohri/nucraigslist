@@ -76,13 +76,13 @@ app.factory('Listing', ['DS', '$rootScope', function (DS, $rootScope) {
       belongsTo: {
         seller: {
           localField: 'seller',
-          localKey: 'sellerId'
+          localKey: 'seller_id'
         }
       },
       hasMany: {
         comment: {
           localField: 'comment',
-          localKey: 'commentId'
+          localKey: 'comment_id'
         }
       }
     }

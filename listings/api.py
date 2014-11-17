@@ -1,7 +1,11 @@
 from tastypie.resources import ModelResource
 from tastypie import fields
-from listings.models import Listing, User, Comment
+from listings.models import Listing, User, Comment, Group
 
+class GroupResource(ModelResource):
+    class Meta:
+        queryset = Group.objects.all()
+        resource_name = 'group'
 
 class UserResource(ModelResource):
     class Meta:
@@ -18,11 +22,13 @@ class CommentResource(ModelResource):
         resource_name = 'comment'
 
 class ListingResource(ModelResource):
+    group = fields.ToOneField(GroupResource, 'group', full=True)
     seller = fields.ToOneField(UserResource, 'seller', full=True)
     comments = fields.ToManyField(CommentResource, 'comments', full=True, full_list=False, full_detail=True, null=True)
 
     def dehydrate(self, bundle):
-        bundle.data['sellerId'] = bundle.data['seller'].data['id']
+        bundle.data['seller_id'] = bundle.data['seller'].data['id']
+        bundle.data['group_id'] = bundle.data['group'].data['id']
         return bundle
 
     class Meta:

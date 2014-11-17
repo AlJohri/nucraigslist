@@ -12,5 +12,5 @@ word_bank = get_word_bank(dl=True)
 def download():
 	feed = api.get_object("357858834261047/feed")
 	for i,obj in enumerate(feed['data']):
-		listing = save_obj(obj)
-		filter_listing(listing, word_bank, i)
+		listing, listing_created = save_obj(obj)
+		if listing_created: filter_listing(listing, word_bank, i)
