@@ -76,13 +76,13 @@ app.factory('Listing', ['DS', '$rootScope', function (DS, $rootScope) {
       belongsTo: {
         seller: {
           localField: 'seller',
-          localKey: 'sellerId'
+          localKey: 'seller_id'
         }
       },
       hasMany: {
         comment: {
           localField: 'comment',
-          localKey: 'commentId'
+          localKey: 'comment_id'
         }
       }
     }
@@ -155,7 +155,7 @@ angular.module('app').controller('ListingListController', ['$scope', '$window', 
     if (params.buy_or_sell == "all") {  delete params.buy_or_sell; }
     params.offset = ($stateParams.page - 1) * $scope.numPerPage;
     params.limit = $scope.numPerPage;
-    params.order_by="-updated_time";
+    params.order_by="-created_time";
     Listing.findAll(params, { bypassCache: true }).then(function(data) {
       $scope.listings = data; // (hopefully) temporary, see: https://github.com/jmdobry/angular-data/issues/236#issuecomment-62346279
       // $stateParams.page = params.page; // supposedly a fix for the total_count bug

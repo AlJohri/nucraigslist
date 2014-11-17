@@ -64,16 +64,12 @@ WSGI_APPLICATION = 'freeandforsale.wsgi.application'
 import dj_database_url
 
 DATABASES = {}
-DATABASES['default'] =  dj_database_url.config()
+DATABASES['default'] = dj_database_url.config(env='DATABASE_URL') or dj_database_url.parse('postgres://postgres:postgres@localhost:5432/nucraigslist')
+DATABASES['production'] = dj_database_url.config(env='DATABASE_PRODUCTION_URL')
+DATABASES['staging'] = dj_database_url.config(env='DATABASE_STAGING_URL')
+
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -110,7 +106,7 @@ CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
 from datetime import timedelta
 
 CELERYBEAT_SCHEDULE = {
-    'download-feed-every-5-seconds': {
+    'download-feed-every-60-seconds': {
         'task': 'listings.tasks.download',
         'schedule': timedelta(seconds=60),
         'args': ()

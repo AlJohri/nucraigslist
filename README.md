@@ -109,3 +109,55 @@ git push staging branch:master
 ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku config:set staging KEY=VALUE
 ssh -i nucraigslist.pem ubuntu@nucraigslist.com dokku logs www
 ```
+
+## Flush Database
+```
+python manage.py flush
+python manage.py flush --database=staging
+python manage.py flush --database=production
+```
+
+## Backup Database
+```
+# data only
+pg_dump --no-owner --data-only --schema=public nucraigslist > latest.dump.txt
+
+# with create statements
+pg_dump --no-owner --schema=public nucraigslist > latest.dump.txt
+```
+
+## Seed Database
+```
+cat latest.dump.txt | python manage.py dbshell
+cat latest.dump.txt | python manage.py dbshell --database=staging
+cat latest.dump.txt | python manage.py dbshell --database=production
+```
+
+## Reset Database
+```
+# backup must be data only
+python manage.py flush && cat latest.dump.txt | python manage.py dbshell
+
+# YOU MUST STOP THE APP BEFORE RUNNING THESE COMMANDS AS OF NOW. THE AUTO-DOWNLOADER WILL DOWNLOAD POSTS WHILE THE RESTORE OCCURS CAUSING THE RESTORE TO ERROR OUT. WE CANNOT PAUSE THE DOWNLOADER REMOTELY DUE TO THIS: http://celery.readthedocs.org/en/latest/getting-started/brokers/django.html.
+python manage.py flush --database=staging && cat latest.dump.txt | PGPASSWORD='' python manage.py dbshell --database=staging
+python manage.py flush --database=production && cat latest.dump.txt | PGPASSWORD='' python manage.py dbshell --database=production
+```
+
+## Create Initial Seed Data
+```
+python manage.py dumpdata listings.group > listings/fixtures/initial_data.json
+```
+
+## Redownload Everything
+```
+# hard reset development mode
+python manage.py reset_db --noinput
+python manage.py syncdb --noinput
+python manage.py download --backfill
+python manage.py createsuperuser --username nucraigslist
+```
+
+## Notes on Permissions
+
+Need the "user_groups" permission for any group that's permission isn't ```OPEN```.
+https://developers.facebook.com/docs/graph-api/reference/v2.2/group

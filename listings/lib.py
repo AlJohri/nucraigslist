@@ -40,27 +40,53 @@ def get_fb_graph_api():
 
     return api
 
+# hack, deal with this better later
+# old_long = long
+# def long(x):
+#     if x != None: old_long(x)
+#     else: None
+
 def save_obj(listing_obj):
     # print "-----------------------------------------------------"
     # print listing_obj['id'], listing_obj['updated_time'], listing_obj['updated_time'] #, listing_obj['message']
 
-    listing_obj['id'] = listing_obj['id'].split("_")[-1]
+    listing_obj['group_id'] = long(listing_obj['id'].split("_")[0])
+    listing_obj['id'] = long(listing_obj['id'].split("_")[-1])
+    listing_obj['object_id'] = long(listing_obj['object_id']) if listing_obj.get('object_id') != None else None
     listing_obj['created_time'] = parse(listing_obj['created_time'])
     listing_obj['updated_time'] = parse(listing_obj['updated_time'])
 
-    user = User.objects.filter(id=listing_obj['from']['id']).first() or User.objects.create(id=listing_obj['from']['id'], name = listing_obj['from']['id'])
-    listing = Listing.objects.filter(id=listing_obj['id']).first() or Listing.objects.create(id = listing_obj['id'], message = listing_obj.get('message', ''), created_time = listing_obj['created_time'], updated_time = listing_obj['updated_time'], seller = user, picture_link = listing_obj.get('picture', ''))
+    # import pdb; pdb.set_trace()
 
-    print "[listing] %s - %s" % (user, listing)
+    user, user_created = User.objects.update_or_create(id = listing_obj['from']['id'], name = listing_obj['from']['name'])
+    listing, listing_created = Listing.objects.update_or_create(id = listing_obj['id'], defaults = {
+        'group_id': listing_obj['group_id'],
+        'message': listing_obj.get('message', ''),
+        'created_time': listing_obj['created_time'],
+        'updated_time': listing_obj['updated_time'],
+        'seller': user,
+        'picture': listing_obj.get('picture', ''),
+        'type': listing_obj['type'],
+        'object_id': listing_obj['object_id']
+    })
+
+    if listing_created: print "[listing - %s] %s | %s - " % (listing.id, listing.updated_time, user) + unicode(listing.message[:100].replace("\n", " ")) # encode('utf-8', 'ignore').
 
     for comment_obj in listing_obj.get('comments', {}).get('data', []):
         comment_obj['created_time'] = parse(comment_obj['created_time'])
-        commenter = User.objects.filter(id=comment_obj['from']['id']).first() or User.objects.create(id=comment_obj['from']['id'], name = comment_obj['from']['name'])
-        comment = Comment.objects.filter(id=comment_obj['id']).first() or Comment.objects.create(id = comment_obj['id'], message = comment_obj.get('message'), created_time = comment_obj['created_time'], user = commenter, listing = listing)
+        commenter, commenter_created = User.objects.update_or_create(id = long(comment_obj['from']['id']), name = comment_obj['from']['name'])
+        comment, comment_created = Comment.objects.update_or_create(id = long(comment_obj['id']), message = comment_obj.get('message'), created_time = comment_obj['created_time'], user = commenter, listing = listing)
 
-        print "[comment] %s - %s" % (commenter, comment)
+        if comment_created: print "[comment - %s] %s | %s - " % (comment.id, comment.created_time, commenter) + unicode(comment.message[:100].replace("\n", " ")) # encode('utf-8', 'ignore')
 
-    return listing
+    for liker_obj in listing_obj.get('likes', {}).get('data', []):
+        liker, liker_created = User.objects.update_or_create(id=long(liker_obj['id']), name=liker_obj['name'])
+        listing.likers.add(liker)
+
+    if listing_created and listing.likers.count() >= 1:
+        print "[likers] " + ", ".join([str(x) for x in listing.likers.all()])
+
+    return listing, listing_created
 
 def filter_listing(listing, word_bank, index):
 
