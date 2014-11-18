@@ -135,7 +135,28 @@ app.factory('Comment', ['DS', '$rootScope', function (DS, $rootScope) {
   });
 }]);
 
-angular.module('app').controller('ListingListController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', '$timeout', 'Listing', 'Seller', 'Comment', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, $timeout, Listing, Seller, Comment) {
+app.factory('ListingFactory', function () {
+  var listing = {};
+
+  return {
+    get: function () {       
+      var data = JSON.parse(sessionStorage["listingData"]);
+      return data;
+    },
+
+    set: function (newCategory, newPage, newBuyOrSell) {
+      listing.category = newCategory;
+      listing.page = newPage;
+      listing.buy_or_sell = newBuyOrSell;
+
+      sessionStorage["listingData"] = JSON.stringify(listing);
+
+      return listing;
+    }
+  }
+});
+
+angular.module('app').controller('ListingListController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', '$timeout', 'Listing', 'Seller', 'Comment', 'ListingFactory', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, $timeout, Listing, Seller, Comment, ListingFactory) {
   $scope.listingsMeta = {};
   $scope.listingsMeta.total_count = 10000; // initialize to a large number so $stateParams.page does not get overwritten
   $scope.$location = $location;
@@ -151,6 +172,7 @@ angular.module('app').controller('ListingListController', ['$scope', '$window', 
   function scrollToTop() { var old = $location.hash(); $location.hash('top'); $anchorScroll(); $location.hash(old); }
   function getListings() {
     var params = angular.copy($scope.filters);
+    ListingFactory.set(params.category,$stateParams.page, params.buy_or_sell);
     if (params.category == "all") {  delete params.category; }
     if (params.buy_or_sell == "all") {  delete params.buy_or_sell; }
     params.offset = ($stateParams.page - 1) * $scope.numPerPage;
@@ -163,6 +185,7 @@ angular.module('app').controller('ListingListController', ['$scope', '$window', 
       $scope.listingsMeta = $rootScope.listingLastMeta;
     });
   }
+
   getListings();
 
   $scope.$watch('[filters, $stateParams.page]', function(newVal, oldVal){
@@ -179,7 +202,6 @@ angular.module('app').controller('ListingListController', ['$scope', '$window', 
       size: size,
     });
   };
-
   $window.Listing = Listing;
   $window.$scope1 = $scope;
   console.log(Listing);
@@ -191,10 +213,21 @@ angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalIn
   $scope.cancel = function () { $modalInstance.dismiss('cancel'); };
 });
 
-angular.module('app').controller('ListingController', ['$scope', '$window', '$location', '$anchorScroll', '$stateParams', '$modal', 'Listing', 'Seller', 'Comment', function($scope, $window, $location, $anchorScroll, $stateParams, $modal, Listing, Seller, Comment) {
-  Listing.find($stateParams.id, {bypassCache: true}).then(function(data) { $scope.listing = data; });
+angular.module('app').controller('ListingController', ['$scope', '$rootScope', '$window', '$location', '$anchorScroll', '$stateParams', '$modal', 'Listing', 'Seller', 'Comment', 'ListingFactory', function($scope, $rootScope, $window, $location, $anchorScroll, $stateParams, $modal, Listing, Seller, Comment, ListingFactory) {
+  Listing.find($stateParams.id, {bypassCache: true}).then(function(data) { 
+    $scope.listing = data;
+  });
+
+  var listingData = ListingFactory.get();
+  console.log(listingData);
+
+  $scope.category = listingData.category;
+  $scope.page = listingData.page;
+  $scope.buy_or_sell = listingData.buy_or_sell;
+
   $window.$scope2 = $scope;
 }]);
+
 
 
 // http://localhost:8000/api/v1/listing/?offset=0&limit=20&format=json

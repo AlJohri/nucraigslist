@@ -11,6 +11,7 @@
 
 <div class="nav" id="navbar">
 	<div id="nav-inner">
+		<a href="/{{buy_or_sell}}/{{category}}/{{page}}"><button type="button" class="back-button">{{category}}</button></a>
 	</div>
 </div>
 
@@ -24,17 +25,20 @@
 	</div>
 	<div id="listing-container">
       	<div class="listing-div">
-			<div class="listing-text">
-		      	 <p class="lead" id="poster-text"><a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a><span class="hidden-xs" id="post-date-text">Posted on {{listing.created_time | date : 'MMM d, y h:mm a'}}</span></p>
-			     <p class="listing-message">{{listing.message}}</p></a>
-			     <!-- <img class="image-thumbnail" src="{{listing.picture_link}}"></img> -->
-			     <div class="img-div">
-			     	<img class="image-thumbnail" src="{{listing.picture}}"></img>
-			     </div>
-			   	 <div class="listing-links">
-			     	 <p><a href="https://www.facebook.com/357858834261047/posts/{{listing.id}}">View on Facebook</a></p>
-		      	</div>
-		    </div>
+      		<div class="listing-content">
+			     <div class="listing-text">
+			      	 <p class="lead" id="poster-text"><a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a><span class="hidden-xs" id="post-date-text">Posted on {{listing.created_time | date : 'MMM d, y h:mm a'}}</span></p>
+				     <p class="listing-message">{{listing.message}}</p></a>
+					     <div class="img-div" >
+				     	<img class="image-thumbnail" src="{{listing.picture}}"></img>
+				     </div>
+				   	 <div class="listing-links">
+				     	 <p>
+				     	 	<a href="https://www.facebook.com/{{listing.group_id}}/posts/{{listing.id}}">View on {{listing.group.name}}</a>
+						</p>
+			      	</div>
+			      </div>
+	        </div>
  			<div id="comment-div" ng-repeat="comment in listing.comments">
  				<!-- <p>{{comment}}</p> -->
 				<p>{{comment.user.name}}: {{comment.message}}</p>
