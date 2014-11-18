@@ -139,12 +139,18 @@ app.factory('ListingFactory', function () {
   var listing = {};
 
   return {
-    get: function () {
-      return listing;
+    get: function () {       
+      var data = JSON.parse(sessionStorage["listingData"]);
+      return data;
     },
-    set: function (newCategory, newPage) {
+
+    set: function (newCategory, newPage, newBuyOrSell) {
       listing.category = newCategory;
       listing.page = newPage;
+      listing.buy_or_sell = newBuyOrSell;
+
+      sessionStorage["listingData"] = JSON.stringify(listing);
+
       return listing;
     }
   }
@@ -166,7 +172,7 @@ angular.module('app').controller('ListingListController', ['$scope', '$window', 
   function scrollToTop() { var old = $location.hash(); $location.hash('top'); $anchorScroll(); $location.hash(old); }
   function getListings() {
     var params = angular.copy($scope.filters);
-    ListingFactory.set(params.category,$stateParams.page);
+    ListingFactory.set(params.category,$stateParams.page, params.buy_or_sell);
     if (params.category == "all") {  delete params.category; }
     if (params.buy_or_sell == "all") {  delete params.buy_or_sell; }
     params.offset = ($stateParams.page - 1) * $scope.numPerPage;
@@ -213,9 +219,11 @@ angular.module('app').controller('ListingController', ['$scope', '$rootScope', '
   });
 
   var listingData = ListingFactory.get();
+  console.log(listingData);
 
   $scope.category = listingData.category;
   $scope.page = listingData.page;
+  $scope.buy_or_sell = listingData.buy_or_sell;
 
   $window.$scope2 = $scope;
 }]);
