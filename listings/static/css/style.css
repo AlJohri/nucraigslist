@@ -27,7 +27,7 @@ body {
 
 button {
 	float: left;
-	height: 45px;
+	height: 45px
 }
 
 a {
@@ -118,12 +118,14 @@ a {
 }
 
 .back-button {
-	width: 10%;
+	width: 30px;
 	height: 100%;
 	background-color: rgba(255,255,255,.5);
 	border: none;
 	color: black;
 	text-align: center;
+	padding-top: auto;
+	padding-bottom: auto;
 }
 
 #buy-sell-buttons {
@@ -133,6 +135,11 @@ a {
 	height: auto;
 	height: 45px;
 	background-color: none;
+}
+
+#back-glyph {
+	margin-top: auto;
+	margin-bottom: auto;
 }
 
 #sm-buy-sell-buttons {
@@ -285,6 +292,8 @@ a {
 	color: black;
 	text-align: left;
 	height: auto;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 .category-button a{
