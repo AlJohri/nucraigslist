@@ -12,6 +12,27 @@
 	}
 }
 
+@font-face {
+	font-family: 'Bebas';
+	src: url('../fonts/BebasNeue-webfont.woff') format('woff');
+	font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+	font-family: 'Oswald-Light';
+	src: url('../fonts/oswald-light-webfont.woff') format('woff');
+	font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+	font-family: 'Oswald';
+	src: url('../fonts/oswald-regular-webfont.woff') format('woff');
+	font-weight: normal;
+    font-style: normal;
+}
+
 
 html {
   position: relative;
@@ -30,6 +51,8 @@ button {
 	height: 45px
 }
 
+button:focus {outline:0 !important;}
+
 a {
 	text-decoration: none;
 }
@@ -44,6 +67,19 @@ a {
 
 #index-container {
 	height: 100%;
+		/* IE10 Consumer Preview */ 
+	background-image: -ms-linear-gradient(top, #C7FFE9 0%, #75B6EF 100%);
+	/* Mozilla Firefox */ 
+	background-image: -moz-linear-gradient(top, #C7FFE9 0%, #75B6EF 100%);
+	/* Opera */ 
+	background-image: -o-linear-gradient(top, #C7FFE9 0%, #75B6EF 100%);
+	/* Webkit (Safari/Chrome 10) */ 
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #C7FFE9), color-stop(1, #75B6EF));
+	/* Webkit (Chrome 11+) */ 
+	background-image: -webkit-linear-gradient(top, #C7FFE9 0%, #75B6EF 100%);
+	/* W3C Markup, IE10 Release Preview */ 
+	background-image: linear-gradient(to bottom, #C7FFE9 0%, #75B6EF 100%);
+	background-attachment: fixed;
 }
 
 #view-container {
@@ -55,11 +91,10 @@ a {
 	height: 100%;
 	padding: 0px;
 	display: inline-block;
-	background-color: #E0E0E0;
 }
 
 #navbar {
-	background-color: #7C008C;
+	background-color: white;
 	height: 70px;
 	float: left;
 	display: inline-block;
@@ -128,13 +163,18 @@ a {
 	padding-bottom: auto;
 }
 
+.back-button:hover {
+	border: 2px #0ACCCC solid;
+	border-radius: 30px;
+}
+
 #buy-sell-buttons {
-	width: 25%;
+	width: 40%;
 	margin-right: 50px;
 	float: right;
 	height: auto;
 	height: 45px;
-	background-color: none;
+	font-family: 'Bebas';
 }
 
 #back-glyph {
@@ -149,12 +189,17 @@ a {
 }
 
 .buy-sell-button{
-	width: 33%;
+	width: 33.3%;
 	height: 100%;
-	background-color: rgba(255,255,255,.5);
 	border: none;
-	color: black;
 	text-align: center;
+	background-color: rgba(0,0,0,0);
+	display: inline-block;
+}
+
+.buy-sell-button span {
+	font-size: 2em;
+	color: #C9C9C9;
 }
 
 .sm-buy-sell-button {
@@ -164,10 +209,18 @@ a {
 	border: none;
 	color: rgba(255, 255, 255, .7);
 	text-align: center;
+
 }
 
 .buy-sell-button.active {
-	background-color: rgba(255, 255, 255, .9);
+	background-color: rgb(255, 255, 255);
+	border: 2px #0ACCCC solid;
+	border-radius: 30px;
+	text-decoration: none;
+}
+
+.buy-sell-button.active span {
+	color: #f9704a;
 }
 
 .sm-buy-sell-button.active {
@@ -183,10 +236,11 @@ a {
 
 #categories {
 	float: left;
-	/*position: fixed;*/
+	position: fixed;
 	width: 10%;
 	margin-bottom: 200px;
 	margin-left: 10%;
+	background-color: rgb(255,255,255,0.7);
 }
 
 #sm-vert-button-grp {
@@ -205,17 +259,21 @@ a {
 }
 
 #content-container {
-	height: auto;
+	min-height: calc(100vh - 60px);
+	height: calc(auto - 60px);
 	padding-top: 90px;
 	width: 100%;
 	margin: 0px auto;
 }
+
+
 
 #listing-container {
 	/*width: 50%;*/
 	margin-left: auto;
 	margin-right: auto;
 	height: 100%;
+	/*position: relative;*/
 }
 
 #listing-container ul {
@@ -224,25 +282,22 @@ a {
 } 
 
 .posting-list {
+	margin-left: 10px;
+	margin-bottom: 20px;
 	height: auto;
 }
 
 .listing-div {
+	position: relative;
 	background-color: #FFFFFF;
-	padding-top: 10px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-bottom: 5px;
-	margin-left: 0px;
-	margin-right: 50px;
-	margin-bottom: 10px;
 	width: 90%;
 	height: 100%;
+	min-height: 134px;
 	margin-left: auto;
 }
 
 .listing-content {
-	width: 100%;
+	width: 95%;
 }
 
 .listing-div p {
@@ -254,9 +309,14 @@ a {
 }
 
 .listing-text {
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 5px;
 	display: inline-block;
 	width: 100%;
 	height: 100%;
+	overflow: hidden;
 }
 
 .listing-message { 
@@ -266,10 +326,33 @@ a {
 	width: 100%;
 }
 
-.listing-links {
+.listing-button {
+	position: absolute;
+	right: 5px;
+	top: 5%;
+	width: 5%;
+	height: 90%;
+	/*background-color: #f9704a;*/
+	text-align: center;
 
 }
 
+.listing-button span{
+	min-height: 260px;
+    width: 1em;
+    display: block;
+    top: 50%;
+    margin: -0.5em auto 0px;
+    color: black;
+
+}
+
+.listing-button:hover {
+	border: 2px #0ACCCC solid;
+	border-radius: 30px;
+}
+.listing-button:hover span{
+}
 .img-div {
 	width: 100%;
 	text-align: center;
@@ -292,8 +375,6 @@ a {
 	color: black;
 	text-align: left;
 	height: auto;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
 }
 
 .category-button a{
@@ -305,11 +386,12 @@ a {
 }
 
 .category-button:hover{
-	background-color: rgba(132, 71, 179, .7);
+	background-color: rgba(255,255,255,0.5);
 }
 
 .category-button.active {
-	background-color: rgba(132, 71, 179, .7);
+	outline: 3px rgba(255,255,255,0.8) solid;
+	border-radius: 30px;
 }
 
 .sm-category-button {
@@ -343,6 +425,7 @@ a {
 }
 
 #poster-text {
+	font-family: 'Oswald';
 	margin-bottom: 0px;
 	width: 100%;
 }
@@ -365,6 +448,7 @@ a {
 
 #comment-div {
 	padding-top: 10px;
+	padding-left: 5px;
 	border-top: 2px solid #E0E0E0;
 }
 

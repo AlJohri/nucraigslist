@@ -222,6 +222,7 @@ angular.module('app').controller('ListingController', ['$scope', '$rootScope', '
   Listing.find($stateParams.id, {bypassCache: true}).then(function(data) { 
     $scope.listing = data;
   });
+  function scrollToTop() { var old = $location.hash(); $location.hash('top'); $anchorScroll(); $location.hash(old); }
 
   var listingData = ListingFactory.get();
 
@@ -229,6 +230,7 @@ angular.module('app').controller('ListingController', ['$scope', '$rootScope', '
   $scope.page = listingData.page;
   $scope.buy_or_sell = listingData.buy_or_sell;
 
+  scrollToTop();
   $window.$scope2 = $scope;
 }]);
 

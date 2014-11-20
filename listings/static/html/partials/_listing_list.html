@@ -13,9 +13,9 @@
 		  </form>
 		</div>
 	  <div class="btn-group hidden-sm hidden-xs" id="buy-sell-buttons">
-			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'all'" id="buy-sell-button">All</button></a>
-			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'buy'" id="buy-sell-button">Buying</button></a>
-			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'sell'" id="buy-sell-button">Selling</button></a>
+			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'all'" id="buy-sell-button"><span class="button-text">All</span></button></a>
+			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'buy'" id="buy-sell-button"><span class="button-text">Buying</span></button></a>
+			<a href="/{{filters.buy_or_sell}}/{{filters.category}}/{{$stateParams.page}}"><button class="buy-sell-button" ng-model="filters.buy_or_sell" btn-radio="'sell'" id="buy-sell-button"><span class="button-text">Selling</span></button></a>
 	  </div>
 		<div id="dropdown-div" class="visible-sm visible-xs">
 		    <a href="#" id="dropdown-button">
@@ -30,6 +30,8 @@
 	</div>
 </div>
 
+<div id="bg-image">
+</div>
 
 <div id="content-container">
 	<div id="dropdown-nav" style="display: none;">				
@@ -64,13 +66,15 @@
       					     <div class="img-div" >
 						     	<img class="image-thumbnail" src="{{listing.picture}}"></img>
 						     </div>
-						   	 <div class="listing-links">
-						     	 <p><a href="/listing/{{listing.id}}">View Listing</a>
-					      	</div>
 					      </div>
 			        </div>
+			        <a href="/listing/{{listing.id}}">
+	    			    <div class="listing-button">
+	    			    	<span class="glyphicon glyphicon-chevron-right"></span>
+						</div>
+					</a>
 			    </div>
-		  </li>
+			</li>
 		</ul>
 		<div id="pagination">
         <div class="visible-xs-block">
