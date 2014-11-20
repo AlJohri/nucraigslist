@@ -22,6 +22,11 @@ angular.module('app').config(function ($stateProvider, $urlRouterProvider, $loca
             url: "/listing/:id",
             templateUrl: "/static/html/partials/_listing.html",
             controller: "ListingController"
+        })
+        .state('user', {
+            url: "/user/:id",
+            templateUrl: "/static/html/partials/_user.html",
+            controller: "UserController"
         });
 });
 
@@ -219,13 +224,19 @@ angular.module('app').controller('ListingController', ['$scope', '$rootScope', '
   });
 
   var listingData = ListingFactory.get();
-  console.log(listingData);
 
   $scope.category = listingData.category;
   $scope.page = listingData.page;
   $scope.buy_or_sell = listingData.buy_or_sell;
 
   $window.$scope2 = $scope;
+}]);
+
+angular.module('app').controller('UserController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', '$timeout', 'Listing', 'Seller', 'Comment', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, $timeout, Listing, Seller, Comment) {
+  Seller.find($stateParams.id, {bypassCache: true}).then(function(data) {
+    console.log(data);
+  });
+  $window.$scope3 = $scope;
 }]);
 
 

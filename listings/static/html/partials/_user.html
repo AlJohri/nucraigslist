@@ -1,14 +1,3 @@
-<!-- <div id="single-listing-container">
-	<div id="single-listing">
-		      	<div class="listing-div">
-		      	 <p class="lead" id="poster-text"><a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a><span id="post-date-text">Posted on {{listing.created_time | date : 'MMM d, y h:mm'}}</span></p>
-		      	 <p>{{listing.message}}</p>
-		     	 <p><a href="https://www.facebook.com/357858834261047/posts/{{listing.id}}">View on Facebook</a></p>
-		      </div>
-	</div>
-</div> -->
-
-
 <div class="nav" id="navbar">
 	<div id="nav-inner">
 		<a href="/{{buy_or_sell}}/{{category}}/{{page}}">
@@ -24,11 +13,8 @@
       	<div class="listing-div">
       		<div class="listing-content">
 			     <div class="listing-text">
-			      	 <p class="lead" id="poster-text"><a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a><span class="hidden-xs" id="post-date-text">Posted on {{listing.created_time | date : 'MMM d, y h:mm a'}}</span></p>
+			      	 <p class="lead" id="poster-text"><a href="https://www.facebook.com/{{listing.seller.id}}">{{seller.name}}</a><span class="hidden-xs" id="post-date-text">Posted on {{listing.created_time | date : 'MMM d, y h:mm a'}}</span></p>
 				     <p class="listing-message">{{listing.message}}</p></a>
-					     <div class="img-div" >
-				     	<img class="image-thumbnail" src="{{listing.picture}}"></img>
-				     </div>
 				   	 <div class="listing-links">
 				     	 <p>
 				     	 	<a href="https://www.facebook.com/{{listing.group_id}}/posts/{{listing.id}}">View on {{listing.group.name}}</a> &middot <a href="https://www.facebook.com/{{listing.seller.id}}">Contact {{listing.seller.name}}</a>
