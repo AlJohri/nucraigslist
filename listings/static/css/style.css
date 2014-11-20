@@ -391,6 +391,7 @@ a {
 
 .category-button.active {
 	outline: 3px rgba(255,255,255,0.8) solid;
+	border-radius: 30px;
 }
 
 .sm-category-button {
@@ -447,6 +448,7 @@ a {
 
 #comment-div {
 	padding-top: 10px;
+	padding-left: 5px;
 	border-top: 2px solid #E0E0E0;
 }
 

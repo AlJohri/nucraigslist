@@ -42,11 +42,11 @@
 						</p>
 			      	</div>
 			      </div>
+	       			<div id="comment-div" ng-repeat="comment in listing.comments">
+	 				<!-- <p>{{comment}}</p> -->
+						<p><a href="/user/{{comment.user.id}}">{{comment.user.name}}</a>: {{comment.message}}</p>
+					</div>
 	        </div>
- 			<div id="comment-div" ng-repeat="comment in listing.comments">
- 				<!-- <p>{{comment}}</p> -->
-				<p>{{comment.user.name}}: {{comment.message}}</p>
-			</div>
      	</div>
 	</div>
 
