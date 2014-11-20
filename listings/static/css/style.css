@@ -283,7 +283,7 @@ a {
 
 .posting-list {
 	margin-left: 10px;
-	margin-bottom: 20px;
+	/*margin-bottom: 20px;*/
 	height: auto;
 }
 
@@ -294,6 +294,7 @@ a {
 	height: 100%;
 	min-height: 134px;
 	margin-left: auto;
+	margin-bottom: 20px;
 }
 
 .listing-content {
@@ -353,9 +354,14 @@ a {
 }
 .listing-button:hover span{
 }
+
+.listing-links {
+	margin-top: 5px;
+}
 .img-div {
 	width: 100%;
 	text-align: center;
+	margin-bottom: 10px;
 }
 
 .image-thumbnail {

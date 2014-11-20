@@ -10,7 +10,7 @@ class GroupResource(ModelResource):
 class UserResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
-        resource_name = 'seller'
+        resource_name = 'user'
 
 class CommentResource(ModelResource):
     user = fields.ToOneField(UserResource, 'user', full=True)
@@ -25,6 +25,7 @@ class ListingResource(ModelResource):
     group = fields.ToOneField(GroupResource, 'group', full=True)
     seller = fields.ToOneField(UserResource, 'seller', full=True)
     comments = fields.ToManyField(CommentResource, 'comments', full=True, full_list=False, full_detail=True, null=True)
+    likers = fields.ToManyField(UserResource, 'likers', full=True, null=True)
 
     def dehydrate(self, bundle):
         bundle.data['seller_id'] = bundle.data['seller'].data['id']
