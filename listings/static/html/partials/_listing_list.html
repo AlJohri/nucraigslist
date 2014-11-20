@@ -66,6 +66,18 @@
       					     <div class="img-div" >
 						     	<img class="image-thumbnail" src="{{listing.picture}}"></img>
 						     </div>
+						     <p>
+							    <ng-pluralize count="{{listing.likers.length}}"
+						                 when="{'0': '',
+						                     '1': '1 Like',
+						                     'other': '{} Likes'}">
+								</ng-pluralize>
+								{{listing.likers.length>0 && listing.comments.length>0 ? '&middot' : ''}}
+							    <ng-pluralize count="{{listing.comments.length}}"
+						                 when="{'0': '',
+						                     '1': '1 Comment',
+						                     'other': '{} Comments'}">
+								</ng-pluralize>
 					      </div>
 			        </div>
 			        <a href="/listing/{{listing.id}}">

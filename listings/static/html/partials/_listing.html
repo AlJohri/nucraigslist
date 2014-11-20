@@ -26,20 +26,31 @@
 			     <div class="listing-text">
 			      	 <p class="lead" id="poster-text"><a href="https://www.facebook.com/{{listing.seller.id}}">{{listing.seller.name}}</a><span class="hidden-xs" id="post-date-text">Posted on {{listing.created_time | date : 'MMM d, y h:mm a'}}</span></p>
 				     <p class="listing-message">{{listing.message}}</p></a>
-					     <div class="img-div" >
+				     <div class="img-div" >
 				     	<img class="image-thumbnail" src="{{listing.picture}}"></img>
 				     </div>
+				    <ng-pluralize count="listing.likers.length"
+			                 when="{'0': '',
+			                     '1': '1 Like',
+			                     'other': '{} Likes'}">
+					</ng-pluralize>
+					{{listing.likers.length>0 && listing.comments.length>0 ? '&middot' : ''}}
+				    <ng-pluralize count="listing.comments.length"
+			                 when="{'0': '',
+			                     '1': '1 Comment',
+			                     'other': '{} Comments'}">
+					</ng-pluralize>
 				   	 <div class="listing-links">
 				     	 <p>
 				     	 	<a href="https://www.facebook.com/{{listing.group_id}}/posts/{{listing.id}}">View on {{listing.group.name}}</a> &middot <a href="https://www.facebook.com/{{listing.seller.id}}">Contact {{listing.seller.name}}</a>
 						</p>
 			      	</div>
 			      </div>
-	       			<div id="comment-div" ng-repeat="comment in listing.comments">
+		        </div>
+       			<div id="comment-div" ng-repeat="comment in listing.comments">
 	 				<!-- <p>{{comment}}</p> -->
-						<p><a href="/user/{{comment.user.id}}">{{comment.user.name}}</a>: {{comment.message}}</p>
-					</div>
-	        </div>
+					<p><a href="/user/{{comment.user.id}}">{{comment.user.name}}</a>: {{comment.message}}</p>
+				</div>
      	</div>
 	</div>
 
