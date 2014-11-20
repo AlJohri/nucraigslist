@@ -393,10 +393,11 @@ a {
 
 .category-button:hover{
 	background-color: rgba(255,255,255,0.5);
+	border-radius: 30px;
 }
 
 .category-button.active {
-	outline: 3px rgba(255,255,255,0.8) solid;
+	background-color: rgba(255,255,255,0.5);
 	border-radius: 30px;
 }
 
