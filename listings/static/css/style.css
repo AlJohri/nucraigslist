@@ -57,6 +57,10 @@ a {
 	text-decoration: none;
 }
 
+p a {
+	color: #f9704a;
+}
+
 .active {
 	background-color: #A1A1A1;
 }
@@ -106,6 +110,7 @@ a {
 	position: fixed;
 	z-index: 10;
 	width: 100%;
+	box-shadow: 0px 5px 5px rgba(0,0,0,.3);
 }
 
 #nav-inner {
@@ -126,6 +131,10 @@ a {
 
 #dropdown-button button:focus{
 	outline: none;
+}
+
+#dropdown-button span {
+	color: #f9704a;
 }
 
 #dropdown-div{
