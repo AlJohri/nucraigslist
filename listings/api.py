@@ -1,4 +1,4 @@
-from tastypie.resources import ModelResource
+from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie import fields
 from listings.models import Listing, User, Comment, Group
 
@@ -11,6 +11,11 @@ class UserResource(ModelResource):
     class Meta:
         queryset = User.objects.all()
         resource_name = 'user'
+        allowed_methods = ['post', 'get', 'patch', 'delete']
+        always_return_data = True
+        filtering = {
+            'id': ('exact',)
+        }
 
 class CommentResource(ModelResource):
     user = fields.ToOneField(UserResource, 'user', full=True)
@@ -43,6 +48,7 @@ class ListingResource(ModelResource):
             "buy_or_sell": ('exact',),
             "category": ('exact',),
             "message": ('icontains',),
+            "user": ALL_WITH_RELATIONS,
         }
         ordering = ['updated_time', 'created_time']
 
