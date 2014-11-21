@@ -235,12 +235,9 @@ angular.module('app').controller('ListingController', ['$scope', '$rootScope', '
 }]);
 
 angular.module('app').controller('UserController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', '$timeout', 'Listing', 'User', 'Comment', 'ListingFactory', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, $timeout, Listing, User, Comment, ListingFactory) {
-  User.find($stateParams.id, {bypassCache: true}).then(function(data) {
-    $scope.user = data;
-  });
+  User.find($stateParams.id);
 
   var listingData = ListingFactory.get();
-  console.log(listingData);
 
   $scope.category = listingData.category;
   $scope.page = listingData.page;
