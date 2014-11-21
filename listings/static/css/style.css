@@ -217,6 +217,10 @@ a {
 
 }
 
+.buy-sell-button:hover span{
+	color: #f9704a;	
+}
+
 .buy-sell-button.active {
 	background-color: rgb(255, 255, 255);
 	border: 2px #0ACCCC solid;
@@ -441,6 +445,10 @@ a {
 	font-family: 'Oswald';
 	margin-bottom: 0px;
 	width: 100%;
+}
+
+#poster-text a{
+	color: #f9704a;
 }
 
 

@@ -16,7 +16,7 @@ class CommentResource(ModelResource):
     user = fields.ToOneField(UserResource, 'user', full=True)
     #listing = fields.ToOneField(ListingResource, 'listing' ,full=True)
 
-   #bundle.data['commentId'] = bundle.data['comment'].data['id']
+    #bundle.data['commentId'] = bundle.data['comment'].data['id']
     class Meta:
         queryset = Comment.objects.all()
         resource_name = 'comment'
