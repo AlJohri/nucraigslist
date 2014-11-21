@@ -235,7 +235,17 @@ angular.module('app').controller('ListingController', ['$scope', '$rootScope', '
 }]);
 
 angular.module('app').controller('UserController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', '$timeout', 'Listing', 'User', 'Comment', 'ListingFactory', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, $timeout, Listing, User, Comment, ListingFactory) {
-  User.find($stateParams.id);
+  var listing_params = {
+    user__id: $stateParams.id,
+  };
+
+  Listing.findAll(listing_params).then(function(data) {
+    $scope.listings = data;
+  });
+
+  User.find($stateParams.id).then(function(data) {
+    $scope.user = data;
+  });
 
   var listingData = ListingFactory.get();
 
