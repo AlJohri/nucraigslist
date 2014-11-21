@@ -79,9 +79,9 @@ app.factory('Listing', ['DS', '$rootScope', function (DS, $rootScope) {
     },
     relations: {
       belongsTo: {
-        seller: {
-          localField: 'seller',
-          localKey: 'seller_id'
+        user: {
+          localField: 'user',
+          localKey: 'user_id'
         }
       },
       hasMany: {
@@ -94,12 +94,12 @@ app.factory('Listing', ['DS', '$rootScope', function (DS, $rootScope) {
   });
 }]);
 
-app.factory('Seller', ['DS', '$rootScope', function (DS, $rootScope) {
+app.factory('User', ['DS', '$rootScope', function (DS, $rootScope) {
   return DS.defineResource({
-    name: 'seller',
+    name: 'user',
     baseUrl: '/api/v1',
     deserialize: function(name, data) {
-      $rootScope.sellerLastMeta = data.data.meta;
+      $rootScope.userLastMeta = data.data.meta;
       if (data.data.objects !== "undefined") {
         return data.data.objects;
       } else {
@@ -110,7 +110,7 @@ app.factory('Seller', ['DS', '$rootScope', function (DS, $rootScope) {
       hasMany: {
         listing: {
           localField: 'listings',
-          foreignKey: 'sellerId'
+          foreignKey: 'userId'
         }
       },
     }
@@ -161,7 +161,7 @@ app.factory('ListingFactory', function () {
   }
 });
 
-angular.module('app').controller('ListingListController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', '$timeout', 'Listing', 'Seller', 'Comment', 'ListingFactory', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, $timeout, Listing, Seller, Comment, ListingFactory) {
+angular.module('app').controller('ListingListController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', '$timeout', 'Listing', 'User', 'Comment', 'ListingFactory', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, $timeout, Listing, User, Comment, ListingFactory) {
   $scope.listingsMeta = {};
   $scope.listingsMeta.total_count = 10000; // initialize to a large number so $stateParams.page does not get overwritten
   $scope.$location = $location;
@@ -218,7 +218,7 @@ angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalIn
   $scope.cancel = function () { $modalInstance.dismiss('cancel'); };
 });
 
-angular.module('app').controller('ListingController', ['$scope', '$rootScope', '$window', '$location', '$anchorScroll', '$stateParams', '$modal', 'Listing', 'Seller', 'Comment', 'ListingFactory', function($scope, $rootScope, $window, $location, $anchorScroll, $stateParams, $modal, Listing, Seller, Comment, ListingFactory) {
+angular.module('app').controller('ListingController', ['$scope', '$rootScope', '$window', '$location', '$anchorScroll', '$stateParams', '$modal', 'Listing', 'User', 'Comment', 'ListingFactory', function($scope, $rootScope, $window, $location, $anchorScroll, $stateParams, $modal, Listing, User, Comment, ListingFactory) {
   Listing.find($stateParams.id, {bypassCache: true}).then(function(data) { 
     $scope.listing = data;
   });
@@ -234,10 +234,18 @@ angular.module('app').controller('ListingController', ['$scope', '$rootScope', '
   $window.$scope2 = $scope;
 }]);
 
-angular.module('app').controller('UserController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', '$timeout', 'Listing', 'Seller', 'Comment', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, $timeout, Listing, Seller, Comment) {
-  Seller.find($stateParams.id, {bypassCache: true}).then(function(data) {
-    console.log(data);
+angular.module('app').controller('UserController', ['$scope', '$window', '$state', '$location', '$anchorScroll', '$stateParams', '$modal', '$rootScope', '$timeout', 'Listing', 'User', 'Comment', 'ListingFactory', function($scope, $window, $state, $location, $anchorScroll, $stateParams, $modal, $rootScope, $timeout, Listing, User, Comment, ListingFactory) {
+  User.find($stateParams.id, {bypassCache: true}).then(function(data) {
+    $scope.user = data;
   });
+
+  var listingData = ListingFactory.get();
+  console.log(listingData);
+
+  $scope.category = listingData.category;
+  $scope.page = listingData.page;
+  $scope.buy_or_sell = listingData.buy_or_sell;
+
   $window.$scope3 = $scope;
 }]);
 

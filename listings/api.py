@@ -23,12 +23,12 @@ class CommentResource(ModelResource):
 
 class ListingResource(ModelResource):
     group = fields.ToOneField(GroupResource, 'group', full=True)
-    seller = fields.ToOneField(UserResource, 'seller', full=True)
+    user = fields.ToOneField(UserResource, 'user', full=True)
     comments = fields.ToManyField(CommentResource, 'comments', full=True, full_list=False, full_detail=True, null=True)
     likers = fields.ToManyField(UserResource, 'likers', full=True, null=True)
 
     def dehydrate(self, bundle):
-        bundle.data['seller_id'] = bundle.data['seller'].data['id']
+        bundle.data['user_id'] = bundle.data['user'].data['id']
         bundle.data['group_id'] = bundle.data['group'].data['id']
         return bundle
 

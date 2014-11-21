@@ -34,7 +34,7 @@ class Listing(models.Model):
 	picture = models.TextField(null=False, blank=True, default="")
 
 	parsed = models.BooleanField(default=False)
-	seller = models.ForeignKey(User)
+	user = models.ForeignKey(User)
 	approved = models.BooleanField(default=False)
 	buy_or_sell = models.CharField(max_length = 4, null=True)
 	category = models.CharField(max_length = 15, null=True)
