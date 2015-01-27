@@ -152,4 +152,4 @@ def filter_listing(listing, word_bank, index):
     listing.parsed = True
     listing.save()
 
-    print str(index) + ": [" + str(listing.category) + "," + str(listing.buy_or_sell) + "]", listing.id, listing.message.replace("\n", "")[:150]
+    print str(index) + ": [" + str(listing.category) + "," + str(listing.buy_or_sell) + "]", listing.id, listing.message.replace("\n", "")[:150].encode('utf-8', 'ignore')
