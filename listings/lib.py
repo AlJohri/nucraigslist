@@ -58,8 +58,8 @@ def save_obj(listing_obj):
 
     # import pdb; pdb.set_trace()
 
-    user, user_created = User.objects.update_or_create(id = listing_obj['from']['id'], name = listing_obj['from']['name'])
-    listing, listing_created = Listing.objects.update_or_create(id = listing_obj['id'], defaults = {
+    user, user_created = User.objects.update_or_create(id = long(listing_obj['from']['id']), name = listing_obj['from']['name'])
+    listing, listing_created = Listing.objects.update_or_create(id = long(listing_obj['id']), defaults = {
         'group_id': listing_obj['group_id'],
         'message': listing_obj.get('message', ''),
         'created_time': listing_obj['created_time'],
