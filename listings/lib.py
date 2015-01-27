@@ -64,7 +64,7 @@ def save_obj(listing_obj):
         'message': listing_obj.get('message', ''),
         'created_time': listing_obj['created_time'],
         'updated_time': listing_obj['updated_time'],
-        'seller': user,
+        'user': user,
         'picture': listing_obj.get('picture', ''),
         'type': listing_obj['type'],
         'object_id': listing_obj['object_id']
