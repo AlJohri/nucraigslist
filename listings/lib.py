@@ -70,14 +70,14 @@ def save_obj(listing_obj):
         'object_id': listing_obj['object_id']
     })
 
-    if listing_created: print "[listing - %s] %s | %s - " % (listing.id, listing.updated_time, user) + unicode(listing.message[:100].replace("\n", " ")) # encode('utf-8', 'ignore').
+    if listing_created: print "[listing - %s] %s | %s - " % (listing.id, listing.updated_time, user) + listing.message[:100].replace("\n", " ").encode('utf-8', 'ignore')
 
     for comment_obj in listing_obj.get('comments', {}).get('data', []):
         comment_obj['created_time'] = parse(comment_obj['created_time'])
         commenter, commenter_created = User.objects.update_or_create(id = long(comment_obj['from']['id']), name = comment_obj['from']['name'])
         comment, comment_created = Comment.objects.update_or_create(id = long(comment_obj['id']), message = comment_obj.get('message'), created_time = comment_obj['created_time'], user = commenter, listing = listing)
 
-        if comment_created: print "[comment - %s] %s | %s - " % (comment.id, comment.created_time, commenter) + unicode(comment.message[:100].replace("\n", " ")) # encode('utf-8', 'ignore')
+        if comment_created: print "[comment - %s] %s | %s - " % (comment.id, comment.created_time, commenter) + comment.message[:100].replace("\n", " ").encode('utf-8', 'ignore')
 
     for liker_obj in listing_obj.get('likes', {}).get('data', []):
         liker, liker_created = User.objects.update_or_create(id=long(liker_obj['id']), name=liker_obj['name'])
