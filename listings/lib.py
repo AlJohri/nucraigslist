@@ -93,7 +93,14 @@ def save_obj(listing_obj):
         if comment_created: print "[comment - %s] %s | %s - " % (comment.id, comment.created_time, commenter) + comment.message[:100].replace("\n", " ").encode('utf-8', 'ignore')
 
     for liker_obj in listing_obj.get('likes', {}).get('data', []):
-        liker, liker_created = User.objects.update_or_create(id=long(liker_obj['id']), name=liker_obj['name'])
+
+        try:
+            liker, liker_created = User.objects.update_or_create(id=long(liker_obj['id']), name=liker_obj['name'])
+        except:
+            # I have no idea why this is needed
+            liker = User.objects.get(id = long(liker_obj['id']))
+            liker_created = False
+
         listing.likers.add(liker)
 
     if listing_created and listing.likers.count() >= 1:
