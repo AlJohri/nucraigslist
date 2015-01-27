@@ -61,10 +61,9 @@ def save_obj(listing_obj):
     try:
         user, user_created = User.objects.update_or_create(id = long(listing_obj['from']['id']), name = listing_obj['from']['name'])
     except:
-        print listing_obj['from']['id']
-        print long(listing_obj['from']['id'])
-        print User.objects.get(id = long(listing_obj['from']['id']))
-        return
+        # I have no idea why this is needed
+        user = User.objects.get(id = long(listing_obj['from']['id']))
+        user_created = False
 
     listing, listing_created = Listing.objects.update_or_create(id = long(listing_obj['id']), defaults = {
         'group_id': listing_obj['group_id'],
