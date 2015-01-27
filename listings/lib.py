@@ -80,7 +80,14 @@ def save_obj(listing_obj):
 
     for comment_obj in listing_obj.get('comments', {}).get('data', []):
         comment_obj['created_time'] = parse(comment_obj['created_time'])
-        commenter, commenter_created = User.objects.update_or_create(id = long(comment_obj['from']['id']), name = comment_obj['from']['name'])
+
+        try:
+            commenter, commenter_created = User.objects.update_or_create(id = long(comment_obj['from']['id']), name = comment_obj['from']['name'])
+        except:
+            # I have no idea why this is needed
+            commenter = User.objects.get(id = long(comment_obj['from']['id']))
+            commenter_created = False
+
         comment, comment_created = Comment.objects.update_or_create(id = long(comment_obj['id']), message = comment_obj.get('message'), created_time = comment_obj['created_time'], user = commenter, listing = listing)
 
         if comment_created: print "[comment - %s] %s | %s - " % (comment.id, comment.created_time, commenter) + comment.message[:100].replace("\n", " ").encode('utf-8', 'ignore')
